@@ -1,0 +1,272 @@
+[
+  {
+    "id": "1",
+    "name": "Budapest Karate Akadémia",
+    "sport": ["Karate"],
+    "address": "Andrássy út 45, Budapest, 1061",
+    "lat": 47.5051,
+    "lng": 19.0634,
+    "description": "One of Budapest's premier karate academies, offering training for all ages and skill levels in traditional Shotokan and sport karate.",
+    "website": "https://example.com/bka"
+  },
+  {
+    "id": "2",
+    "name": "Fight Club Budapest",
+    "sport": ["MMA", "BJJ", "Boxing"],
+    "address": "Váci út 110, Budapest, 1133",
+    "lat": 47.5289,
+    "lng": 19.0521,
+    "description": "A top-tier MMA gym with professional coaches in BJJ, boxing, and mixed martial arts. Home to several Hungarian national champions.",
+    "website": "https://example.com/fcb"
+  },
+  {
+    "id": "3",
+    "name": "Muay Thai Budapest",
+    "sport": ["Muay Thai"],
+    "address": "Üllői út 22, Budapest, 1085",
+    "lat": 47.4913,
+    "lng": 19.0668,
+    "description": "The leading Muay Thai gym in Hungary, with certified instructors trained in Thailand. Classes for beginners through advanced fighters.",
+    "website": "https://example.com/mtb"
+  },
+  {
+    "id": "4",
+    "name": "BJJ Factory Budapest",
+    "sport": ["BJJ"],
+    "address": "Bartók Béla út 36, Budapest, 1114",
+    "lat": 47.4738,
+    "lng": 19.0434,
+    "description": "Dedicated Brazilian Jiu-Jitsu academy affiliated with a Gracie-certified school. Open mat sessions every weekend.",
+    "website": "https://example.com/bjjf"
+  },
+  {
+    "id": "5",
+    "name": "Budokan Martial Arts Center",
+    "sport": ["Karate", "MMA"],
+    "address": "Margit körút 15, Budapest, 1027",
+    "lat": 47.5072,
+    "lng": 19.0356,
+    "description": "A large martial arts complex combining traditional Karate with modern MMA training. Features a dedicated ring and mat area.",
+    "website": "https://example.com/budokan"
+  },
+  {
+    "id": "6",
+    "name": "Iron Fist Boxing Gym",
+    "sport": ["Boxing"],
+    "address": "Kálvin tér 5, Budapest, 1091",
+    "lat": 47.4909,
+    "lng": 19.0601,
+    "description": "Classic boxing gym in central Budapest with a rich history. Offers amateur and professional boxing training programs.",
+    "website": "https://example.com/ironfist"
+  },
+  {
+    "id": "7",
+    "name": "Tiger Muay Thai & BJJ Budapest",
+    "sport": ["Muay Thai", "BJJ"],
+    "address": "Rákóczi út 62, Budapest, 1074",
+    "lat": 47.4985,
+    "lng": 19.0721,
+    "description": "An affiliate of the world-famous Tiger Muay Thai camp in Phuket. Offers Muay Thai and Brazilian Jiu-Jitsu under expert guidance.",
+    "website": "https://example.com/tiger"
+  },
+  {
+    "id": "8",
+    "name": "Warriors MMA Club",
+    "sport": ["MMA", "Boxing", "Muay Thai"],
+    "address": "Fehér út 10, Budapest, 1149",
+    "lat": 47.5087,
+    "lng": 19.1143,
+    "description": "A well-rounded MMA facility offering boxing, Muay Thai, and mixed martial arts coaching. Hosts regular sparring events.",
+    "website": "https://example.com/warriors"
+  },
+  {
+    "id": "9",
+    "name": "Kyokushin Budapest",
+    "sport": ["Karate"],
+    "address": "Gellért tér 3, Budapest, 1114",
+    "lat": 47.4868,
+    "lng": 19.0487,
+    "description": "Specializing in Kyokushin full-contact karate, this dojo develops discipline, strength, and fighting spirit.",
+    "website": "https://example.com/kyokushin"
+  },
+  {
+    "id": "10",
+    "name": "Octagon Fight Center",
+    "sport": ["MMA", "BJJ"],
+    "address": "Könyves Kálmán körút 48, Budapest, 1097",
+    "lat": 47.4762,
+    "lng": 19.0823,
+    "description": "A dedicated combat sports facility with a full-size octagon cage. Professional-level training for serious competitors.",
+    "website": "https://example.com/octagon"
+  },
+  {
+    "id": "11",
+    "name": "Sparta Boxing Academy",
+    "sport": ["Boxing"],
+    "address": "Árpád út 59, Budapest, 1134",
+    "lat": 47.5234,
+    "lng": 19.0689,
+    "description": "Youth-focused boxing academy producing regional and national champions. Programs available for ages 8 and up.",
+    "website": "https://example.com/sparta"
+  },
+  {
+    "id": "12",
+    "name": "Cobra BJJ & Submission Wrestling",
+    "sport": ["BJJ"],
+    "address": "Nagymező utca 22, Budapest, 1065",
+    "lat": 47.5041,
+    "lng": 19.0602,
+    "description": "Focuses exclusively on BJJ and submission grappling. Small class sizes ensure personalized coaching.",
+    "website": "https://example.com/cobra"
+  },
+  {
+    "id": "13",
+    "name": "Ferencváros Küzdősport Klub",
+    "sport": ["Boxing", "Karate", "MMA"],
+    "address": "Mester utca 53, Budapest, 1095",
+    "lat": 47.4799,
+    "lng": 19.0712,
+    "description": "A community-based sports club in the heart of Ferencváros, offering boxing, karate, and MMA for locals of all backgrounds.",
+    "website": "https://example.com/fkk"
+  },
+  {
+    "id": "14",
+    "name": "Buda Combat Sports",
+    "sport": ["Muay Thai", "MMA"],
+    "address": "Retek utca 12, Budapest, 1024",
+    "lat": 47.5109,
+    "lng": 19.0261,
+    "description": "Buda's go-to gym for Muay Thai and MMA. Emphasizes fitness and self-defense alongside competitive training.",
+    "website": "https://example.com/budacombat"
+  },
+  {
+    "id": "15",
+    "name": "Grappling House",
+    "sport": ["BJJ", "MMA"],
+    "address": "Hungária körút 77, Budapest, 1143",
+    "lat": 47.5039,
+    "lng": 19.1019,
+    "description": "Premier grappling facility offering BJJ and wrestling-based MMA. Home of the Budapest Grappling Open tournament.",
+    "website": "https://example.com/grapplinghouse"
+  },
+  {
+    "id": "16",
+    "name": "Angyalföld Boxing Club",
+    "sport": ["Boxing"],
+    "address": "Szegedi út 17, Budapest, 1139",
+    "lat": 47.5323,
+    "lng": 19.0776,
+    "description": "A storied boxing club in District XIII with over 40 years of history producing Olympic-level talent.",
+    "website": "https://example.com/angyal"
+  },
+  {
+    "id": "17",
+    "name": "Zuglói Karate Dojo",
+    "sport": ["Karate"],
+    "address": "Thököly út 145, Budapest, 1146",
+    "lat": 47.5119,
+    "lng": 19.1088,
+    "description": "Traditional Shotokan karate dojo in Zugló. Great for families and children, with a structured grading system.",
+    "website": "https://example.com/zuglo"
+  },
+  {
+    "id": "18",
+    "name": "Kelenföld Fight Academy",
+    "sport": ["Muay Thai", "BJJ", "Boxing"],
+    "address": "Kelenföldi út 30, Budapest, 1119",
+    "lat": 47.4612,
+    "lng": 18.9987,
+    "description": "A modern facility in south-west Buda offering Muay Thai, BJJ, and boxing classes throughout the day.",
+    "website": "https://example.com/kelenfold"
+  },
+  {
+    "id": "19",
+    "name": "Óbuda Martial Arts Club",
+    "sport": ["Karate", "BJJ"],
+    "address": "Lajos utca 78, Budapest, 1036",
+    "lat": 47.5352,
+    "lng": 19.0401,
+    "description": "A friendly dojo in Óbuda teaching Karate and BJJ to children and adults. Strong focus on respect and discipline.",
+    "website": "https://example.com/obuda"
+  },
+  {
+    "id": "20",
+    "name": "Pesterzsébet Fight Gym",
+    "sport": ["MMA", "Boxing"],
+    "address": "Kossuth Lajos utca 93, Budapest, 1204",
+    "lat": 47.4221,
+    "lng": 19.0812,
+    "description": "Affordable MMA and boxing gym in District XX. Open evenings and weekends for working professionals.",
+    "website": "https://example.com/pesterzsebet"
+  },
+  {
+    "id": "21",
+    "name": "Champion Muay Thai Gym",
+    "sport": ["Muay Thai", "Boxing"],
+    "address": "Dózsa György út 41, Budapest, 1071",
+    "lat": 47.5123,
+    "lng": 19.0731,
+    "description": "Established by a former Thai boxing champion, this gym offers authentic Muay Thai conditioning and technique classes.",
+    "website": "https://example.com/champion"
+  },
+  {
+    "id": "22",
+    "name": "Újpest Küzdősport",
+    "sport": ["Karate", "Muay Thai"],
+    "address": "István út 14, Budapest, 1042",
+    "lat": 47.5512,
+    "lng": 19.0763,
+    "description": "Versatile martial arts school in District IV, known for its passionate community and dedicated coaching staff.",
+    "website": "https://example.com/ujpest"
+  },
+  {
+    "id": "23",
+    "name": "Ground Zero BJJ Academy",
+    "sport": ["BJJ"],
+    "address": "Soroksári út 48, Budapest, 1095",
+    "lat": 47.4701,
+    "lng": 19.0678,
+    "description": "A pure BJJ academy with black belt instructors and competitive teams at the national and international level.",
+    "website": "https://example.com/groundzero"
+  },
+  {
+    "id": "24",
+    "name": "Kispest Combat Club",
+    "sport": ["Boxing", "MMA", "Muay Thai"],
+    "address": "Határ út 5, Budapest, 1191",
+    "lat": 47.4478,
+    "lng": 19.1012,
+    "description": "A full-service combat sports club in District XIX offering boxing, Muay Thai, and MMA to competitors and fitness enthusiasts.",
+    "website": "https://example.com/kispest"
+  },
+  {
+    "id": "25",
+    "name": "Pasarét Karate & Fitness",
+    "sport": ["Karate"],
+    "address": "Pasaréti út 8, Budapest, 1026",
+    "lat": 47.5213,
+    "lng": 18.9978,
+    "description": "A welcoming karate school in the hills of Buda, combining traditional martial arts with modern fitness methods.",
+    "website": "https://example.com/pasaret"
+  },
+  {
+    "id": "26",
+    "name": "Józsefváros MMA Factory",
+    "sport": ["MMA", "BJJ", "Boxing"],
+    "address": "Baross utca 120, Budapest, 1082",
+    "lat": 47.4897,
+    "lng": 19.0789,
+    "description": "A no-nonsense MMA gym in District VIII with a reputation for producing serious fighters. Daily open mat included with membership.",
+    "website": "https://example.com/jvmma"
+  },
+  {
+    "id": "27",
+    "name": "Budapest Muay Thai Center",
+    "sport": ["Muay Thai", "MMA"],
+    "address": "Thaly Kálmán utca 15, Budapest, 1096",
+    "lat": 47.4766,
+    "lng": 19.0615,
+    "description": "Specializing in Muay Thai and MMA crossover training. Weekly seminars by visiting instructors from Thailand and the US.",
+    "website": "https://example.com/bmtc"
+  }
+]
