@@ -5,26 +5,77 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
-import { Gym } from '../types/gym';
+import { Gym, SPORT_BADGE, INTENSITY_CONFIG, SPORT_MARKER_COLOR } from '../types/gym';
 
 const BUDAPEST_CENTER = { lat: 47.4979, lng: 19.0402 };
 const DEFAULT_ZOOM = 12;
 
-const SPORT_BADGE: Record<string, string> = {
-  Karate: 'bg-red-100 text-red-700',
-  BJJ: 'bg-blue-100 text-blue-700',
-  Boxing: 'bg-orange-100 text-orange-700',
-  'Muay Thai': 'bg-purple-100 text-purple-700',
-  MMA: 'bg-green-100 text-green-700',
-};
+const DARK_MAP_STYLE: google.maps.MapTypeStyle[] = [
+  { elementType: 'geometry', stylers: [{ color: '#0B0B0B' }] },
+  { elementType: 'labels.text.stroke', stylers: [{ color: '#0B0B0B' }] },
+  { elementType: 'labels.text.fill', stylers: [{ color: '#4A4744' }] },
+  { featureType: 'administrative', elementType: 'geometry', stylers: [{ color: '#1E1E1E' }] },
+  { featureType: 'administrative.country', elementType: 'labels.text.fill', stylers: [{ color: '#8A8480' }] },
+  { featureType: 'administrative.locality', elementType: 'labels.text.fill', stylers: [{ color: '#9A8E7D' }] },
+  { featureType: 'poi', stylers: [{ visibility: 'off' }] },
+  { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#0D1310' }] },
+  { featureType: 'poi.park', elementType: 'labels.text.fill', stylers: [{ color: '#2E4A2E' }] },
+  { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#1C1C1C' }] },
+  { featureType: 'road', elementType: 'geometry.stroke', stylers: [{ color: '#111111' }] },
+  { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#4A4744' }] },
+  { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#252525' }] },
+  { featureType: 'road.highway', elementType: 'geometry.stroke', stylers: [{ color: '#181818' }] },
+  { featureType: 'road.highway', elementType: 'labels.text.fill', stylers: [{ color: '#5A5754' }] },
+  { featureType: 'transit', stylers: [{ visibility: 'off' }] },
+  { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#060608' }] },
+  { featureType: 'water', elementType: 'labels.text.fill', stylers: [{ color: '#1E1C1A' }] },
+];
 
 interface MapProps {
   gyms: Gym[];
   selectedGym: Gym | null;
+  hoveredGymId: string | null;
   onGymSelect: (gym: Gym | null) => void;
 }
 
-export default function Map({ gyms, selectedGym, onGymSelect }: MapProps) {
+function getMarkerIcon(
+  gym: Gym,
+  isSelected: boolean,
+  isHovered: boolean
+): google.maps.Symbol {
+  const baseColor = gym.sport[0] ? (SPORT_MARKER_COLOR[gym.sport[0]] ?? '#C96A3D') : '#C96A3D';
+
+  if (isSelected) {
+    return {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 14,
+      fillColor: '#F2B632',
+      fillOpacity: 1,
+      strokeColor: '#ffffff',
+      strokeWeight: 2.5,
+    };
+  }
+  if (isHovered) {
+    return {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 11,
+      fillColor: '#C96A3D',
+      fillOpacity: 1,
+      strokeColor: '#F2B632',
+      strokeWeight: 2,
+    };
+  }
+  return {
+    path: google.maps.SymbolPath.CIRCLE,
+    scale: 8,
+    fillColor: baseColor,
+    fillOpacity: 0.9,
+    strokeColor: '#0B0B0B',
+    strokeWeight: 1.5,
+  };
+}
+
+export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect }: MapProps) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '',
   });
@@ -44,20 +95,25 @@ export default function Map({ gyms, selectedGym, onGymSelect }: MapProps) {
     }
   }, [selectedGym]);
 
-  const handleMyLocation = () => {
+  const panToMyLocation = useCallback(() => {
     if (!navigator.geolocation || !mapRef.current) return;
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         mapRef.current?.panTo({ lat: pos.coords.latitude, lng: pos.coords.longitude });
         mapRef.current?.setZoom(14);
       },
-      () => alert('Unable to retrieve your location.')
+      () => alert('Location permission denied.')
     );
-  };
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('maf:nearme', panToMyLocation);
+    return () => window.removeEventListener('maf:nearme', panToMyLocation);
+  }, [panToMyLocation]);
 
   if (loadError) {
     return (
-      <div className="flex items-center justify-center h-full text-red-500 text-sm">
+      <div className="flex items-center justify-center h-full text-red-400 text-sm bg-surface">
         Failed to load Google Maps. Check your API key.
       </div>
     );
@@ -65,7 +121,7 @@ export default function Map({ gyms, selectedGym, onGymSelect }: MapProps) {
 
   if (!isLoaded) {
     return (
-      <div className="flex items-center justify-center h-full text-gray-500 text-sm">
+      <div className="flex items-center justify-center h-full text-ink-400 text-sm bg-surface">
         Loading map…
       </div>
     );
@@ -79,45 +135,79 @@ export default function Map({ gyms, selectedGym, onGymSelect }: MapProps) {
         zoom={DEFAULT_ZOOM}
         onLoad={onMapLoad}
         onClick={() => onGymSelect(null)}
-        options={{ streetViewControl: false, mapTypeControl: false, fullscreenControl: true }}
+        options={{
+          styles: DARK_MAP_STYLE,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false,
+          zoomControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_CENTER,
+          },
+        }}
       >
-        {mapReady && gyms.map((gym) => (
-          <Marker
-            key={gym.id}
-            position={{ lat: gym.lat, lng: gym.lng }}
-            onClick={(e) => { e.stop(); onGymSelect(gym); }}
-          />
-        ))}
+        {mapReady && gyms.map((gym) => {
+          const isSelected = selectedGym?.id === gym.id;
+          const isHovered = hoveredGymId === gym.id && !isSelected;
+          return (
+            <Marker
+              key={gym.id}
+              position={{ lat: gym.lat, lng: gym.lng }}
+              onClick={(e) => { e.stop(); onGymSelect(gym); }}
+              icon={getMarkerIcon(gym, isSelected, isHovered)}
+              zIndex={isSelected ? 10 : isHovered ? 5 : 1}
+            />
+          );
+        })}
 
         {mapReady && selectedGym && (
           <InfoWindow
             position={{ lat: selectedGym.lat, lng: selectedGym.lng }}
             onCloseClick={() => onGymSelect(null)}
           >
-            <div className="max-w-xs font-sans">
-              <h3 className="font-bold text-sm text-gray-900 leading-snug mb-1">
+            <div className="font-body w-64 p-4">
+              <h3 className="font-display font-semibold text-sm text-ink-100 leading-snug mb-2 uppercase tracking-wide">
                 {selectedGym.name}
               </h3>
+
               <div className="flex flex-wrap gap-1 mb-2">
                 {selectedGym.sport.map((s) => (
-                  <span
-                    key={s}
-                    className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                      SPORT_BADGE[s] ?? 'bg-gray-100 text-gray-600'
-                    }`}
-                  >
+                  <span key={s} className={`text-xs px-2 py-0.5 rounded font-medium ${SPORT_BADGE[s] ?? 'bg-surface-3 text-ink-200'}`}>
                     {s}
                   </span>
                 ))}
+                {selectedGym.intensityLevel && (
+                  <span className={`text-xs px-2 py-0.5 rounded font-medium ${INTENSITY_CONFIG[selectedGym.intensityLevel].color}`}>
+                    {selectedGym.intensityLevel}
+                  </span>
+                )}
               </div>
-              <p className="text-xs text-gray-600 mb-1">{selectedGym.address}</p>
-              <p className="text-xs text-gray-700 mb-2">{selectedGym.description}</p>
+
+              <p className="text-xs text-ink-400 mb-2">{selectedGym.address}</p>
+              <p className="text-xs text-ink-200 mb-3 leading-relaxed">{selectedGym.description}</p>
+
+              {selectedGym.firstTrainingInfo && (
+                <div className="rounded-lg px-3 py-2 mb-3" style={{ background: 'rgba(201,106,61,0.12)', border: '1px solid rgba(201,106,61,0.25)' }}>
+                  <p className="text-xs font-semibold text-accent mb-0.5">First training</p>
+                  <p className="text-xs text-ink-200">{selectedGym.firstTrainingInfo}</p>
+                </div>
+              )}
+
+              {selectedGym.tags && selectedGym.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {selectedGym.tags.map((tag) => (
+                    <span key={tag} className="text-xs px-2 py-0.5 rounded bg-surface-3 text-ink-400 border border-surface-4">
+                      {tag.replace(/-/g, ' ')}
+                    </span>
+                  ))}
+                </div>
+              )}
+
               {selectedGym.website && (
                 <a
                   href={selectedGym.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-blue-600 hover:underline font-medium"
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-accent hover:text-accent-light transition-colors"
                 >
                   Visit Website →
                 </a>
@@ -127,15 +217,20 @@ export default function Map({ gyms, selectedGym, onGymSelect }: MapProps) {
         )}
       </GoogleMap>
 
+      {/* My Location button */}
       <button
-        onClick={handleMyLocation}
-        title="Use my location"
-        className="absolute bottom-10 right-3 bg-white shadow-md border border-gray-200 rounded px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-1.5"
+        onClick={panToMyLocation}
+        title="My location"
+        className="absolute bottom-8 right-3 h-11 px-4 flex items-center gap-2 rounded-full text-sm font-semibold transition-all"
+        style={{
+          background: '#141414',
+          border: '1px solid #2A2A2A',
+          color: '#F0EDE8',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.7)',
+        }}
       >
-        <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" />
-        </svg>
-        My Location
+        <span>📍</span>
+        <span className="hidden sm:inline">Near me</span>
       </button>
     </div>
   );

@@ -7,7 +7,17 @@
     "lat": 47.5051,
     "lng": 19.0634,
     "description": "One of Budapest's premier karate academies, offering training for all ages and skill levels in traditional Shotokan and sport karate.",
-    "website": "https://example.com/bka"
+    "website": "https://example.com/bka",
+    "tags": ["beginner-friendly", "kids-classes", "friendly-community"],
+    "firstTrainingInfo": "No prior experience required. Just show up in comfortable sportswear — we'll take care of the rest.",
+    "equipmentNeeded": "Comfortable sportswear. Karate gi available to borrow for the first class.",
+    "intensityLevel": "low",
+    "schedule": [
+      { "day": "Monday", "time": "17:30" },
+      { "day": "Wednesday", "time": "17:30" },
+      { "day": "Friday", "time": "18:00" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "2",
@@ -17,7 +27,17 @@
     "lat": 47.5289,
     "lng": 19.0521,
     "description": "A top-tier MMA gym with professional coaches in BJJ, boxing, and mixed martial arts. Home to several Hungarian national champions.",
-    "website": "https://example.com/fcb"
+    "website": "https://example.com/fcb",
+    "tags": ["hard-training", "competition-team", "professional-coaches"],
+    "firstTrainingInfo": "First session is a technique-only introduction — no sparring. Coach evaluates before any contact training.",
+    "equipmentNeeded": "Mouthguard and groin guard required from session 2. Gloves available to borrow on your first visit.",
+    "intensityLevel": "high",
+    "schedule": [
+      { "day": "Monday", "time": "19:00" },
+      { "day": "Tuesday", "time": "19:00" },
+      { "day": "Thursday", "time": "19:00" },
+      { "day": "Saturday", "time": "11:00" }
+    ]
   },
   {
     "id": "3",
@@ -27,7 +47,16 @@
     "lat": 47.4913,
     "lng": 19.0668,
     "description": "The leading Muay Thai gym in Hungary, with certified instructors trained in Thailand. Classes for beginners through advanced fighters.",
-    "website": "https://example.com/mtb"
+    "website": "https://example.com/mtb",
+    "tags": ["beginner-friendly", "friendly-community", "professional-coaches"],
+    "firstTrainingInfo": "First class is fitness + basic technique only, zero contact. You'll leave sweaty and smiling.",
+    "equipmentNeeded": "Sports clothes and boxing wraps. Gloves available to borrow for the first few sessions.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Monday", "time": "18:00" },
+      { "day": "Wednesday", "time": "18:00" },
+      { "day": "Friday", "time": "18:00" }
+    ]
   },
   {
     "id": "4",
@@ -37,7 +66,18 @@
     "lat": 47.4738,
     "lng": 19.0434,
     "description": "Dedicated Brazilian Jiu-Jitsu academy affiliated with a Gracie-certified school. Open mat sessions every weekend.",
-    "website": "https://example.com/bjjf"
+    "website": "https://example.com/bjjf",
+    "tags": ["beginner-friendly", "open-mat", "friendly-community"],
+    "firstTrainingInfo": "Absolute beginners welcome. We run a dedicated Fundamentals class every Monday — perfect starting point.",
+    "equipmentNeeded": "Comfortable clothes for the first class. BJJ gi loaner available. Rash guard recommended from week 2.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Monday", "time": "18:30" },
+      { "day": "Tuesday", "time": "20:00" },
+      { "day": "Thursday", "time": "18:30" },
+      { "day": "Saturday", "time": "11:00" },
+      { "day": "Sunday", "time": "11:00" }
+    ]
   },
   {
     "id": "5",
@@ -47,7 +87,16 @@
     "lat": 47.5072,
     "lng": 19.0356,
     "description": "A large martial arts complex combining traditional Karate with modern MMA training. Features a dedicated ring and mat area.",
-    "website": "https://example.com/budokan"
+    "website": "https://example.com/budokan",
+    "tags": ["kids-classes", "beginner-friendly", "friendly-community"],
+    "firstTrainingInfo": "Trial class is completely free. Children's classes run parallel to adult sessions so families can train together.",
+    "equipmentNeeded": "Comfortable sports clothes. All equipment provided during the trial period.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Tuesday", "time": "17:00" },
+      { "day": "Thursday", "time": "17:00" },
+      { "day": "Saturday", "time": "09:00" }
+    ]
   },
   {
     "id": "6",
@@ -57,7 +106,19 @@
     "lat": 47.4909,
     "lng": 19.0601,
     "description": "Classic boxing gym in central Budapest with a rich history. Offers amateur and professional boxing training programs.",
-    "website": "https://example.com/ironfist"
+    "website": "https://example.com/ironfist",
+    "tags": ["hard-training", "competition-team", "professional-coaches"],
+    "firstTrainingInfo": "First class is pad work and bag work only — no sparring. Coach approval required before any contact.",
+    "equipmentNeeded": "Hand wraps and boxing gloves (available to purchase or rent on site).",
+    "intensityLevel": "high",
+    "schedule": [
+      { "day": "Monday", "time": "18:00" },
+      { "day": "Tuesday", "time": "18:00" },
+      { "day": "Wednesday", "time": "18:00" },
+      { "day": "Thursday", "time": "18:00" },
+      { "day": "Friday", "time": "18:00" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "7",
@@ -67,7 +128,17 @@
     "lat": 47.4985,
     "lng": 19.0721,
     "description": "An affiliate of the world-famous Tiger Muay Thai camp in Phuket. Offers Muay Thai and Brazilian Jiu-Jitsu under expert guidance.",
-    "website": "https://example.com/tiger"
+    "website": "https://example.com/tiger",
+    "tags": ["professional-coaches", "competition-team", "open-mat"],
+    "firstTrainingInfo": "First two sessions are technique-only. Sparring begins only after coach assessment — your safety is our priority.",
+    "equipmentNeeded": "Shorts and rash guard for BJJ. Boxing wraps and mouthguard for Muay Thai.",
+    "intensityLevel": "high",
+    "schedule": [
+      { "day": "Monday", "time": "18:30" },
+      { "day": "Wednesday", "time": "18:30" },
+      { "day": "Friday", "time": "18:30" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "8",
@@ -77,7 +148,17 @@
     "lat": 47.5087,
     "lng": 19.1143,
     "description": "A well-rounded MMA facility offering boxing, Muay Thai, and mixed martial arts coaching. Hosts regular sparring events.",
-    "website": "https://example.com/warriors"
+    "website": "https://example.com/warriors",
+    "tags": ["friendly-community", "beginner-friendly", "open-mat"],
+    "firstTrainingInfo": "We welcome complete beginners. Separate beginner classes run before main sessions — no experience needed.",
+    "equipmentNeeded": "Sports clothes for the first class. Full gear list provided after your first session.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Monday", "time": "19:00" },
+      { "day": "Wednesday", "time": "19:00" },
+      { "day": "Friday", "time": "19:00" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "9",
@@ -87,7 +168,16 @@
     "lat": 47.4868,
     "lng": 19.0487,
     "description": "Specializing in Kyokushin full-contact karate, this dojo develops discipline, strength, and fighting spirit.",
-    "website": "https://example.com/kyokushin"
+    "website": "https://example.com/kyokushin",
+    "tags": ["hard-training", "competition-team", "professional-coaches"],
+    "firstTrainingInfo": "Kyokushin is full-contact, but your first class is conditioning + basics only — absolutely zero contact.",
+    "equipmentNeeded": "Karate gi or comfortable sports clothes for the first session.",
+    "intensityLevel": "high",
+    "schedule": [
+      { "day": "Tuesday", "time": "18:00" },
+      { "day": "Thursday", "time": "18:00" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "10",
@@ -97,7 +187,17 @@
     "lat": 47.4762,
     "lng": 19.0823,
     "description": "A dedicated combat sports facility with a full-size octagon cage. Professional-level training for serious competitors.",
-    "website": "https://example.com/octagon"
+    "website": "https://example.com/octagon",
+    "tags": ["competition-team", "professional-coaches", "hard-training"],
+    "firstTrainingInfo": "Serious training environment. Free trial class available — come and see if it fits your goals.",
+    "equipmentNeeded": "Shorts and rash guard for BJJ. MMA gloves and shin guards for MMA classes.",
+    "intensityLevel": "high",
+    "schedule": [
+      { "day": "Monday", "time": "19:30" },
+      { "day": "Tuesday", "time": "19:30" },
+      { "day": "Thursday", "time": "19:30" },
+      { "day": "Saturday", "time": "11:00" }
+    ]
   },
   {
     "id": "11",
@@ -107,7 +207,17 @@
     "lat": 47.5234,
     "lng": 19.0689,
     "description": "Youth-focused boxing academy producing regional and national champions. Programs available for ages 8 and up.",
-    "website": "https://example.com/sparta"
+    "website": "https://example.com/sparta",
+    "tags": ["kids-classes", "beginner-friendly", "friendly-community"],
+    "firstTrainingInfo": "Youth-first gym. All ages welcome. First class is completely free — no commitment.",
+    "equipmentNeeded": "Comfortable clothes. Hand wraps and gloves available to borrow.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Monday", "time": "17:00" },
+      { "day": "Wednesday", "time": "17:00" },
+      { "day": "Friday", "time": "17:00" },
+      { "day": "Saturday", "time": "09:30" }
+    ]
   },
   {
     "id": "12",
@@ -117,7 +227,17 @@
     "lat": 47.5041,
     "lng": 19.0602,
     "description": "Focuses exclusively on BJJ and submission grappling. Small class sizes ensure personalized coaching.",
-    "website": "https://example.com/cobra"
+    "website": "https://example.com/cobra",
+    "tags": ["open-mat", "professional-coaches", "friendly-community"],
+    "firstTrainingInfo": "Small class sizes mean personal attention from day one. Bring a good attitude — we'll handle the rest.",
+    "equipmentNeeded": "Rash guard or t-shirt and shorts. Gi available to borrow for the first session.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Tuesday", "time": "19:00" },
+      { "day": "Thursday", "time": "19:00" },
+      { "day": "Saturday", "time": "10:00" },
+      { "day": "Sunday", "time": "10:00" }
+    ]
   },
   {
     "id": "13",
@@ -127,7 +247,17 @@
     "lat": 47.4799,
     "lng": 19.0712,
     "description": "A community-based sports club in the heart of Ferencváros, offering boxing, karate, and MMA for locals of all backgrounds.",
-    "website": "https://example.com/fkk"
+    "website": "https://example.com/fkk",
+    "tags": ["beginner-friendly", "kids-classes", "friendly-community", "women-friendly"],
+    "firstTrainingInfo": "Community club open to everyone. Relaxed atmosphere, zero judgment. Just show up.",
+    "equipmentNeeded": "Any comfortable sportswear. All equipment available to borrow.",
+    "intensityLevel": "low",
+    "schedule": [
+      { "day": "Monday", "time": "18:00" },
+      { "day": "Wednesday", "time": "18:00" },
+      { "day": "Friday", "time": "18:00" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "14",
@@ -137,7 +267,17 @@
     "lat": 47.5109,
     "lng": 19.0261,
     "description": "Buda's go-to gym for Muay Thai and MMA. Emphasizes fitness and self-defense alongside competitive training.",
-    "website": "https://example.com/budacombat"
+    "website": "https://example.com/budacombat",
+    "tags": ["beginner-friendly", "women-friendly", "friendly-community"],
+    "firstTrainingInfo": "Strong self-defense focus. Dedicated women's class every Wednesday evening — a safe and empowering space.",
+    "equipmentNeeded": "Sports clothes. Boxing wraps and gloves available to borrow.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Monday", "time": "18:30" },
+      { "day": "Wednesday", "time": "18:30" },
+      { "day": "Thursday", "time": "18:30" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "15",
@@ -147,7 +287,19 @@
     "lat": 47.5039,
     "lng": 19.1019,
     "description": "Premier grappling facility offering BJJ and wrestling-based MMA. Home of the Budapest Grappling Open tournament.",
-    "website": "https://example.com/grapplinghouse"
+    "website": "https://example.com/grapplinghouse",
+    "tags": ["open-mat", "competition-team", "professional-coaches"],
+    "firstTrainingInfo": "Home of the Budapest Grappling Open. Serious competitors welcome — but all levels are trained here.",
+    "equipmentNeeded": "Rash guard and shorts for no-gi; gi for BJJ classes. Both available to borrow for a first visit.",
+    "intensityLevel": "high",
+    "schedule": [
+      { "day": "Monday", "time": "19:00" },
+      { "day": "Tuesday", "time": "19:00" },
+      { "day": "Wednesday", "time": "19:00" },
+      { "day": "Thursday", "time": "19:00" },
+      { "day": "Saturday", "time": "11:00" },
+      { "day": "Sunday", "time": "11:00" }
+    ]
   },
   {
     "id": "16",
@@ -157,7 +309,18 @@
     "lat": 47.5323,
     "lng": 19.0776,
     "description": "A storied boxing club in District XIII with over 40 years of history producing Olympic-level talent.",
-    "website": "https://example.com/angyal"
+    "website": "https://example.com/angyal",
+    "tags": ["competition-team", "professional-coaches", "hard-training"],
+    "firstTrainingInfo": "A legendary club with high standards. Dedicated beginner program gets you ready at your own pace.",
+    "equipmentNeeded": "Hand wraps and boxing gloves. Available at the gym store.",
+    "intensityLevel": "high",
+    "schedule": [
+      { "day": "Monday", "time": "17:00" },
+      { "day": "Tuesday", "time": "17:00" },
+      { "day": "Wednesday", "time": "17:00" },
+      { "day": "Thursday", "time": "17:00" },
+      { "day": "Friday", "time": "17:00" }
+    ]
   },
   {
     "id": "17",
@@ -167,7 +330,16 @@
     "lat": 47.5119,
     "lng": 19.1088,
     "description": "Traditional Shotokan karate dojo in Zugló. Great for families and children, with a structured grading system.",
-    "website": "https://example.com/zuglo"
+    "website": "https://example.com/zuglo",
+    "tags": ["beginner-friendly", "kids-classes", "friendly-community"],
+    "firstTrainingInfo": "Perfect for families. Children's and adult classes run simultaneously — parents and kids can train together.",
+    "equipmentNeeded": "Comfortable clothes. White karate gi recommended after the first month.",
+    "intensityLevel": "low",
+    "schedule": [
+      { "day": "Tuesday", "time": "17:00" },
+      { "day": "Thursday", "time": "17:00" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "18",
@@ -177,7 +349,20 @@
     "lat": 47.4612,
     "lng": 18.9987,
     "description": "A modern facility in south-west Buda offering Muay Thai, BJJ, and boxing classes throughout the day.",
-    "website": "https://example.com/kelenfold"
+    "website": "https://example.com/kelenfold",
+    "tags": ["beginner-friendly", "women-friendly", "open-mat"],
+    "firstTrainingInfo": "Morning and evening classes available — perfect if you have a busy schedule. Full equipment rental on site.",
+    "equipmentNeeded": "Sports clothes for the first class. The gym has full equipment rental for all disciplines.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Monday", "time": "07:00" },
+      { "day": "Monday", "time": "19:00" },
+      { "day": "Wednesday", "time": "07:00" },
+      { "day": "Wednesday", "time": "19:00" },
+      { "day": "Friday", "time": "07:00" },
+      { "day": "Friday", "time": "19:00" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "19",
@@ -187,7 +372,16 @@
     "lat": 47.5352,
     "lng": 19.0401,
     "description": "A friendly dojo in Óbuda teaching Karate and BJJ to children and adults. Strong focus on respect and discipline.",
-    "website": "https://example.com/obuda"
+    "website": "https://example.com/obuda",
+    "tags": ["beginner-friendly", "kids-classes", "friendly-community"],
+    "firstTrainingInfo": "Strong focus on respect and discipline. Great first martial arts experience for both kids and adults.",
+    "equipmentNeeded": "Comfortable clothes. Karate gi required after the first grading exam.",
+    "intensityLevel": "low",
+    "schedule": [
+      { "day": "Monday", "time": "17:30" },
+      { "day": "Wednesday", "time": "17:30" },
+      { "day": "Friday", "time": "17:30" }
+    ]
   },
   {
     "id": "20",
@@ -197,7 +391,16 @@
     "lat": 47.4221,
     "lng": 19.0812,
     "description": "Affordable MMA and boxing gym in District XX. Open evenings and weekends for working professionals.",
-    "website": "https://example.com/pesterzsebet"
+    "website": "https://example.com/pesterzsebet",
+    "tags": ["beginner-friendly", "friendly-community"],
+    "firstTrainingInfo": "Affordable and no-fuss. Evening classes designed around working schedules. No prior experience needed.",
+    "equipmentNeeded": "Comfortable sports clothes. Basic equipment available to borrow.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Tuesday", "time": "19:00" },
+      { "day": "Thursday", "time": "19:00" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "21",
@@ -207,7 +410,18 @@
     "lat": 47.5123,
     "lng": 19.0731,
     "description": "Established by a former Thai boxing champion, this gym offers authentic Muay Thai conditioning and technique classes.",
-    "website": "https://example.com/champion"
+    "website": "https://example.com/champion",
+    "tags": ["professional-coaches", "competition-team", "hard-training"],
+    "firstTrainingInfo": "Founded by a champion — expect high-level technical coaching from day one. Conditioning-heavy first sessions.",
+    "equipmentNeeded": "Boxing wraps and shorts. Gloves and shin guards available to rent.",
+    "intensityLevel": "high",
+    "schedule": [
+      { "day": "Monday", "time": "18:00" },
+      { "day": "Tuesday", "time": "18:00" },
+      { "day": "Thursday", "time": "18:00" },
+      { "day": "Friday", "time": "18:00" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "22",
@@ -217,7 +431,16 @@
     "lat": 47.5512,
     "lng": 19.0763,
     "description": "Versatile martial arts school in District IV, known for its passionate community and dedicated coaching staff.",
-    "website": "https://example.com/ujpest"
+    "website": "https://example.com/ujpest",
+    "tags": ["friendly-community", "beginner-friendly", "women-friendly"],
+    "firstTrainingInfo": "Passionate coaching staff and welcoming atmosphere. Free trial class for all new members.",
+    "equipmentNeeded": "Comfortable sportswear for the trial. Equipment list provided after sign-up.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Monday", "time": "18:00" },
+      { "day": "Wednesday", "time": "18:00" },
+      { "day": "Friday", "time": "18:00" }
+    ]
   },
   {
     "id": "23",
@@ -227,7 +450,18 @@
     "lat": 47.4701,
     "lng": 19.0678,
     "description": "A pure BJJ academy with black belt instructors and competitive teams at the national and international level.",
-    "website": "https://example.com/groundzero"
+    "website": "https://example.com/groundzero",
+    "tags": ["competition-team", "open-mat", "professional-coaches"],
+    "firstTrainingInfo": "Black belt instructors with international competition experience. Beginners placed in dedicated fundamentals program.",
+    "equipmentNeeded": "BJJ gi or rash guard + shorts for no-gi classes. Available to borrow for a first session.",
+    "intensityLevel": "high",
+    "schedule": [
+      { "day": "Monday", "time": "19:00" },
+      { "day": "Wednesday", "time": "19:00" },
+      { "day": "Friday", "time": "19:00" },
+      { "day": "Saturday", "time": "11:00" },
+      { "day": "Sunday", "time": "11:00" }
+    ]
   },
   {
     "id": "24",
@@ -237,7 +471,17 @@
     "lat": 47.4478,
     "lng": 19.1012,
     "description": "A full-service combat sports club in District XIX offering boxing, Muay Thai, and MMA to competitors and fitness enthusiasts.",
-    "website": "https://example.com/kispest"
+    "website": "https://example.com/kispest",
+    "tags": ["beginner-friendly", "friendly-community", "open-mat"],
+    "firstTrainingInfo": "Full introductory program for every discipline. Come to the first class and we'll set up the right path for you.",
+    "equipmentNeeded": "Sports clothes for the first class. Equipment list provided after your first session.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Monday", "time": "18:30" },
+      { "day": "Wednesday", "time": "18:30" },
+      { "day": "Thursday", "time": "18:30" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   },
   {
     "id": "25",
@@ -247,7 +491,16 @@
     "lat": 47.5213,
     "lng": 18.9978,
     "description": "A welcoming karate school in the hills of Buda, combining traditional martial arts with modern fitness methods.",
-    "website": "https://example.com/pasaret"
+    "website": "https://example.com/pasaret",
+    "tags": ["beginner-friendly", "women-friendly", "friendly-community"],
+    "firstTrainingInfo": "Very welcoming atmosphere. Combined karate and fitness — great for those wanting both discipline and a workout.",
+    "equipmentNeeded": "Gym clothes. Karate gi is optional and can be purchased later.",
+    "intensityLevel": "low",
+    "schedule": [
+      { "day": "Tuesday", "time": "18:00" },
+      { "day": "Thursday", "time": "18:00" },
+      { "day": "Saturday", "time": "09:30" }
+    ]
   },
   {
     "id": "26",
@@ -257,7 +510,19 @@
     "lat": 47.4897,
     "lng": 19.0789,
     "description": "A no-nonsense MMA gym in District VIII with a reputation for producing serious fighters. Daily open mat included with membership.",
-    "website": "https://example.com/jvmma"
+    "website": "https://example.com/jvmma",
+    "tags": ["hard-training", "competition-team", "open-mat"],
+    "firstTrainingInfo": "Serious and committed training environment. Daily open mat included. Come ready to work.",
+    "equipmentNeeded": "Full MMA gear required from week 2. Available to purchase on site or borrow for the first session.",
+    "intensityLevel": "high",
+    "schedule": [
+      { "day": "Monday", "time": "19:30" },
+      { "day": "Tuesday", "time": "19:30" },
+      { "day": "Wednesday", "time": "19:30" },
+      { "day": "Thursday", "time": "19:30" },
+      { "day": "Friday", "time": "19:30" },
+      { "day": "Saturday", "time": "11:00" }
+    ]
   },
   {
     "id": "27",
@@ -267,6 +532,16 @@
     "lat": 47.4766,
     "lng": 19.0615,
     "description": "Specializing in Muay Thai and MMA crossover training. Weekly seminars by visiting instructors from Thailand and the US.",
-    "website": "https://example.com/bmtc"
+    "website": "https://example.com/bmtc",
+    "tags": ["professional-coaches", "beginner-friendly", "friendly-community"],
+    "firstTrainingInfo": "Weekly guest seminars from international coaches. Beginners are integrated smoothly into regular classes.",
+    "equipmentNeeded": "Shorts and t-shirt. Gloves and Thai pads available to borrow.",
+    "intensityLevel": "medium",
+    "schedule": [
+      { "day": "Monday", "time": "18:00" },
+      { "day": "Wednesday", "time": "18:00" },
+      { "day": "Friday", "time": "18:00" },
+      { "day": "Saturday", "time": "10:00" }
+    ]
   }
 ]

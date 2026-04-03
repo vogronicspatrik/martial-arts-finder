@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,8 +8,66 @@ html,
 body {
   height: 100%;
   overflow: hidden;
+  background-color: #0B0B0B;
+  font-family: 'Inter', sans-serif;
+  color: #F0EDE8;
 }
 
 #__next {
   height: 100%;
+}
+
+/* ── Google Maps InfoWindow dark override ── */
+.gm-style .gm-style-iw-c {
+  background-color: #141414 !important;
+  border: 1px solid #2A2A2A !important;
+  border-radius: 12px !important;
+  padding: 0 !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9) !important;
+}
+
+.gm-style .gm-style-iw-d {
+  overflow: auto !important;
+  padding: 0 !important;
+  max-height: 320px !important;
+}
+
+/* InfoWindow tail/arrow */
+.gm-style .gm-style-iw-t::after {
+  background: #141414 !important;
+  box-shadow: none !important;
+}
+
+/* InfoWindow header padding */
+.gm-style .gm-style-iw-ch {
+  padding-top: 0 !important;
+}
+
+/* Close button */
+.gm-style-iw-c button[aria-label="Close"] img,
+.gm-style-iw-c button[title="Close"] img {
+  filter: invert(1) opacity(0.6) !important;
+}
+
+/* Map controls dark */
+.gm-bundled-control .gmnoprint div,
+.gm-style-cc,
+.gm-style .gm-style-cc a {
+  background-color: #141414 !important;
+  color: #8A8480 !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0B0B;
+}
+::-webkit-scrollbar-thumb {
+  background: #2A2A2A;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3A3A3A;
 }
