@@ -3,6 +3,7 @@ import { ALL_SPORTS, ALL_TAGS, DISTRICT_ROMAN, TimeOfDay } from '../types/gym';
 import SearchBar from './SearchBar';
 import TimeOfDayFilter from './TimeOfDayFilter';
 import { useLanguage, TAG_LABEL } from '../lib/i18n';
+import IntensityLegend from './IntensityLegend';
 
 const SPORT_ACTIVE: Record<string, string> = {
   Karate:      'text-red-400',
@@ -224,9 +225,10 @@ export default function MobileFilterSheet({
 
           {/* Sports */}
           <div>
-            <p className="font-display text-xs font-semibold text-ink-600 uppercase tracking-widest mb-3">
+            <p className="font-display text-xs font-semibold text-ink-600 uppercase tracking-widest mb-1.5">
               {t.mobileSheet.sportType}
             </p>
+            <IntensityLegend className="mb-3" />
             <div className="grid grid-cols-2 gap-2">
               {ALL_SPORTS.map((sport) => {
                 const active = sports.includes(sport);

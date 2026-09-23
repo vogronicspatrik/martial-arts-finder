@@ -129,6 +129,7 @@ interface Dictionary {
     mapLoadError: string;
     mapLoading: string;
     clearSearch: string;
+    intensity: string;
     searchPlaceholder: string;
   };
   filters: {
@@ -208,6 +209,7 @@ const en: Dictionary = {
     mapLoadError: 'Failed to load Google Maps. Check your API key.',
     mapLoading: 'Loading map…',
     clearSearch: 'Clear search',
+    intensity: 'Intensity',
     searchPlaceholder: 'Search gyms…',
   },
   filters: {
@@ -290,6 +292,7 @@ const hu: Dictionary = {
     mapLoadError: 'A Google Térkép betöltése sikertelen. Ellenőrizd az API kulcsot.',
     mapLoading: 'Térkép betöltése…',
     clearSearch: 'Keresés törlése',
+    intensity: 'Intenzitás',
     searchPlaceholder: 'Terem keresése…',
   },
   filters: {

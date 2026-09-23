@@ -3,6 +3,7 @@ import SearchBar from './SearchBar';
 import DistrictFilter from './DistrictFilter';
 import TimeOfDayFilter from './TimeOfDayFilter';
 import { useLanguage, TAG_LABEL } from '../lib/i18n';
+import IntensityLegend from './IntensityLegend';
 
 const SPORT_ACTIVE: Record<string, string> = {
   Karate:      'bg-red-950/70 text-red-400 border-red-800/60',
@@ -208,10 +209,12 @@ export default function Filters({
           </button>
         ))}
 
+        <IntensityLegend className="ml-auto" />
+
         {hasActiveFilters && (
           <button
             onClick={clearAll}
-            className="ml-auto text-xs text-ink-600 hover:text-ink-400 underline"
+            className="text-xs text-ink-600 hover:text-ink-400 underline"
           >
             {t.filters.clearAll}
           </button>
