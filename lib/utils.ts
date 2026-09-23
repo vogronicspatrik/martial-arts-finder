@@ -1,4 +1,16 @@
-import { Gym } from '../types/gym';
+import { Gym, ScheduleEntry } from '../types/gym';
+
+/** Canonical English day key for "today" (e.g. "Monday"), matching schedule.day values. */
+export function getTodayName(): string {
+  return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][
+    new Date().getDay()
+  ];
+}
+
+/** This gym's schedule entries that fall on the given day (usually 0 or 1). */
+export function todaysSchedule(gym: Gym, today: string): ScheduleEntry[] {
+  return gym.schedule?.filter((s) => s.day === today) ?? [];
+}
 
 /** Strip accents and lowercase, so Hungarian search works without exact diacritics. */
 export function normalize(s: string): string {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Gym, SPORT_BADGE, INTENSITY_COLOR, DISTRICT_ROMAN, TagType } from '../types/gym';
-import { formatPrice, formatDistance, distanceKm } from '../lib/utils';
+import { formatPrice, formatDistance, distanceKm, getTodayName, todaysSchedule } from '../lib/utils';
 import { LatLng } from '../hooks/useUserLocation';
 import { useLanguage, TAG_LABEL, INTENSITY_SHORT, DAY_SHORT } from '../lib/i18n';
 
@@ -25,6 +25,7 @@ export default function GymList({
 }: GymListProps) {
   const { t, lang } = useLanguage();
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const today = getTodayName();
 
   if (gyms.length === 0) {
     return (
@@ -41,6 +42,7 @@ export default function GymList({
         const isSelected = selectedGym?.id === gym.id;
         const isExpanded = expandedId === gym.id;
         const isBookmarked = bookmarks.includes(gym.id);
+        const todaySessions = todaysSchedule(gym, today);
 
         return (
           <li
@@ -109,6 +111,13 @@ export default function GymList({
                 </div>
               )}
 
+              {/* Today's session time */}
+              {todaySessions.length > 0 && (
+                <p className="text-xs font-semibold mb-1.5" style={{ color: '#27AE60' }}>
+                  📅 {t.common.todayAt(todaySessions.map((s) => s.time).join(', '))}
+                </p>
+              )}
+
               {/* Tags */}
               {gym.tags && gym.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1">
@@ -153,11 +162,24 @@ export default function GymList({
                   <div>
                     <p className="text-xs font-semibold text-ink-400 mb-1.5 uppercase tracking-wide">{t.common.schedule}</p>
                     <div className="flex flex-wrap gap-1">
-                      {gym.schedule.map((s, i) => (
-                        <span key={i} className="text-xs px-2 py-1 rounded text-ink-200 font-medium" style={{ background: '#1E1E1E', border: '1px solid #2A2A2A' }}>
-                          {DAY_SHORT[lang][s.day]} {s.time}
-                        </span>
-                      ))}
+                      {[...gym.schedule]
+                        .sort((a, b) => (a.day === today ? -1 : b.day === today ? 1 : 0))
+                        .map((s, i) => {
+                          const isToday = s.day === today;
+                          return (
+                            <span
+                              key={i}
+                              className="text-xs px-2 py-1 rounded font-medium"
+                              style={{
+                                background: isToday ? 'rgba(39,174,96,0.12)' : '#1E1E1E',
+                                border: isToday ? '1px solid rgba(39,174,96,0.5)' : '1px solid #2A2A2A',
+                                color: isToday ? '#4ADE80' : '#C8C4BE',
+                              }}
+                            >
+                              {DAY_SHORT[lang][s.day]} {s.time}
+                            </span>
+                          );
+                        })}
                     </div>
                   </div>
                 )}

@@ -115,6 +115,8 @@ interface Dictionary {
     firstTraining: string;
     bring: string;
     schedule: string;
+    todayAt: (times: string) => string;
+    noSessionToday: string;
     save: string;
     remove: string;
     back: string;
@@ -192,6 +194,8 @@ const en: Dictionary = {
     firstTraining: 'First training',
     bring: 'Bring:',
     schedule: 'Schedule',
+    todayAt: (times: string) => `Today at ${times}`,
+    noSessionToday: 'No session today',
     save: 'Save',
     remove: 'Remove',
     back: '← Back',
@@ -272,6 +276,8 @@ const hu: Dictionary = {
     firstTraining: 'Első edzés',
     bring: 'Hozz magaddal:',
     schedule: 'Edzésrend',
+    todayAt: (times: string) => `Ma: ${times}`,
+    noSessionToday: 'Ma nincs edzés',
     save: 'Mentés',
     remove: 'Eltávolítás',
     back: '← Vissza',

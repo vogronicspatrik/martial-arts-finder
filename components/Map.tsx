@@ -6,7 +6,7 @@ import {
   InfoWindow,
 } from '@react-google-maps/api';
 import { Gym, SPORT_BADGE, INTENSITY_COLOR, SPORT_MARKER_COLOR, TagType } from '../types/gym';
-import { formatPrice } from '../lib/utils';
+import { formatPrice, getTodayName, todaysSchedule } from '../lib/utils';
 import { LatLng } from '../hooks/useUserLocation';
 import { useLanguage, TAG_LABEL, INTENSITY_SHORT } from '../lib/i18n';
 
@@ -82,6 +82,7 @@ function getMarkerIcon(
 
 export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect, userLocation, onLocate }: MapProps) {
   const { t, lang } = useLanguage();
+  const today = getTodayName();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '',
   });
@@ -180,6 +181,13 @@ export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect, user
               </div>
 
               <p className="text-xs text-ink-400 mb-2">{selectedGym.address}</p>
+
+              {todaysSchedule(selectedGym, today).length > 0 && (
+                <p className="text-xs font-semibold mb-2" style={{ color: '#27AE60' }}>
+                  📅 {t.common.todayAt(todaysSchedule(selectedGym, today).map((s) => s.time).join(', '))}
+                </p>
+              )}
+
               <p className="text-xs text-ink-200 mb-3 leading-relaxed">{selectedGym.description}</p>
 
               {selectedGym.firstTrainingInfo && (

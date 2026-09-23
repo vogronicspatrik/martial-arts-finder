@@ -13,17 +13,11 @@ import SearchBar from '../components/SearchBar';
 import { useBookmarks } from '../hooks/useBookmarks';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { useUserLocation } from '../hooks/useUserLocation';
-import { matchesSearch, distanceKm, hourOf } from '../lib/utils';
+import { matchesSearch, distanceKm, hourOf, getTodayName } from '../lib/utils';
 import { useLanguage, DAY_LABEL } from '../lib/i18n';
 import gymsHuData from '../data/gyms.hu.json';
 
 const Map = dynamic(() => import('../components/Map'), { ssr: false });
-
-function getTodayName(): string {
-  return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][
-    new Date().getDay()
-  ];
-}
 
 type GymHuOverlay = Partial<Pick<Gym, 'description' | 'firstTrainingInfo' | 'equipmentNeeded' | 'priceNote'>>;
 const gymsHu = gymsHuData as Record<string, GymHuOverlay>;

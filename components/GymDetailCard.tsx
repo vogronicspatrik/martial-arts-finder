@@ -1,5 +1,5 @@
 import { Gym, SPORT_BADGE, INTENSITY_COLOR, DISTRICT_ROMAN, TagType } from '../types/gym';
-import { formatPrice, distanceKm, formatDistance } from '../lib/utils';
+import { formatPrice, distanceKm, formatDistance, getTodayName, todaysSchedule } from '../lib/utils';
 import { LatLng } from '../hooks/useUserLocation';
 import { useLanguage, TAG_LABEL, INTENSITY_LABEL, DAY_SHORT } from '../lib/i18n';
 
@@ -14,6 +14,8 @@ interface GymDetailCardProps {
 export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onClose, userLocation }: GymDetailCardProps) {
   const { t, lang } = useLanguage();
   const distance = userLocation ? distanceKm(userLocation, { lat: gym.lat, lng: gym.lng }) : null;
+  const today = getTodayName();
+  const todaySessions = todaysSchedule(gym, today);
 
   return (
     <div
@@ -71,7 +73,13 @@ export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onC
           )}
         </p>
         {distance !== null && (
-          <p className="text-sm mb-3" style={{ color: '#C96A3D' }}>📍 {formatDistance(distance)} {t.common.fromYou}</p>
+          <p className="text-sm mb-1" style={{ color: '#C96A3D' }}>📍 {formatDistance(distance)} {t.common.fromYou}</p>
+        )}
+
+        {todaySessions.length > 0 && (
+          <p className="text-sm font-semibold mb-3" style={{ color: '#27AE60' }}>
+            📅 {t.common.todayAt(todaySessions.map((s) => s.time).join(', '))}
+          </p>
         )}
 
         {/* Price */}
@@ -125,16 +133,27 @@ export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onC
               {t.common.schedule}
             </p>
             <div className="flex flex-wrap gap-2">
-              {gym.schedule.map((s, i) => (
-                <span
-                  key={i}
-                  className="text-sm px-3 py-1.5 rounded-lg text-ink-200"
-                  style={{ background: '#1E1E1E', border: '1px solid #2A2A2A' }}
-                >
-                  <span className="font-semibold text-ink-100">{DAY_SHORT[lang][s.day]}</span>{' '}
-                  <span className="text-ink-400">{s.time}</span>
-                </span>
-              ))}
+              {[...gym.schedule]
+                .sort((a, b) => (a.day === today ? -1 : b.day === today ? 1 : 0))
+                .map((s, i) => {
+                  const isToday = s.day === today;
+                  return (
+                    <span
+                      key={i}
+                      className="text-sm px-3 py-1.5 rounded-lg"
+                      style={{
+                        background: isToday ? 'rgba(39,174,96,0.12)' : '#1E1E1E',
+                        border: isToday ? '1px solid rgba(39,174,96,0.5)' : '1px solid #2A2A2A',
+                        color: isToday ? '#4ADE80' : '#8A8480',
+                      }}
+                    >
+                      <span className="font-semibold" style={{ color: isToday ? '#4ADE80' : '#F0EDE8' }}>
+                        {DAY_SHORT[lang][s.day]}
+                      </span>{' '}
+                      <span>{s.time}</span>
+                    </span>
+                  );
+                })}
             </div>
           </div>
         )}
