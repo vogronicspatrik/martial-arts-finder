@@ -1,13 +1,20 @@
-import { Gym, SPORT_BADGE, INTENSITY_CONFIG } from '../types/gym';
+import { Gym, SPORT_BADGE, INTENSITY_COLOR, DISTRICT_ROMAN, TagType } from '../types/gym';
+import { formatPrice, distanceKm, formatDistance } from '../lib/utils';
+import { LatLng } from '../hooks/useUserLocation';
+import { useLanguage, TAG_LABEL, INTENSITY_LABEL, DAY_SHORT } from '../lib/i18n';
 
 interface GymDetailCardProps {
   gym: Gym;
   isBookmarked: boolean;
   onBookmarkToggle: (id: string) => void;
   onClose: () => void;
+  userLocation?: LatLng | null;
 }
 
-export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onClose }: GymDetailCardProps) {
+export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onClose, userLocation }: GymDetailCardProps) {
+  const { t, lang } = useLanguage();
+  const distance = userLocation ? distanceKm(userLocation, { lat: gym.lat, lng: gym.lng }) : null;
+
   return (
     <div
       className="fixed bottom-0 left-0 right-0 z-40 max-h-[82vh] flex flex-col"
@@ -24,7 +31,7 @@ export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onC
           onClick={onClose}
           className="flex items-center gap-1.5 text-sm font-medium text-ink-400 hover:text-ink-200 min-h-[44px] transition-colors"
         >
-          ← Back
+          {t.common.back}
         </button>
         <button
           onClick={() => onBookmarkToggle(gym.id)}
@@ -50,14 +57,34 @@ export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onC
             </span>
           ))}
           {gym.intensityLevel && (
-            <span className={`text-sm px-3 py-1 rounded font-medium ${INTENSITY_CONFIG[gym.intensityLevel].color}`}>
-              {INTENSITY_CONFIG[gym.intensityLevel].label}
+            <span className={`text-sm px-3 py-1 rounded font-medium ${INTENSITY_COLOR[gym.intensityLevel]}`}>
+              {INTENSITY_LABEL[lang][gym.intensityLevel]}
             </span>
           )}
         </div>
 
         {/* Address */}
-        <p className="text-sm text-ink-400 mb-4">{gym.address}</p>
+        <p className="text-sm text-ink-400 mb-1">
+          {gym.address}
+          {gym.district && DISTRICT_ROMAN[gym.district] && (
+            <span> · {t.common.district(DISTRICT_ROMAN[gym.district])}</span>
+          )}
+        </p>
+        {distance !== null && (
+          <p className="text-sm mb-3" style={{ color: '#C96A3D' }}>📍 {formatDistance(distance)} {t.common.fromYou}</p>
+        )}
+
+        {/* Price */}
+        {gym.priceFrom && (
+          <p className="text-sm text-ink-200 mb-1">
+            <span className="text-ink-400">{t.common.from}</span>{' '}
+            <span className="font-display font-semibold" style={{ color: '#F2B632' }}>{formatPrice(gym.priceFrom)}{t.common.perMonthFull}</span>
+            {gym.priceNote && <span className="text-ink-400"> · {gym.priceNote}</span>}
+          </p>
+        )}
+        {(gym.priceFrom || gym.phone || gym.facebook || gym.instagram) && (
+          <p className="text-xs text-ink-600 mb-4">{t.common.demoDataNotice}</p>
+        )}
 
         {/* Description */}
         <p className="text-sm text-ink-200 leading-relaxed mb-4">{gym.description}</p>
@@ -67,7 +94,7 @@ export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onC
           <div className="flex flex-wrap gap-1.5 mb-5">
             {gym.tags.map((tag) => (
               <span key={tag} className="text-xs px-3 py-1.5 rounded-full bg-surface-3 text-ink-400 border border-surface-4">
-                {tag.replace(/-/g, ' ')}
+                {TAG_LABEL[lang][tag as TagType]}
               </span>
             ))}
           </div>
@@ -80,12 +107,12 @@ export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onC
             style={{ background: 'rgba(201,106,61,0.1)', border: '1px solid rgba(201,106,61,0.25)' }}
           >
             <p className="font-display text-xs font-semibold uppercase tracking-widest mb-1.5" style={{ color: '#C96A3D' }}>
-              First training
+              {t.common.firstTraining}
             </p>
             <p className="text-sm text-ink-200">{gym.firstTrainingInfo}</p>
             {gym.equipmentNeeded && (
               <p className="text-sm text-ink-400 mt-2">
-                <span className="text-ink-200 font-medium">Bring:</span> {gym.equipmentNeeded}
+                <span className="text-ink-200 font-medium">{t.common.bring}</span> {gym.equipmentNeeded}
               </p>
             )}
           </div>
@@ -95,7 +122,7 @@ export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onC
         {gym.schedule && gym.schedule.length > 0 && (
           <div className="mb-5">
             <p className="font-display text-xs font-semibold text-ink-600 uppercase tracking-widest mb-2.5">
-              Schedule
+              {t.common.schedule}
             </p>
             <div className="flex flex-wrap gap-2">
               {gym.schedule.map((s, i) => (
@@ -104,11 +131,57 @@ export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onC
                   className="text-sm px-3 py-1.5 rounded-lg text-ink-200"
                   style={{ background: '#1E1E1E', border: '1px solid #2A2A2A' }}
                 >
-                  <span className="font-semibold text-ink-100">{s.day.slice(0, 3)}</span>{' '}
+                  <span className="font-semibold text-ink-100">{DAY_SHORT[lang][s.day]}</span>{' '}
                   <span className="text-ink-400">{s.time}</span>
                 </span>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Contact */}
+        {(gym.phone || gym.email || gym.facebook || gym.instagram) && (
+          <div className="flex flex-wrap gap-2 mb-3">
+            {gym.phone && (
+              <a
+                href={`tel:${gym.phone.replace(/\s/g, '')}`}
+                className="flex-1 min-w-[45%] text-center text-sm font-medium py-2.5 rounded-lg text-ink-200 transition-colors hover:text-ink-100"
+                style={{ background: '#1E1E1E', border: '1px solid #2A2A2A' }}
+              >
+                📞 {t.common.call}
+              </a>
+            )}
+            {gym.email && (
+              <a
+                href={`mailto:${gym.email}`}
+                className="flex-1 min-w-[45%] text-center text-sm font-medium py-2.5 rounded-lg text-ink-200 transition-colors hover:text-ink-100"
+                style={{ background: '#1E1E1E', border: '1px solid #2A2A2A' }}
+              >
+                ✉️ {t.common.email}
+              </a>
+            )}
+            {gym.facebook && (
+              <a
+                href={gym.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 min-w-[45%] text-center text-sm font-medium py-2.5 rounded-lg text-ink-200 transition-colors hover:text-ink-100"
+                style={{ background: '#1E1E1E', border: '1px solid #2A2A2A' }}
+              >
+                {t.common.facebook}
+              </a>
+            )}
+            {gym.instagram && (
+              <a
+                href={gym.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 min-w-[45%] text-center text-sm font-medium py-2.5 rounded-lg text-ink-200 transition-colors hover:text-ink-100"
+                style={{ background: '#1E1E1E', border: '1px solid #2A2A2A' }}
+              >
+                {t.common.instagram}
+              </a>
+            )}
           </div>
         )}
 
@@ -121,7 +194,7 @@ export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onC
             className="block w-full text-center font-display font-semibold text-sm py-4 rounded-xl transition-all uppercase tracking-widest mb-2"
             style={{ background: '#C96A3D', color: '#0B0B0B' }}
           >
-            Visit Website →
+            {t.common.visitWebsite}
           </a>
         )}
       </div>

@@ -1,0 +1,164 @@
+{
+  "1": {
+    "description": "Az egyik legjobb budapesti karate akadémia, minden korosztálynak és szinten, hagyományos Shotokan és sportkarate oktatással.",
+    "firstTrainingInfo": "Nincs szükség előzetes tapasztalatra. Gyere kényelmes sportruhában — a többiről mi gondoskodunk.",
+    "equipmentNeeded": "Kényelmes sportruházat. Karate gi kölcsönözhető az első órára.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "2": {
+    "description": "Csúcskategóriás MMA terem profi edzőkkel BJJ-ben, bokszban és kevert harcművészetekben. Több magyar bajnok otthona.",
+    "firstTrainingInfo": "Az első alkalom csak technika, nincs sparring. Az edző mérlegel, mielőtt bármilyen kontaktos edzés kezdődne.",
+    "equipmentNeeded": "Fogvédő és ágyékvédő a 2. alkalomtól kötelező. Kesztyű kölcsönözhető az első látogatáskor.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "3": {
+    "description": "Magyarország vezető thai box terme, Thaiföldön képzett, minősített oktatókkal. Kezdőtől a haladó versenyzőkig mindenkinek.",
+    "firstTrainingInfo": "Az első óra csak kondi és alaptechnika, nulla kontakttal. Izzadtan, de mosolyogva távozol.",
+    "equipmentNeeded": "Sportruha és bokszpólya. Kesztyű kölcsönözhető az első pár alkalomra.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "4": {
+    "description": "Kizárólag brazil jiu-jitsura specializálódott akadémia, Gracie-minősítésű iskolával affiliálva. Minden hétvégén open mat.",
+    "firstTrainingInfo": "Teljesen kezdők is szívesen látottak. Minden hétfőn külön Alapok órát tartunk — tökéletes belépő pont.",
+    "equipmentNeeded": "Kényelmes ruha az első órára. Kölcsönözhető BJJ gi. Rash guard ajánlott a 2. héttől.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "5": {
+    "description": "Nagy harcművészeti komplexum, amely ötvözi a hagyományos karatét a modern MMA edzéssel. Saját ringgel és szőnyegterülettel.",
+    "firstTrainingInfo": "A próbaóra teljesen ingyenes. A gyerekfoglalkozások a felnőtt órákkal párhuzamosan futnak, így a család együtt edzhet.",
+    "equipmentNeeded": "Kényelmes sportruha. Minden felszerelést biztosítunk a próbaidőszak alatt.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "6": {
+    "description": "Klasszikus bokszterem a belvárosban, gazdag történelemmel. Amatőr és profi bokszedzési programokat is kínál.",
+    "firstTrainingInfo": "Az első óra csak lapp- és zsákmunka — sparring nincs. Kontaktos edzés csak edzői jóváhagyással.",
+    "equipmentNeeded": "Kéztekercs és bokszkesztyű (helyben vásárolható vagy bérelhető).",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "7": {
+    "description": "A világhírű phuketi Tiger Muay Thai tábor magyarországi affiliáltja. Thai boksz és brazil jiu-jitsu szakértő vezetéssel.",
+    "firstTrainingInfo": "Az első két alkalom csak technika. Sparring csak edzői felmérés után — a biztonságod a legfontosabb.",
+    "equipmentNeeded": "Rövidnadrág és rash guard BJJ-hez. Bokszpólya és fogvédő thai bokszhoz.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "8": {
+    "description": "Sokoldalú MMA létesítmény bokszal, thai boksszal és kevert harcművészet oktatással. Rendszeres sparring eseményeket tart.",
+    "firstTrainingInfo": "Teljesen kezdőket is szívesen látunk. A fő órák előtt külön kezdő csoport indul — előzetes tapasztalat nem szükséges.",
+    "equipmentNeeded": "Sportruha az első órára. Az első alkalom után teljes felszereléslista.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "9": {
+    "description": "Kyokushin teljes kontaktos karatéra specializálódott dojo, amely fegyelmet, erőt és harci szellemet fejleszt.",
+    "firstTrainingInfo": "A Kyokushin teljes kontaktos, de az első órád csak kondi és alapok — teljesen kontaktmentes.",
+    "equipmentNeeded": "Karate gi vagy kényelmes sportruha az első alkalomra.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "10": {
+    "description": "Küzdősportokra dedikált létesítmény teljes méretű oktagonnal. Profi szintű edzés komoly versenyzőknek.",
+    "firstTrainingInfo": "Komoly edzési környezet. Ingyenes próbaóra elérhető — nézd meg, hogy illik-e hozzád.",
+    "equipmentNeeded": "Rövidnadrág és rash guard BJJ-hez. MMA kesztyű és sípcsontvédő MMA órákhoz.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "11": {
+    "description": "Fiatalokra fókuszáló bokszakadémia, amely regionális és országos bajnokokat nevel. Programok 8 éves kortól.",
+    "firstTrainingInfo": "Elsősorban fiatalokra épülő terem, de minden korosztályt szívesen látunk. Az első óra teljesen ingyenes, kötelezettség nélkül.",
+    "equipmentNeeded": "Kényelmes ruha. Kéztekercs és kesztyű kölcsönözhető.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "12": {
+    "description": "Kizárólag BJJ-re és fogásharcra (submission wrestling) fókuszál. A kis csoportlétszám személyre szabott oktatást biztosít.",
+    "firstTrainingInfo": "A kis csoportlétszám az első naptól kezdve személyes odafigyelést jelent. Hozz jó hozzáállást — a többit intézzük.",
+    "equipmentNeeded": "Rash guard vagy póló és rövidnadrág. Gi kölcsönözhető az első alkalomra.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "13": {
+    "description": "Közösségi sportklub Ferencváros szívében, bokszal, karatéval és MMA-val, mindenféle háttérrel rendelkező helyieknek.",
+    "firstTrainingInfo": "Nyitott közösségi klub, mindenkinek. Laza hangulat, teljes elfogadás. Csak gyere el.",
+    "equipmentNeeded": "Bármilyen kényelmes sportruha. Minden felszerelés kölcsönözhető.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "14": {
+    "description": "Buda vezető terme thai bokszhoz és MMA-hoz. Kondíciót és önvédelmet hangsúlyoz a versenyfelkészítés mellett.",
+    "firstTrainingInfo": "Erős önvédelmi fókusz. Külön női óra minden szerda este — biztonságos és önbizalmat adó közeg.",
+    "equipmentNeeded": "Sportruha. Bokszpólya és kesztyű kölcsönözhető.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "15": {
+    "description": "Vezető fogásharc-létesítmény BJJ-vel és birkózás-alapú MMA-val. A Budapest Grappling Open verseny otthona.",
+    "firstTrainingInfo": "A Budapest Grappling Open otthona. Komoly versenyzőket is várunk — de minden szintet edzünk.",
+    "equipmentNeeded": "Rash guard és rövidnadrág no-gi-hoz; gi a BJJ órákhoz. Mindkettő kölcsönözhető az első alkalomra.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "16": {
+    "description": "Legendás bokszklub a XIII. kerületben, 40 éves múlttal és olimpiai szintű tehetségek nevelésével.",
+    "firstTrainingInfo": "Legendás klub, magas elvárásokkal. Külön kezdő program segít saját tempódban felkészülni.",
+    "equipmentNeeded": "Kéztekercs és bokszkesztyű. Kapható a klub boltjában.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "17": {
+    "description": "Hagyományos Shotokan karate dojo Zuglóban. Kiváló családoknak és gyerekeknek, strukturált övvizsga-rendszerrel.",
+    "firstTrainingInfo": "Tökéletes családoknak. Gyerek- és felnőttórák egyszerre futnak — szülő és gyerek együtt edzhet.",
+    "equipmentNeeded": "Kényelmes ruha. Fehér karate gi ajánlott az első hónap után.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "18": {
+    "description": "Modern létesítmény Dél-Budán, thai boksz, BJJ és boksz órákkal a nap folyamán.",
+    "firstTrainingInfo": "Délelőtti és esti órák is elérhetők — tökéletes elfoglalt napirendhez. Teljes felszerelés-bérlés helyben.",
+    "equipmentNeeded": "Sportruha az első órára. A terem minden diszciplínához biztosít bérelhető felszerelést.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "19": {
+    "description": "Barátságos dojo Óbudán, karatét és BJJ-t oktat gyerekeknek és felnőtteknek. Erős tisztelet- és fegyelem-fókusz.",
+    "firstTrainingInfo": "Erős tisztelet- és fegyelem-fókusz. Remek első harcművészeti élmény gyerekeknek és felnőtteknek egyaránt.",
+    "equipmentNeeded": "Kényelmes ruha. Karate gi az első övvizsga után kötelező.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "20": {
+    "description": "Megfizethető MMA és boksz terem a XX. kerületben. Esténként és hétvégén nyitva dolgozóknak.",
+    "firstTrainingInfo": "Megfizethető és egyszerű. Esti órák a munkaidőhöz igazítva. Nem szükséges előzetes tapasztalat.",
+    "equipmentNeeded": "Kényelmes sportruha. Alapfelszerelés kölcsönözhető.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "21": {
+    "description": "Egy egykori thai bajnok alapította; a terem autentikus thai box kondicionálást és technikaoktatást kínál.",
+    "firstTrainingInfo": "Bajnok alapította — magas szintű technikai oktatás az első naptól. Az első alkalmak kondíció-hangsúlyosak.",
+    "equipmentNeeded": "Bokszpólya és rövidnadrág. Kesztyű és sípcsontvédő bérelhető.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "22": {
+    "description": "Sokoldalú harcművészeti iskola a IV. kerületben, elkötelezett közösségéről és odaadó oktatói gárdájáról ismert.",
+    "firstTrainingInfo": "Elkötelezett edzői gárda és befogadó hangulat. Ingyenes próbaóra minden új tagnak.",
+    "equipmentNeeded": "Kényelmes sportruha a próbaórára. Felszereléslista regisztráció után.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "23": {
+    "description": "Tiszta BJJ akadémia fekete öves oktatókkal és országos, nemzetközi szinten versenyző csapatokkal.",
+    "firstTrainingInfo": "Fekete öves oktatók nemzetközi versenytapasztalattal. A kezdők külön alapozó programba kerülnek.",
+    "equipmentNeeded": "BJJ gi vagy rash guard + rövidnadrág no-gi órákhoz. Az első alkalomra kölcsönözhető.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "24": {
+    "description": "Teljes körű küzdősport klub a XIX. kerületben, bokszal, thai boksszal és MMA-val versenyzőknek és fitneszrajongóknak.",
+    "firstTrainingInfo": "Teljes bevezető program minden diszciplínához. Gyere az első órára, és összeállítjuk a neked való utat.",
+    "equipmentNeeded": "Sportruha az első órára. Felszereléslista az első alkalom után.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "25": {
+    "description": "Barátságos karate iskola a budai hegyekben, amely a hagyományos harcművészetet modern fitnesszel ötvözi.",
+    "firstTrainingInfo": "Nagyon barátságos hangulat. Karate és fitnesz egyben — remek azoknak, akik fegyelmet és edzést egyszerre keresnek.",
+    "equipmentNeeded": "Sportruha. A karate gi opcionális, később is beszerezhető.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "26": {
+    "description": "Kompromisszumok nélküli MMA terem a VIII. kerületben, komoly versenyzőket nevelő hírnévvel. Napi open mat a tagságban.",
+    "firstTrainingInfo": "Komoly, elkötelezett edzési környezet. Napi open mat is jár a tagsághoz. Gyere munkára készen.",
+    "equipmentNeeded": "Teljes MMA felszerelés a 2. héttől kötelező. Helyben vásárolható vagy kölcsönözhető az első alkalomra.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  },
+  "27": {
+    "description": "Thai boksz és MMA crossover edzésre specializálódott. Heti szemináriumok vendégoktatókkal Thaiföldről és az USA-ból.",
+    "firstTrainingInfo": "Heti vendégszemináriumok nemzetközi edzőktől. A kezdők zökkenőmentesen illeszkednek a rendes órákba.",
+    "equipmentNeeded": "Rövidnadrág és póló. Kesztyű és thai pad kölcsönözhető.",
+    "priceNote": "Havi bérlet, alkalmankénti fizetés is lehetséges — kérdezd a klubot."
+  }
+}

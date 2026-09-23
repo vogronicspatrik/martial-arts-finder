@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { ALL_SPORTS, ALL_TAGS } from '../types/gym';
+import { ALL_SPORTS, ALL_TAGS, DISTRICT_ROMAN, TimeOfDay } from '../types/gym';
+import SearchBar from './SearchBar';
+import TimeOfDayFilter from './TimeOfDayFilter';
+import { useLanguage, TAG_LABEL } from '../lib/i18n';
 
 const SPORT_ACTIVE: Record<string, string> = {
   Karate:      'text-red-400',
@@ -16,6 +19,16 @@ interface MobileFilterSheetProps {
   onTagsChange: (t: string[]) => void;
   showTodayOnly: boolean;
   onTodayToggle: () => void;
+  showSavedOnly: boolean;
+  onSavedToggle: () => void;
+  savedCount: number;
+  searchQuery: string;
+  onSearchChange: (q: string) => void;
+  allDistricts: number[];
+  selectedDistricts: number[];
+  onDistrictsChange: (d: number[]) => void;
+  timeOfDay: TimeOfDay;
+  onTimeOfDayChange: (t: TimeOfDay) => void;
   onClose: () => void;
 }
 
@@ -26,11 +39,26 @@ export default function MobileFilterSheet({
   onTagsChange,
   showTodayOnly,
   onTodayToggle,
+  showSavedOnly,
+  onSavedToggle,
+  savedCount,
+  searchQuery,
+  onSearchChange,
+  allDistricts,
+  selectedDistricts,
+  onDistrictsChange,
+  timeOfDay,
+  onTimeOfDayChange,
   onClose,
 }: MobileFilterSheetProps) {
+  const { t, lang } = useLanguage();
   const [sports, setSports] = useState<string[]>(selectedSports);
   const [tags, setTags] = useState<string[]>(selectedTags);
   const [today, setToday] = useState(showTodayOnly);
+  const [saved, setSaved] = useState(showSavedOnly);
+  const [search, setSearch] = useState(searchQuery);
+  const [districts, setDistricts] = useState<number[]>(selectedDistricts);
+  const [time, setTime] = useState<TimeOfDay>(timeOfDay);
 
   const toggleSport = (s: string) =>
     setSports((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]));
@@ -38,16 +66,33 @@ export default function MobileFilterSheet({
   const toggleTag = (t: string) =>
     setTags((prev) => (prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]));
 
-  const activeCount = sports.length + tags.length + (today ? 1 : 0);
+  const toggleDistrict = (d: number) =>
+    setDistricts((prev) => (prev.includes(d) ? prev.filter((x) => x !== d) : [...prev, d]));
+
+  const activeCount =
+    sports.length + tags.length + districts.length + (today ? 1 : 0) + (saved ? 1 : 0) +
+    (time !== 'any' ? 1 : 0) + (search.trim() ? 1 : 0);
 
   const handleApply = () => {
     onSportsChange(sports);
     onTagsChange(tags);
+    onDistrictsChange(districts);
+    onTimeOfDayChange(time);
+    onSearchChange(search);
     if (today !== showTodayOnly) onTodayToggle();
+    if (saved !== showSavedOnly) onSavedToggle();
     onClose();
   };
 
-  const handleClear = () => { setSports([]); setTags([]); setToday(false); };
+  const handleClear = () => {
+    setSports([]);
+    setTags([]);
+    setToday(false);
+    setSaved(false);
+    setSearch('');
+    setDistricts([]);
+    setTime('any');
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col justify-end">
@@ -65,12 +110,12 @@ export default function MobileFilterSheet({
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 shrink-0" style={{ borderBottom: '1px solid #1E1E1E' }}>
           <h2 className="font-display font-semibold text-base text-ink-100 uppercase tracking-widest">
-            Filters
+            {t.mobileSheet.filters}
           </h2>
           <div className="flex items-center gap-3">
             {activeCount > 0 && (
               <button onClick={handleClear} className="text-sm text-ink-600 hover:text-ink-400 underline">
-                Clear
+                {t.mobileSheet.clear}
               </button>
             )}
             <button
@@ -85,36 +130,102 @@ export default function MobileFilterSheet({
 
         {/* Content */}
         <div className="overflow-y-auto flex-1 px-5 py-5 space-y-6">
-          {/* Today */}
+          {/* Search */}
           <div>
             <p className="font-display text-xs font-semibold text-ink-600 uppercase tracking-widest mb-3">
-              Availability
+              {t.mobileSheet.search}
             </p>
-            <button
-              onClick={() => setToday((v) => !v)}
-              className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl transition-all min-h-[48px]"
-              style={{
-                background: today ? 'rgba(39,174,96,0.12)' : '#1E1E1E',
-                border: today ? '1px solid rgba(39,174,96,0.4)' : '1px solid #2A2A2A',
-              }}
-            >
-              <span className="text-sm font-medium text-ink-100">📅 Training available today</span>
-              <div
-                className="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all"
+            <SearchBar value={search} onChange={setSearch} placeholder={t.mobileSheet.searchPlaceholder} />
+          </div>
+
+          {/* Today + Saved */}
+          <div>
+            <p className="font-display text-xs font-semibold text-ink-600 uppercase tracking-widest mb-3">
+              {t.mobileSheet.availability}
+            </p>
+            <div className="space-y-2">
+              <button
+                onClick={() => setToday((v) => !v)}
+                className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl transition-all min-h-[48px]"
                 style={{
-                  borderColor: today ? '#27AE60' : '#2A2A2A',
-                  background: today ? '#27AE60' : 'transparent',
+                  background: today ? 'rgba(39,174,96,0.12)' : '#1E1E1E',
+                  border: today ? '1px solid rgba(39,174,96,0.4)' : '1px solid #2A2A2A',
                 }}
               >
-                {today && <span className="text-white text-xs">✓</span>}
-              </div>
-            </button>
+                <span className="text-sm font-medium text-ink-100">📅 {t.mobileSheet.trainingToday}</span>
+                <div
+                  className="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all"
+                  style={{
+                    borderColor: today ? '#27AE60' : '#2A2A2A',
+                    background: today ? '#27AE60' : 'transparent',
+                  }}
+                >
+                  {today && <span className="text-white text-xs">✓</span>}
+                </div>
+              </button>
+
+              <button
+                onClick={() => setSaved((v) => !v)}
+                className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl transition-all min-h-[48px]"
+                style={{
+                  background: saved ? 'rgba(242,182,50,0.1)' : '#1E1E1E',
+                  border: saved ? '1px solid rgba(242,182,50,0.4)' : '1px solid #2A2A2A',
+                }}
+              >
+                <span className="text-sm font-medium text-ink-100">
+                  ★ {t.mobileSheet.savedGymsOnly(savedCount)}
+                </span>
+                <div
+                  className="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all"
+                  style={{
+                    borderColor: saved ? '#F2B632' : '#2A2A2A',
+                    background: saved ? '#F2B632' : 'transparent',
+                  }}
+                >
+                  {saved && <span className="text-surface text-xs">✓</span>}
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* Time of day */}
+          <div>
+            <p className="font-display text-xs font-semibold text-ink-600 uppercase tracking-widest mb-3">
+              {t.mobileSheet.timeOfDay}
+            </p>
+            <TimeOfDayFilter value={time} onChange={setTime} variant="grid" />
+          </div>
+
+          {/* District */}
+          <div>
+            <p className="font-display text-xs font-semibold text-ink-600 uppercase tracking-widest mb-3">
+              {t.mobileSheet.district}
+            </p>
+            <div className="grid grid-cols-4 gap-2">
+              {allDistricts.map((d) => {
+                const active = districts.includes(d);
+                return (
+                  <button
+                    key={d}
+                    onClick={() => toggleDistrict(d)}
+                    className="py-2.5 rounded-lg text-sm font-semibold transition-all"
+                    style={{
+                      background: active ? '#C96A3D' : '#1E1E1E',
+                      border: active ? '1px solid #C96A3D' : '1px solid #2A2A2A',
+                      color: active ? '#0B0B0B' : '#8A8480',
+                    }}
+                  >
+                    {DISTRICT_ROMAN[d]}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Sports */}
           <div>
             <p className="font-display text-xs font-semibold text-ink-600 uppercase tracking-widest mb-3">
-              Sport type
+              {t.mobileSheet.sportType}
             </p>
             <div className="grid grid-cols-2 gap-2">
               {ALL_SPORTS.map((sport) => {
@@ -139,7 +250,7 @@ export default function MobileFilterSheet({
           {/* Tags */}
           <div>
             <p className="font-display text-xs font-semibold text-ink-600 uppercase tracking-widest mb-3">
-              Gym type
+              {t.mobileSheet.gymType}
             </p>
             <div className="flex flex-wrap gap-2">
               {ALL_TAGS.map((tag) => {
@@ -156,7 +267,7 @@ export default function MobileFilterSheet({
                     }}
                   >
                     {tag === 'beginner-friendly' && '⭐ '}
-                    {tag.replace(/-/g, ' ')}
+                    {TAG_LABEL[lang][tag]}
                   </button>
                 );
               })}
@@ -171,7 +282,7 @@ export default function MobileFilterSheet({
             className="w-full font-display font-semibold text-sm py-4 rounded-xl transition-all uppercase tracking-widest"
             style={{ background: '#C96A3D', color: '#0B0B0B' }}
           >
-            Show gyms{activeCount > 0 ? ` · ${activeCount} active` : ''}
+            {t.mobileSheet.showGyms(activeCount)}
           </button>
         </div>
       </div>

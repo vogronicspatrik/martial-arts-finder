@@ -5,7 +5,10 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
-import { Gym, SPORT_BADGE, INTENSITY_CONFIG, SPORT_MARKER_COLOR } from '../types/gym';
+import { Gym, SPORT_BADGE, INTENSITY_COLOR, SPORT_MARKER_COLOR, TagType } from '../types/gym';
+import { formatPrice } from '../lib/utils';
+import { LatLng } from '../hooks/useUserLocation';
+import { useLanguage, TAG_LABEL, INTENSITY_SHORT } from '../lib/i18n';
 
 const BUDAPEST_CENTER = { lat: 47.4979, lng: 19.0402 };
 const DEFAULT_ZOOM = 12;
@@ -36,6 +39,8 @@ interface MapProps {
   selectedGym: Gym | null;
   hoveredGymId: string | null;
   onGymSelect: (gym: Gym | null) => void;
+  userLocation?: LatLng | null;
+  onLocate: () => void;
 }
 
 function getMarkerIcon(
@@ -75,7 +80,8 @@ function getMarkerIcon(
   };
 }
 
-export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect }: MapProps) {
+export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect, userLocation, onLocate }: MapProps) {
+  const { t, lang } = useLanguage();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? '',
   });
@@ -95,26 +101,17 @@ export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect }: Ma
     }
   }, [selectedGym]);
 
-  const panToMyLocation = useCallback(() => {
-    if (!navigator.geolocation || !mapRef.current) return;
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        mapRef.current?.panTo({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-        mapRef.current?.setZoom(14);
-      },
-      () => alert('Location permission denied.')
-    );
-  }, []);
-
   useEffect(() => {
-    window.addEventListener('maf:nearme', panToMyLocation);
-    return () => window.removeEventListener('maf:nearme', panToMyLocation);
-  }, [panToMyLocation]);
+    if (userLocation && mapRef.current) {
+      mapRef.current.panTo(userLocation);
+      mapRef.current.setZoom(14);
+    }
+  }, [userLocation]);
 
   if (loadError) {
     return (
       <div className="flex items-center justify-center h-full text-red-400 text-sm bg-surface">
-        Failed to load Google Maps. Check your API key.
+        {t.common.mapLoadError}
       </div>
     );
   }
@@ -122,7 +119,7 @@ export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect }: Ma
   if (!isLoaded) {
     return (
       <div className="flex items-center justify-center h-full text-ink-400 text-sm bg-surface">
-        Loading map…
+        {t.common.mapLoading}
       </div>
     );
   }
@@ -176,8 +173,8 @@ export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect }: Ma
                   </span>
                 ))}
                 {selectedGym.intensityLevel && (
-                  <span className={`text-xs px-2 py-0.5 rounded font-medium ${INTENSITY_CONFIG[selectedGym.intensityLevel].color}`}>
-                    {selectedGym.intensityLevel}
+                  <span className={`text-xs px-2 py-0.5 rounded font-medium ${INTENSITY_COLOR[selectedGym.intensityLevel]}`}>
+                    {INTENSITY_SHORT[lang][selectedGym.intensityLevel]}
                   </span>
                 )}
               </div>
@@ -187,7 +184,7 @@ export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect }: Ma
 
               {selectedGym.firstTrainingInfo && (
                 <div className="rounded-lg px-3 py-2 mb-3" style={{ background: 'rgba(201,106,61,0.12)', border: '1px solid rgba(201,106,61,0.25)' }}>
-                  <p className="text-xs font-semibold text-accent mb-0.5">First training</p>
+                  <p className="text-xs font-semibold text-accent mb-0.5">{t.common.firstTraining}</p>
                   <p className="text-xs text-ink-200">{selectedGym.firstTrainingInfo}</p>
                 </div>
               )}
@@ -196,10 +193,39 @@ export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect }: Ma
                 <div className="flex flex-wrap gap-1 mb-3">
                   {selectedGym.tags.map((tag) => (
                     <span key={tag} className="text-xs px-2 py-0.5 rounded bg-surface-3 text-ink-400 border border-surface-4">
-                      {tag.replace(/-/g, ' ')}
+                      {TAG_LABEL[lang][tag as TagType]}
                     </span>
                   ))}
                 </div>
+              )}
+
+              {selectedGym.priceFrom && (
+                <p className="text-xs text-ink-200 mb-2">
+                  <span className="text-ink-400">{t.common.from}</span>{' '}
+                  <span className="font-semibold" style={{ color: '#F2B632' }}>{formatPrice(selectedGym.priceFrom)}{t.common.perMonth}</span>
+                </p>
+              )}
+
+              <div className="flex flex-wrap items-center gap-2.5 mb-2">
+                {selectedGym.phone && (
+                  <a href={`tel:${selectedGym.phone.replace(/\s/g, '')}`} className="text-xs text-ink-400 hover:text-accent transition-colors">
+                    📞 {selectedGym.phone}
+                  </a>
+                )}
+                {selectedGym.facebook && (
+                  <a href={selectedGym.facebook} target="_blank" rel="noopener noreferrer" className="text-xs text-ink-400 hover:text-accent transition-colors">
+                    {t.common.facebook}
+                  </a>
+                )}
+                {selectedGym.instagram && (
+                  <a href={selectedGym.instagram} target="_blank" rel="noopener noreferrer" className="text-xs text-ink-400 hover:text-accent transition-colors">
+                    {t.common.instagram}
+                  </a>
+                )}
+              </div>
+
+              {(selectedGym.priceFrom || selectedGym.phone || selectedGym.facebook || selectedGym.instagram) && (
+                <p className="text-[11px] text-ink-600 mb-2">{t.common.demoDataNotice}</p>
               )}
 
               {selectedGym.website && (
@@ -209,7 +235,7 @@ export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect }: Ma
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-semibold text-accent hover:text-accent-light transition-colors"
                 >
-                  Visit Website →
+                  {t.common.visitWebsite}
                 </a>
               )}
             </div>
@@ -219,8 +245,8 @@ export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect }: Ma
 
       {/* My Location button */}
       <button
-        onClick={panToMyLocation}
-        title="My location"
+        onClick={onLocate}
+        title={t.common.myLocation}
         className="absolute bottom-8 right-3 h-11 px-4 flex items-center gap-2 rounded-full text-sm font-semibold transition-all"
         style={{
           background: '#141414',
@@ -230,7 +256,7 @@ export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect }: Ma
         }}
       >
         <span>📍</span>
-        <span className="hidden sm:inline">Near me</span>
+        <span className="hidden sm:inline">{t.common.nearMe}</span>
       </button>
     </div>
   );

@@ -17,6 +17,13 @@ export interface Gym {
   equipmentNeeded?: string;
   intensityLevel?: 'low' | 'medium' | 'high';
   schedule?: ScheduleEntry[];
+  district?: number;
+  phone?: string;
+  email?: string;
+  facebook?: string;
+  instagram?: string;
+  priceFrom?: number;
+  priceNote?: string;
 }
 
 export const ALL_SPORTS = ['Karate', 'BJJ', 'Boxing', 'Muay Thai', 'MMA'] as const;
@@ -50,8 +57,26 @@ export const SPORT_MARKER_COLOR: Record<string, string> = {
   MMA:         '#27AE60',
 };
 
-export const INTENSITY_CONFIG = {
-  low:    { label: 'Low intensity',    color: 'bg-green-950/70 text-green-400 border border-green-900/50' },
-  medium: { label: 'Medium intensity', color: 'bg-yellow-950/70 text-yellow-400 border border-yellow-900/50' },
-  high:   { label: 'High intensity',   color: 'bg-red-950/70 text-red-400 border border-red-900/50' },
+// Colors only — labels are language-dependent, see lib/i18n.tsx (INTENSITY_LABEL).
+export const INTENSITY_COLOR: Record<'low' | 'medium' | 'high', string> = {
+  low:    'bg-green-950/70 text-green-400 border border-green-900/50',
+  medium: 'bg-yellow-950/70 text-yellow-400 border border-yellow-900/50',
+  high:   'bg-red-950/70 text-red-400 border border-red-900/50',
+};
+
+// Budapest district numbers (1–23) as Roman numerals, the way locals refer to them.
+export const DISTRICT_ROMAN: Record<number, string> = {
+  1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII',
+  9: 'IX', 10: 'X', 11: 'XI', 12: 'XII', 13: 'XIII', 14: 'XIV', 15: 'XV',
+  16: 'XVI', 17: 'XVII', 18: 'XVIII', 19: 'XIX', 20: 'XX', 21: 'XXI',
+  22: 'XXII', 23: 'XXIII',
+};
+
+export type TimeOfDay = 'any' | 'morning' | 'afternoon' | 'evening';
+
+// Test functions only — labels are language-dependent, see lib/i18n.tsx (TIME_OF_DAY_LABEL).
+export const TIME_OF_DAY_TEST: Record<Exclude<TimeOfDay, 'any'>, (hour: number) => boolean> = {
+  morning:   (h) => h < 12,
+  afternoon: (h) => h >= 12 && h < 18,
+  evening:   (h) => h >= 18,
 };

@@ -1,4 +1,8 @@
-import { ALL_SPORTS, ALL_TAGS } from '../types/gym';
+import { ALL_SPORTS, ALL_TAGS, TimeOfDay } from '../types/gym';
+import SearchBar from './SearchBar';
+import DistrictFilter from './DistrictFilter';
+import TimeOfDayFilter from './TimeOfDayFilter';
+import { useLanguage, TAG_LABEL } from '../lib/i18n';
 
 const SPORT_ACTIVE: Record<string, string> = {
   Karate:      'bg-red-950/70 text-red-400 border-red-800/60',
@@ -19,6 +23,15 @@ interface FiltersProps {
   onSavedToggle: () => void;
   savedCount: number;
   onOpenQuiz: () => void;
+  searchQuery: string;
+  onSearchChange: (q: string) => void;
+  allDistricts: number[];
+  selectedDistricts: number[];
+  onDistrictsChange: (d: number[]) => void;
+  timeOfDay: TimeOfDay;
+  onTimeOfDayChange: (t: TimeOfDay) => void;
+  onNearMe: () => void;
+  sortingByDistance: boolean;
 }
 
 export default function Filters({
@@ -32,7 +45,18 @@ export default function Filters({
   onSavedToggle,
   savedCount,
   onOpenQuiz,
+  searchQuery,
+  onSearchChange,
+  allDistricts,
+  selectedDistricts,
+  onDistrictsChange,
+  timeOfDay,
+  onTimeOfDayChange,
+  onNearMe,
+  sortingByDistance,
 }: FiltersProps) {
+  const { t, lang } = useLanguage();
+
   const toggleSport = (sport: string) =>
     onSportsChange(
       selectedSports.includes(sport)
@@ -57,21 +81,50 @@ export default function Filters({
   };
 
   const hasActiveFilters =
-    selectedSports.length > 0 || selectedTags.length > 0 || showTodayOnly || showSavedOnly;
+    selectedSports.length > 0 ||
+    selectedTags.length > 0 ||
+    showTodayOnly ||
+    showSavedOnly ||
+    selectedDistricts.length > 0 ||
+    timeOfDay !== 'any' ||
+    searchQuery.trim().length > 0;
 
   const clearAll = () => {
     onSportsChange([]);
     onTagsChange([]);
     if (showTodayOnly) onTodayToggle();
     if (showSavedOnly) onSavedToggle();
+    onDistrictsChange([]);
+    onTimeOfDayChange('any');
+    onSearchChange('');
   };
 
   return (
     <div className="shrink-0" style={{ background: '#141414', borderBottom: '1px solid #2A2A2A' }}>
+      {/* Row 0: Search + district + time + near me */}
+      <div className="flex items-center gap-2 px-4 pt-2.5 pb-1 flex-wrap">
+        <SearchBar value={searchQuery} onChange={onSearchChange} className="w-56" />
+
+        <DistrictFilter districts={allDistricts} selected={selectedDistricts} onChange={onDistrictsChange} />
+
+        <TimeOfDayFilter value={timeOfDay} onChange={onTimeOfDayChange} />
+
+        <button
+          onClick={onNearMe}
+          className={`text-xs font-semibold px-3 py-1.5 rounded border transition-all ${
+            sortingByDistance
+              ? 'bg-accent text-surface border-accent'
+              : 'border-[#2A2A2A] text-ink-400 hover:border-accent/50 hover:text-ink-200'
+          }`}
+        >
+          🧭 {sortingByDistance ? t.common.sortedByDistance : t.common.nearMe}
+        </button>
+      </div>
+
       {/* Row 1: Sports */}
       <div className="flex items-center gap-3 px-4 py-2 flex-wrap">
         <span className="font-display text-xs font-semibold text-ink-400 uppercase tracking-widest whitespace-nowrap">
-          Style
+          {t.filters.style}
         </span>
 
         {ALL_SPORTS.map((sport) => {
@@ -100,7 +153,7 @@ export default function Filters({
                 : 'border-[#2A2A2A] text-ink-400 hover:border-green-800/60 hover:text-green-500'
             }`}
           >
-            📅 Today
+            📅 {t.filters.today}
           </button>
 
           <button
@@ -119,7 +172,7 @@ export default function Filters({
             className="text-xs font-semibold px-3 py-1.5 rounded transition-all"
             style={{ background: '#C96A3D', color: '#0B0B0B' }}
           >
-            🥋 Find my style
+            🥋 {t.filters.findMyStyle}
           </button>
         </div>
       </div>
@@ -127,7 +180,7 @@ export default function Filters({
       {/* Row 2: Tags */}
       <div className="flex items-center gap-2 px-4 pb-2 flex-wrap">
         <span className="font-display text-xs font-semibold text-ink-400 uppercase tracking-widest whitespace-nowrap">
-          Tags
+          {t.filters.tags}
         </span>
 
         <button
@@ -138,10 +191,10 @@ export default function Filters({
               : 'border-[#2A2A2A] text-ink-400 hover:border-gold/40 hover:text-gold'
           }`}
         >
-          ⭐ Beginners
+          ⭐ {t.filters.beginners}
         </button>
 
-        {ALL_TAGS.filter((t) => t !== 'beginner-friendly').map((tag) => (
+        {ALL_TAGS.filter((tag) => tag !== 'beginner-friendly').map((tag) => (
           <button
             key={tag}
             onClick={() => toggleTag(tag)}
@@ -151,7 +204,7 @@ export default function Filters({
                 : 'border-[#2A2A2A] text-ink-400 hover:border-ink-600 hover:text-ink-200'
             }`}
           >
-            {tag.replace(/-/g, ' ')}
+            {TAG_LABEL[lang][tag]}
           </button>
         ))}
 
@@ -160,7 +213,7 @@ export default function Filters({
             onClick={clearAll}
             className="ml-auto text-xs text-ink-600 hover:text-ink-400 underline"
           >
-            Clear all
+            {t.filters.clearAll}
           </button>
         )}
       </div>

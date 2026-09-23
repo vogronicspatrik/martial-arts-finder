@@ -1,4 +1,5 @@
 import { useRef, useState, ReactNode } from 'react';
+import { useLanguage } from '../lib/i18n';
 
 const COLLAPSED_HEIGHT = 200;
 const EXPANDED_VH = 0.72;
@@ -10,6 +11,7 @@ interface BottomSheetProps {
 }
 
 export default function BottomSheet({ gymCount, totalCount, children }: BottomSheetProps) {
+  const { t } = useLanguage();
   const [expanded, setExpanded] = useState(false);
   const touchStartY = useRef(0);
 
@@ -49,7 +51,7 @@ export default function BottomSheet({ gymCount, totalCount, children }: BottomSh
         <div className="w-8 h-1 rounded-full mb-2" style={{ background: '#2A2A2A' }} />
         <div className="flex items-center gap-2">
           <p className="font-display text-xs font-semibold uppercase tracking-widest text-ink-400">
-            {gymCount === totalCount ? `${totalCount} gyms` : `${gymCount} / ${totalCount} gyms`}
+            {gymCount === totalCount ? t.common.gymsCount(totalCount) : t.common.gymsCountOf(gymCount, totalCount)}
           </p>
           <span className="text-xs" style={{ color: '#C96A3D' }}>
             {expanded ? '▼' : '▲'}

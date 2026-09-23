@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { Gym, SPORT_BADGE, INTENSITY_CONFIG } from '../types/gym';
+import { Gym, SPORT_BADGE, INTENSITY_COLOR, DISTRICT_ROMAN, TagType } from '../types/gym';
+import { formatPrice, formatDistance, distanceKm } from '../lib/utils';
+import { LatLng } from '../hooks/useUserLocation';
+import { useLanguage, TAG_LABEL, INTENSITY_SHORT, DAY_SHORT } from '../lib/i18n';
 
 interface GymListProps {
   gyms: Gym[];
@@ -8,6 +11,7 @@ interface GymListProps {
   onGymHover: (gymId: string | null) => void;
   bookmarks: string[];
   onBookmarkToggle: (gymId: string) => void;
+  userLocation?: LatLng | null;
 }
 
 export default function GymList({
@@ -17,14 +21,16 @@ export default function GymList({
   onGymHover,
   bookmarks,
   onBookmarkToggle,
+  userLocation,
 }: GymListProps) {
+  const { t, lang } = useLanguage();
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   if (gyms.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-48 px-4 text-center">
         <div className="text-3xl mb-3 opacity-40">🥋</div>
-        <p className="text-sm text-ink-400">No gyms match the current filters.</p>
+        <p className="text-sm text-ink-400">{t.common.noResults}</p>
       </div>
     );
   }
@@ -57,15 +63,15 @@ export default function GymList({
                 </h3>
                 <div className="flex items-center gap-1.5 shrink-0">
                   {gym.intensityLevel && (
-                    <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${INTENSITY_CONFIG[gym.intensityLevel].color}`}>
-                      {gym.intensityLevel}
+                    <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${INTENSITY_COLOR[gym.intensityLevel]}`}>
+                      {INTENSITY_SHORT[lang][gym.intensityLevel]}
                     </span>
                   )}
                   <button
                     onClick={(e) => { e.stopPropagation(); onBookmarkToggle(gym.id); }}
                     className="min-w-[28px] min-h-[28px] flex items-center justify-center text-lg transition-colors"
                     style={{ color: isBookmarked ? '#F2B632' : '#4A4744' }}
-                    title={isBookmarked ? 'Remove' : 'Save'}
+                    title={isBookmarked ? t.common.remove : t.common.save}
                   >
                     ★
                   </button>
@@ -82,14 +88,33 @@ export default function GymList({
               </div>
 
               {/* Address */}
-              <p className="text-xs text-ink-400 mb-1.5 leading-snug">{gym.address}</p>
+              <p className="text-xs text-ink-400 mb-1.5 leading-snug">
+                {gym.address}
+                {gym.district && DISTRICT_ROMAN[gym.district] && ` · ${t.common.districtShort(DISTRICT_ROMAN[gym.district])}`}
+              </p>
+
+              {/* Price + distance */}
+              {(gym.priceFrom || userLocation) && (
+                <div className="flex items-center gap-2 mb-1.5">
+                  {gym.priceFrom && (
+                    <span className="text-xs font-semibold" style={{ color: '#F2B632' }}>
+                      {formatPrice(gym.priceFrom)}{t.common.perMonth}
+                    </span>
+                  )}
+                  {userLocation && (
+                    <span className="text-xs" style={{ color: '#C96A3D' }}>
+                      📍 {formatDistance(distanceKm(userLocation, { lat: gym.lat, lng: gym.lng }))}
+                    </span>
+                  )}
+                </div>
+              )}
 
               {/* Tags */}
               {gym.tags && gym.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1">
                   {gym.tags.map((tag) => (
                     <span key={tag} className="text-xs px-2 py-0.5 rounded bg-surface-3 text-ink-600 border border-surface-4">
-                      {tag.replace(/-/g, ' ')}
+                      {TAG_LABEL[lang][tag as TagType]}
                     </span>
                   ))}
                 </div>
@@ -107,7 +132,7 @@ export default function GymList({
                 }}
               >
                 <span>{isExpanded ? '▲' : '▼'}</span>
-                {isExpanded ? 'Hide details' : 'What to expect'}
+                {isExpanded ? t.gymList.hideDetails : t.gymList.whatToExpect}
               </button>
             )}
 
@@ -121,16 +146,16 @@ export default function GymList({
                 <p className="text-xs text-ink-200 pt-2">{gym.firstTrainingInfo}</p>
                 {gym.equipmentNeeded && (
                   <p className="text-xs text-ink-400">
-                    <span className="text-ink-200 font-medium">Bring:</span> {gym.equipmentNeeded}
+                    <span className="text-ink-200 font-medium">{t.common.bring}</span> {gym.equipmentNeeded}
                   </p>
                 )}
                 {gym.schedule && gym.schedule.length > 0 && (
                   <div>
-                    <p className="text-xs font-semibold text-ink-400 mb-1.5 uppercase tracking-wide">Schedule</p>
+                    <p className="text-xs font-semibold text-ink-400 mb-1.5 uppercase tracking-wide">{t.common.schedule}</p>
                     <div className="flex flex-wrap gap-1">
                       {gym.schedule.map((s, i) => (
                         <span key={i} className="text-xs px-2 py-1 rounded text-ink-200 font-medium" style={{ background: '#1E1E1E', border: '1px solid #2A2A2A' }}>
-                          {s.day.slice(0, 3)} {s.time}
+                          {DAY_SHORT[lang][s.day]} {s.time}
                         </span>
                       ))}
                     </div>
