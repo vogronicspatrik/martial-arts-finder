@@ -150,6 +150,27 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 └── README.md
 ```
 
+## Roadmap — once real gyms are onboarded
+
+Right now every gym's `email`/`phone`/`facebook`/`instagram` is **synthetic placeholder
+data** (see the demo-data notice in the app itself), and a "Request a trial class"
+submission only lands in the `trial_requests` Supabase table — it is **not emailed
+to anyone**, because there is no real gym inbox to send it to yet.
+
+Once gyms start claiming real listings with real contact details, build this:
+
+1. **Email the gym when a trial request comes in.** Add an email-sending service
+   (e.g. [Resend](https://resend.com/) — has a free tier) and call it from
+   `hooks/useTrialRequest.ts` (or a Supabase Edge Function triggered on insert),
+   sending to the gym's real `email` field instead of just writing to the table.
+2. **Notify yourself of new leads too** (quick win, do this first) — a Postgres
+   trigger + webhook (or the same Resend call) that pings you the moment someone
+   submits a request, so you don't have to keep checking the Supabase Table
+   Editor by hand.
+
+Until then: submissions are visible only via **Supabase dashboard → Table Editor
+→ trial_requests**.
+
 ## Deploying to Vercel
 
 1. Push the project to a GitHub repository.

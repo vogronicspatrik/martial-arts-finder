@@ -1,6 +1,12 @@
 import { useCallback, useState } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
+// TODO(real gym data): this only writes to Supabase — it does not email the
+// gym. Gym.email is currently synthetic placeholder data, so there's no real
+// inbox to send to yet. Once gyms claim real listings, wire in an email
+// service (e.g. Resend) here, or a Supabase Edge Function triggered on
+// insert. See README → "Roadmap — once real gyms are onboarded".
+
 export interface TrialRequestInput {
   gymId: string;
   gymName: string;
