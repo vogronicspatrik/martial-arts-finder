@@ -3,6 +3,8 @@ import { Gym, SPORT_BADGE, INTENSITY_COLOR, DISTRICT_ROMAN, TagType } from '../t
 import { formatPrice, formatDistance, distanceKm, getTodayName, todaysSchedule } from '../lib/utils';
 import { LatLng } from '../hooks/useUserLocation';
 import { useLanguage, TAG_LABEL, INTENSITY_SHORT, DAY_SHORT } from '../lib/i18n';
+import { GymRatingStats } from '../hooks/useReviews';
+import ReviewBadge from './ReviewBadge';
 
 interface GymListProps {
   gyms: Gym[];
@@ -12,6 +14,8 @@ interface GymListProps {
   bookmarks: string[];
   onBookmarkToggle: (gymId: string) => void;
   userLocation?: LatLng | null;
+  ratingsByGym?: Record<string, GymRatingStats>;
+  onOpenReviews?: (gym: Gym) => void;
 }
 
 export default function GymList({
@@ -22,6 +26,8 @@ export default function GymList({
   bookmarks,
   onBookmarkToggle,
   userLocation,
+  ratingsByGym,
+  onOpenReviews,
 }: GymListProps) {
   const { t, lang } = useLanguage();
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -95,9 +101,9 @@ export default function GymList({
                 {gym.district && DISTRICT_ROMAN[gym.district] && ` · ${t.common.districtShort(DISTRICT_ROMAN[gym.district])}`}
               </p>
 
-              {/* Price + distance */}
-              {(gym.priceFrom || userLocation) && (
-                <div className="flex items-center gap-2 mb-1.5">
+              {/* Price + distance + reviews */}
+              {(gym.priceFrom || userLocation || onOpenReviews) && (
+                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                   {gym.priceFrom && (
                     <span className="text-xs font-semibold" style={{ color: '#F2B632' }}>
                       {formatPrice(gym.priceFrom)}{t.common.perMonth}
@@ -107,6 +113,9 @@ export default function GymList({
                     <span className="text-xs" style={{ color: '#C96A3D' }}>
                       📍 {formatDistance(distanceKm(userLocation, { lat: gym.lat, lng: gym.lng }))}
                     </span>
+                  )}
+                  {onOpenReviews && (
+                    <ReviewBadge stats={ratingsByGym?.[gym.id]} onClick={() => onOpenReviews(gym)} />
                   )}
                 </div>
               )}

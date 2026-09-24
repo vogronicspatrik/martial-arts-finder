@@ -22,13 +22,21 @@ A minimal web application to discover martial arts gyms in Budapest. Browse gyms
   top-left FAB on mobile) — translates all UI chrome, filters, and gym
   content (description, first-training info, equipment, price note);
   preference is remembered in `localStorage`
+- **Reviews** — star rating + comment per gym, visible to every visitor
+  (Supabase-backed; see [Setting up Supabase](#setting-up-supabase-reviews--trial-requests) below)
+- **"Request a trial class"** — a lightweight lead-capture form (name +
+  phone/email + preferred day) that gets stored for the site owner to
+  follow up on; this is what you'd hand to a gym as proof the listing
+  drives real interest
 
 ## Tech Stack
 
 - [Next.js 14](https://nextjs.org/) (React, TypeScript)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript) via `@react-google-maps/api`
-- Static JSON data (no backend)
+- Static JSON data for gyms (no backend for the core listings)
+- [Supabase](https://supabase.com/) (Postgres) for the two pieces of data
+  that must be shared across every visitor: reviews and trial-class requests
 
 ## Getting Started
 
@@ -62,7 +70,29 @@ NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
 4. Go to **APIs & Services → Credentials** and create an **API Key**.
 5. (Optional but recommended) Restrict the key to your domain.
 
-### 3. Run locally
+### 3. Set up Supabase (reviews & trial requests)
+
+Optional but recommended — without it, the app still runs fine, but the
+review/request modals just show a "not set up yet" message instead of crashing.
+
+1. Create a free project at [supabase.com](https://supabase.com/) (no credit card needed).
+2. In the dashboard, go to **SQL Editor → New query**, paste the contents of
+   [`supabase/schema.sql`](supabase/schema.sql), and run it. This creates the
+   `reviews` and `trial_requests` tables with the right row-level-security
+   policies (reviews are publicly readable; trial requests are insert-only —
+   nobody but you can read the phone numbers/emails people submit).
+3. Go to **Project Settings → API**, copy the **Project URL** and the
+   **anon public** key, and add them to `.env.local`:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxxxxxxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
+```
+
+4. To view submitted trial-class requests, go to **Table Editor → trial_requests**
+   in the Supabase dashboard — that's your lead list.
+
+### 4. Run locally
 
 ```bash
 npm run dev
@@ -84,7 +114,12 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 │   ├── GymDetailCard.tsx     # Mobile full gym detail sheet (price, contact, schedule)
 │   ├── BottomSheet.tsx       # Draggable mobile bottom sheet container
 │   ├── Map.tsx                # Google Map with markers, InfoWindow & near-me button
-│   └── Quiz.tsx               # "Find my style" recommendation quiz
+│   ├── Quiz.tsx               # "Find my style" recommendation quiz
+│   ├── IntensityLegend.tsx    # low/medium/high color-key shown near the filters
+│   ├── ReviewStars.tsx        # Star rating, read-only or interactive input
+│   ├── ReviewBadge.tsx        # Compact "★ 4.5 (12)" button that opens the reviews modal
+│   ├── ReviewsModal.tsx       # Review list + write-a-review form (Supabase-backed)
+│   └── TrialRequestModal.tsx  # "Request a trial class" lead-capture form (Supabase-backed)
 ├── data/
 │   ├── gyms.json              # Static gym dataset (27 Budapest gyms), English canonical
 │   └── gyms.hu.json           # Hungarian overlay: description/firstTrainingInfo/
@@ -93,10 +128,15 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ├── hooks/
 │   ├── useBookmarks.ts        # Saved-gyms state, persisted to localStorage
 │   ├── useIsMobile.ts         # Viewport-based mobile/desktop switch
-│   └── useUserLocation.ts     # Single geolocation entry point ("near me")
+│   ├── useUserLocation.ts     # Single geolocation entry point ("near me")
+│   ├── useReviews.ts          # Loads all reviews once, per-gym aggregates, submit
+│   └── useTrialRequest.ts     # Submits a trial-class request lead
 ├── lib/
 │   ├── utils.ts                # Distance, search-matching, price/district formatting
-│   └── i18n.tsx                # EN/HU dictionary, LanguageProvider/useLanguage context
+│   ├── i18n.tsx                # EN/HU dictionary, LanguageProvider/useLanguage context
+│   └── supabase.ts             # Supabase client (null if env vars aren't set)
+├── supabase/
+│   └── schema.sql             # Run once in the Supabase SQL editor — see setup steps above
 ├── scripts/
 │   └── enrich-gyms.js         # One-off script that added district/contact/price fields
 ├── pages/
@@ -115,8 +155,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 1. Push the project to a GitHub repository.
 2. Import the repo in [Vercel](https://vercel.com/).
 3. In **Project Settings → Environment Variables**, add:
-   - **Name:** `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`
-   - **Value:** your API key
+   - `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`
+   - `NEXT_PUBLIC_SUPABASE_URL` (optional — see [Setting up Supabase](#3-set-up-supabase-reviews--trial-requests))
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` (optional)
 4. Deploy. Vercel handles the Next.js build automatically.
 
 > **Note:** Restrict your production API key to your Vercel domain to prevent unauthorized usage.

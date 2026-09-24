@@ -132,6 +132,44 @@ interface Dictionary {
     intensity: string;
     searchPlaceholder: string;
   };
+  reviews: {
+    title: string;
+    noReviewsYet: string;
+    ratingSummary: (avg: number, count: number) => string;
+    writeReview: string;
+    yourName: string;
+    namePlaceholder: string;
+    yourRating: string;
+    yourReview: string;
+    reviewPlaceholder: string;
+    submit: string;
+    submitting: string;
+    success: string;
+    error: string;
+    notConfigured: string;
+    seeReviews: (count: number) => string;
+  };
+  trial: {
+    cta: string;
+    title: string;
+    intro: string;
+    name: string;
+    namePlaceholder: string;
+    phone: string;
+    phonePlaceholder: string;
+    email: string;
+    emailPlaceholder: string;
+    contactHint: string;
+    preferredDay: string;
+    anyDay: string;
+    message: string;
+    messagePlaceholder: string;
+    submit: string;
+    submitting: string;
+    success: string;
+    error: string;
+    notConfigured: string;
+  };
   filters: {
     style: string;
     tags: string;
@@ -211,6 +249,44 @@ const en: Dictionary = {
     clearSearch: 'Clear search',
     intensity: 'Intensity',
     searchPlaceholder: 'Search gyms…',
+  },
+  reviews: {
+    title: 'Reviews',
+    noReviewsYet: 'No reviews yet — be the first.',
+    ratingSummary: (avg: number, count: number) => `${avg.toFixed(1)} (${count})`,
+    writeReview: 'Write a review',
+    yourName: 'Your name',
+    namePlaceholder: 'e.g. Anna',
+    yourRating: 'Your rating',
+    yourReview: 'Your review (optional)',
+    reviewPlaceholder: 'How was your experience?',
+    submit: 'Submit review',
+    submitting: 'Submitting…',
+    success: 'Thanks! Your review is live.',
+    error: 'Could not submit your review — try again in a moment.',
+    notConfigured: 'Reviews aren\'t set up on this deployment yet.',
+    seeReviews: (count: number) => (count > 0 ? `★ Reviews (${count})` : '★ Be the first to review'),
+  },
+  trial: {
+    cta: '🥋 Request a trial class',
+    title: 'Request a trial class',
+    intro: 'Tell the gym a bit about yourself — they\'ll get back to you to set up your first session.',
+    name: 'Name',
+    namePlaceholder: 'Your name',
+    phone: 'Phone',
+    phonePlaceholder: '+36 20 123 4567',
+    email: 'Email',
+    emailPlaceholder: 'you@example.com',
+    contactHint: 'Give at least a phone number or an email.',
+    preferredDay: 'Preferred day',
+    anyDay: 'Any day',
+    message: 'Message (optional)',
+    messagePlaceholder: 'Anything the gym should know?',
+    submit: 'Send request',
+    submitting: 'Sending…',
+    success: 'Sent! The gym will reach out to schedule your trial class.',
+    error: 'Could not send your request — try again in a moment.',
+    notConfigured: 'Trial requests aren\'t set up on this deployment yet.',
   },
   filters: {
     style: 'Style',
@@ -294,6 +370,44 @@ const hu: Dictionary = {
     clearSearch: 'Keresés törlése',
     intensity: 'Intenzitás',
     searchPlaceholder: 'Terem keresése…',
+  },
+  reviews: {
+    title: 'Értékelések',
+    noReviewsYet: 'Még nincs értékelés — legyél te az első.',
+    ratingSummary: (avg: number, count: number) => `${avg.toFixed(1)} (${count})`,
+    writeReview: 'Értékelés írása',
+    yourName: 'A neved',
+    namePlaceholder: 'pl. Anna',
+    yourRating: 'Értékelésed',
+    yourReview: 'Véleményed (nem kötelező)',
+    reviewPlaceholder: 'Milyen volt az élmény?',
+    submit: 'Értékelés beküldése',
+    submitting: 'Küldés…',
+    success: 'Köszönjük! Az értékelésed máris látszik.',
+    error: 'Nem sikerült elküldeni — próbáld újra kicsit később.',
+    notConfigured: 'Az értékelés funkció még nincs beállítva ezen a deploy-on.',
+    seeReviews: (count: number) => (count > 0 ? `★ Értékelések (${count})` : '★ Legyél te az első értékelő'),
+  },
+  trial: {
+    cta: '🥋 Jelentkezem próbaedzésre',
+    title: 'Jelentkezés próbaedzésre',
+    intro: 'Írj pár szót magadról — a terem felveszi veled a kapcsolatot az első alkalom egyeztetéséhez.',
+    name: 'Név',
+    namePlaceholder: 'A neved',
+    phone: 'Telefonszám',
+    phonePlaceholder: '+36 20 123 4567',
+    email: 'Email',
+    emailPlaceholder: 'te@example.com',
+    contactHint: 'Adj meg legalább egy telefonszámot vagy emailt.',
+    preferredDay: 'Preferált nap',
+    anyDay: 'Bármelyik nap',
+    message: 'Üzenet (nem kötelező)',
+    messagePlaceholder: 'Van valami, amit tudnia kell a teremnek?',
+    submit: 'Jelentkezés elküldése',
+    submitting: 'Küldés…',
+    success: 'Elküldve! A terem hamarosan felveszi veled a kapcsolatot az időpont egyeztetéséhez.',
+    error: 'Nem sikerült elküldeni — próbáld újra kicsit később.',
+    notConfigured: 'A próbaedzés-jelentkezés még nincs beállítva ezen a deploy-on.',
   },
   filters: {
     style: 'Stílus',

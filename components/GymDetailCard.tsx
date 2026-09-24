@@ -2,6 +2,8 @@ import { Gym, SPORT_BADGE, INTENSITY_COLOR, DISTRICT_ROMAN, TagType } from '../t
 import { formatPrice, distanceKm, formatDistance, getTodayName, todaysSchedule } from '../lib/utils';
 import { LatLng } from '../hooks/useUserLocation';
 import { useLanguage, TAG_LABEL, INTENSITY_LABEL, DAY_SHORT } from '../lib/i18n';
+import { GymRatingStats } from '../hooks/useReviews';
+import ReviewBadge from './ReviewBadge';
 
 interface GymDetailCardProps {
   gym: Gym;
@@ -9,9 +11,21 @@ interface GymDetailCardProps {
   onBookmarkToggle: (id: string) => void;
   onClose: () => void;
   userLocation?: LatLng | null;
+  stats?: GymRatingStats;
+  onOpenReviews?: () => void;
+  onRequestTrial?: () => void;
 }
 
-export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onClose, userLocation }: GymDetailCardProps) {
+export default function GymDetailCard({
+  gym,
+  isBookmarked,
+  onBookmarkToggle,
+  onClose,
+  userLocation,
+  stats,
+  onOpenReviews,
+  onRequestTrial,
+}: GymDetailCardProps) {
   const { t, lang } = useLanguage();
   const distance = userLocation ? distanceKm(userLocation, { lat: gym.lat, lng: gym.lng }) : null;
   const today = getTodayName();
@@ -47,9 +61,13 @@ export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onC
       {/* Scrollable content */}
       <div className="overflow-y-auto flex-1 px-5 py-4">
         {/* Name */}
-        <h2 className="font-display font-bold text-xl text-ink-100 uppercase tracking-wide leading-tight mb-3">
+        <h2 className="font-display font-bold text-xl text-ink-100 uppercase tracking-wide leading-tight mb-1.5">
           {gym.name}
         </h2>
+
+        {onOpenReviews && (
+          <ReviewBadge stats={stats} onClick={onOpenReviews} className="mb-3 inline-block" />
+        )}
 
         {/* Sport + intensity */}
         <div className="flex flex-wrap gap-1.5 mb-4">
@@ -205,13 +223,22 @@ export default function GymDetailCard({ gym, isBookmarked, onBookmarkToggle, onC
         )}
 
         {/* CTA */}
+        {onRequestTrial && (
+          <button
+            onClick={onRequestTrial}
+            className="block w-full text-center font-display font-semibold text-sm py-4 rounded-xl transition-all uppercase tracking-widest mb-2"
+            style={{ background: '#C96A3D', color: '#0B0B0B' }}
+          >
+            {t.trial.cta}
+          </button>
+        )}
         {gym.website && (
           <a
             href={gym.website}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full text-center font-display font-semibold text-sm py-4 rounded-xl transition-all uppercase tracking-widest mb-2"
-            style={{ background: '#C96A3D', color: '#0B0B0B' }}
+            className="block w-full text-center font-display font-semibold text-sm py-3.5 rounded-xl transition-all uppercase tracking-widest mb-2"
+            style={{ background: '#1E1E1E', border: '1px solid #2A2A2A', color: '#F0EDE8' }}
           >
             {t.common.visitWebsite}
           </a>

@@ -10,9 +10,12 @@ import BottomSheet from '../components/BottomSheet';
 import MobileFilterSheet from '../components/MobileFilterSheet';
 import GymDetailCard from '../components/GymDetailCard';
 import SearchBar from '../components/SearchBar';
+import ReviewsModal from '../components/ReviewsModal';
+import TrialRequestModal from '../components/TrialRequestModal';
 import { useBookmarks } from '../hooks/useBookmarks';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { useUserLocation } from '../hooks/useUserLocation';
+import { useReviews } from '../hooks/useReviews';
 import { matchesSearch, distanceKm, hourOf, getTodayName } from '../lib/utils';
 import { useLanguage, DAY_LABEL } from '../lib/i18n';
 import gymsHuData from '../data/gyms.hu.json';
@@ -41,6 +44,9 @@ export default function Home() {
 
   const { bookmarks, toggle: toggleBookmark, isBookmarked } = useBookmarks();
   const { userLocation, locate } = useUserLocation();
+  const reviewsData = useReviews();
+  const [reviewsModalGym, setReviewsModalGym] = useState<Gym | null>(null);
+  const [trialModalGym, setTrialModalGym] = useState<Gym | null>(null);
   const baseGyms = gymsData as Gym[];
   const gyms = useMemo(
     () => (lang === 'hu' ? baseGyms.map((g) => ({ ...g, ...gymsHu[g.id] })) : baseGyms),
@@ -129,6 +135,9 @@ export default function Home() {
               onGymSelect={setSelectedGym}
               userLocation={userLocation}
               onLocate={handleNearMe}
+              ratingsByGym={reviewsData.byGym}
+              onOpenReviews={setReviewsModalGym}
+              onRequestTrial={setTrialModalGym}
             />
           </div>
 
@@ -220,6 +229,9 @@ export default function Home() {
               onBookmarkToggle={toggleBookmark}
               onClose={() => setSelectedGym(null)}
               userLocation={userLocation}
+              stats={reviewsData.byGym[selectedGym.id]}
+              onOpenReviews={() => setReviewsModalGym(selectedGym)}
+              onRequestTrial={() => setTrialModalGym(selectedGym)}
             />
           ) : (
             <BottomSheet gymCount={filteredGyms.length} totalCount={gyms.length}>
@@ -231,6 +243,8 @@ export default function Home() {
                 bookmarks={bookmarks}
                 onBookmarkToggle={toggleBookmark}
                 userLocation={userLocation}
+                ratingsByGym={reviewsData.byGym}
+                onOpenReviews={setReviewsModalGym}
               />
             </BottomSheet>
           )}
@@ -354,6 +368,8 @@ export default function Home() {
                   bookmarks={bookmarks}
                   onBookmarkToggle={toggleBookmark}
                   userLocation={userLocation}
+                  ratingsByGym={reviewsData.byGym}
+                  onOpenReviews={setReviewsModalGym}
                 />
               </div>
             </aside>
@@ -367,6 +383,9 @@ export default function Home() {
                 onLocate={handleNearMe}
                 hoveredGymId={hoveredGymId}
                 onGymSelect={setSelectedGym}
+                ratingsByGym={reviewsData.byGym}
+                onOpenReviews={setReviewsModalGym}
+                onRequestTrial={setTrialModalGym}
               />
             </main>
           </div>
@@ -375,6 +394,21 @@ export default function Home() {
 
       {showQuiz && (
         <Quiz onComplete={handleQuizComplete} onClose={() => setShowQuiz(false)} />
+      )}
+
+      {reviewsModalGym && (
+        <ReviewsModal
+          gym={reviewsModalGym}
+          reviews={reviewsData.reviewsForGym(reviewsModalGym.id)}
+          stats={reviewsData.byGym[reviewsModalGym.id]}
+          configured={reviewsData.configured}
+          onSubmit={(input) => reviewsData.submitReview(reviewsModalGym.id, input)}
+          onClose={() => setReviewsModalGym(null)}
+        />
+      )}
+
+      {trialModalGym && (
+        <TrialRequestModal gym={trialModalGym} onClose={() => setTrialModalGym(null)} />
       )}
     </>
   );

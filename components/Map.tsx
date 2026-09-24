@@ -9,6 +9,8 @@ import { Gym, SPORT_BADGE, INTENSITY_COLOR, SPORT_MARKER_COLOR, TagType } from '
 import { formatPrice, getTodayName, todaysSchedule } from '../lib/utils';
 import { LatLng } from '../hooks/useUserLocation';
 import { useLanguage, TAG_LABEL, INTENSITY_SHORT } from '../lib/i18n';
+import { GymRatingStats } from '../hooks/useReviews';
+import ReviewBadge from './ReviewBadge';
 
 const BUDAPEST_CENTER = { lat: 47.4979, lng: 19.0402 };
 const DEFAULT_ZOOM = 12;
@@ -41,6 +43,9 @@ interface MapProps {
   onGymSelect: (gym: Gym | null) => void;
   userLocation?: LatLng | null;
   onLocate: () => void;
+  ratingsByGym?: Record<string, GymRatingStats>;
+  onOpenReviews?: (gym: Gym) => void;
+  onRequestTrial?: (gym: Gym) => void;
 }
 
 function getMarkerIcon(
@@ -80,7 +85,17 @@ function getMarkerIcon(
   };
 }
 
-export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect, userLocation, onLocate }: MapProps) {
+export default function Map({
+  gyms,
+  selectedGym,
+  hoveredGymId,
+  onGymSelect,
+  userLocation,
+  onLocate,
+  ratingsByGym,
+  onOpenReviews,
+  onRequestTrial,
+}: MapProps) {
   const { t, lang } = useLanguage();
   const today = getTodayName();
   const { isLoaded, loadError } = useLoadScript({
@@ -163,9 +178,17 @@ export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect, user
             onCloseClick={() => onGymSelect(null)}
           >
             <div className="font-body w-64 p-4">
-              <h3 className="font-display font-semibold text-sm text-ink-100 leading-snug mb-2 uppercase tracking-wide">
+              <h3 className="font-display font-semibold text-sm text-ink-100 leading-snug mb-1 uppercase tracking-wide">
                 {selectedGym.name}
               </h3>
+
+              {onOpenReviews && (
+                <ReviewBadge
+                  stats={ratingsByGym?.[selectedGym.id]}
+                  onClick={() => onOpenReviews(selectedGym)}
+                  className="mb-2 inline-block"
+                />
+              )}
 
               <div className="flex flex-wrap gap-1 mb-2">
                 {selectedGym.sport.map((s) => (
@@ -234,6 +257,16 @@ export default function Map({ gyms, selectedGym, hoveredGymId, onGymSelect, user
 
               {(selectedGym.priceFrom || selectedGym.phone || selectedGym.facebook || selectedGym.instagram) && (
                 <p className="text-[11px] text-ink-600 mb-2">{t.common.demoDataNotice}</p>
+              )}
+
+              {onRequestTrial && (
+                <button
+                  onClick={() => onRequestTrial(selectedGym)}
+                  className="block w-full text-center text-xs font-display font-semibold py-2.5 rounded-lg transition-all uppercase tracking-wide mb-2"
+                  style={{ background: '#C96A3D', color: '#0B0B0B' }}
+                >
+                  {t.trial.cta}
+                </button>
               )}
 
               {selectedGym.website && (
