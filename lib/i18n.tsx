@@ -112,6 +112,7 @@ interface Dictionary {
     instagram: string;
     visitWebsite: string;
     demoDataNotice: string;
+    unclaimedNotice: string;
     firstTraining: string;
     bring: string;
     schedule: string;
@@ -230,6 +231,7 @@ const en: Dictionary = {
     instagram: 'Instagram',
     visitWebsite: 'Visit Website →',
     demoDataNotice: '🧪 Demo data — price and contact details are placeholders, not real.',
+    unclaimedNotice: 'ℹ️ This listing was researched from public sources and hasn\'t been confirmed by the gym yet — some details may be out of date.',
     firstTraining: 'First training',
     bring: 'Bring:',
     schedule: 'Schedule',
@@ -351,6 +353,7 @@ const hu: Dictionary = {
     instagram: 'Instagram',
     visitWebsite: 'Weboldal megnyitása →',
     demoDataNotice: '🧪 Demo adat — az ár és az elérhetőségek nem valódiak, csak helykitöltők.',
+    unclaimedNotice: 'ℹ️ Ezt az adatlapot nyilvános forrásokból gyűjtöttük össze, a terem még nem igazolta vissza — előfordulhat, hogy néhány adat elavult.',
     firstTraining: 'Első edzés',
     bring: 'Hozz magaddal:',
     schedule: 'Edzésrend',

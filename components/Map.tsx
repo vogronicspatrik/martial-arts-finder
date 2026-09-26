@@ -255,8 +255,11 @@ export default function Map({
                 )}
               </div>
 
-              {(selectedGym.priceFrom || selectedGym.phone || selectedGym.facebook || selectedGym.instagram) && (
+              {selectedGym.isDemo && (selectedGym.priceFrom || selectedGym.phone || selectedGym.facebook || selectedGym.instagram) && (
                 <p className="text-[11px] text-ink-600 mb-2">{t.common.demoDataNotice}</p>
+              )}
+              {!selectedGym.isDemo && !selectedGym.claimed && (
+                <p className="text-[11px] text-ink-600 mb-2">{t.common.unclaimedNotice}</p>
               )}
 
               {onRequestTrial && (

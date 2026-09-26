@@ -24,6 +24,10 @@ export interface Gym {
   instagram?: string;
   priceFrom?: number;
   priceNote?: string;
+  /** True for the original fictional showcase gyms — false/undefined for real, researched or claimed listings. */
+  isDemo?: boolean;
+  /** True once a real owner has verified control of this listing (see the claim flow in the README roadmap). */
+  claimed?: boolean;
 }
 
 export const ALL_SPORTS = ['Karate', 'BJJ', 'Boxing', 'Muay Thai', 'MMA'] as const;

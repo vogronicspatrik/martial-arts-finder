@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import gymsData from '../data/gyms.json';
 import { Gym, TimeOfDay, TIME_OF_DAY_TEST } from '../types/gym';
 import Filters from '../components/Filters';
 import GymList from '../components/GymList';
@@ -16,14 +15,11 @@ import { useBookmarks } from '../hooks/useBookmarks';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { useUserLocation } from '../hooks/useUserLocation';
 import { useReviews } from '../hooks/useReviews';
+import { useGyms } from '../hooks/useGyms';
 import { matchesSearch, distanceKm, hourOf, getTodayName } from '../lib/utils';
 import { useLanguage, DAY_LABEL } from '../lib/i18n';
-import gymsHuData from '../data/gyms.hu.json';
 
 const Map = dynamic(() => import('../components/Map'), { ssr: false });
-
-type GymHuOverlay = Partial<Pick<Gym, 'description' | 'firstTrainingInfo' | 'equipmentNeeded' | 'priceNote'>>;
-const gymsHu = gymsHuData as Record<string, GymHuOverlay>;
 
 export default function Home() {
   const isMobile = useIsMobile();
@@ -47,11 +43,7 @@ export default function Home() {
   const reviewsData = useReviews();
   const [reviewsModalGym, setReviewsModalGym] = useState<Gym | null>(null);
   const [trialModalGym, setTrialModalGym] = useState<Gym | null>(null);
-  const baseGyms = gymsData as Gym[];
-  const gyms = useMemo(
-    () => (lang === 'hu' ? baseGyms.map((g) => ({ ...g, ...gymsHu[g.id] })) : baseGyms),
-    [lang, baseGyms]
-  );
+  const { gyms } = useGyms(lang);
   const today = getTodayName();
   const todayLabel = DAY_LABEL[lang][today];
 

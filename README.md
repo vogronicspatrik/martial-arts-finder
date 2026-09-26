@@ -76,11 +76,20 @@ Optional but recommended — without it, the app still runs fine, but the
 review/request modals just show a "not set up yet" message instead of crashing.
 
 1. Create a free project at [supabase.com](https://supabase.com/) (no credit card needed).
-2. In the dashboard, go to **SQL Editor → New query**, paste the contents of
-   [`supabase/schema.sql`](supabase/schema.sql), and run it. This creates the
-   `reviews` and `trial_requests` tables with the right row-level-security
-   policies (reviews are publicly readable; trial requests are insert-only —
-   nobody but you can read the phone numbers/emails people submit).
+2. In the dashboard, go to **SQL Editor → New query** and run these **three
+   files, in order** (paste each one's contents, run, then move to the next):
+   1. [`supabase/schema.sql`](supabase/schema.sql) — `reviews` and
+      `trial_requests` (reviews are publicly readable; trial requests are
+      insert-only — nobody but you can read the phone numbers/emails people submit).
+   2. [`supabase/002_gyms_and_accounts.sql`](supabase/002_gyms_and_accounts.sql) —
+      the `gyms` table (gym data now lives here, not just in `data/gyms.json`),
+      plus `gym_translations`, and scaffolding for later phases
+      (`gym_owners`, `admins`, `gym_events`, `claim_requests` — no UI uses
+      those yet).
+   3. [`supabase/seed_gyms.sql`](supabase/seed_gyms.sql) — inserts the 27 demo
+      gyms plus 7 real, researched Budapest karate clubs (see the README
+      "Real gym data" section below). Regenerate this file with
+      `node scripts/generate-seed-sql.js` if `data/gyms.json` changes.
 3. Go to **Project Settings → API**, copy the **Project URL** and the
    **anon public** key, and add them to `.env.local`:
 
@@ -91,6 +100,10 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
 
 4. To view submitted trial-class requests, go to **Table Editor → trial_requests**
    in the Supabase dashboard — that's your lead list.
+
+> Without step 2, the app still works — it silently falls back to the
+> static `data/gyms.json` (27 demo gyms only, no real ones) so local dev
+> never breaks. Once the `gyms` table has rows, the live app prefers those.
 
 ### 4. Run locally
 
@@ -121,24 +134,31 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 │   ├── ReviewsModal.tsx       # Review list + write-a-review form (Supabase-backed)
 │   └── TrialRequestModal.tsx  # "Request a trial class" lead-capture form (Supabase-backed)
 ├── data/
-│   ├── gyms.json              # Static gym dataset (27 Budapest gyms), English canonical
+│   ├── gyms.json              # Original static gym dataset (27 demo gyms), English canonical —
+│   │                          #   now used as (a) the source for generating the Supabase seed
+│   │                          #   and (b) a fallback when Supabase isn't configured
 │   └── gyms.hu.json           # Hungarian overlay: description/firstTrainingInfo/
 │                              #   equipmentNeeded/priceNote per gym id, merged in when
-│                              #   the Hungarian UI is active (see pages/index.tsx)
+│                              #   the Hungarian UI is active
 ├── hooks/
 │   ├── useBookmarks.ts        # Saved-gyms state, persisted to localStorage
 │   ├── useIsMobile.ts         # Viewport-based mobile/desktop switch
 │   ├── useUserLocation.ts     # Single geolocation entry point ("near me")
 │   ├── useReviews.ts          # Loads all reviews once, per-gym aggregates, submit
-│   └── useTrialRequest.ts     # Submits a trial-class request lead
+│   ├── useTrialRequest.ts     # Submits a trial-class request lead
+│   └── useGyms.ts             # Gym data: Supabase when configured, static JSON fallback
 ├── lib/
 │   ├── utils.ts                # Distance, search-matching, price/district formatting
 │   ├── i18n.tsx                # EN/HU dictionary, LanguageProvider/useLanguage context
 │   └── supabase.ts             # Supabase client (null if env vars aren't set)
 ├── supabase/
-│   └── schema.sql             # Run once in the Supabase SQL editor — see setup steps above
+│   ├── schema.sql                     # reviews, trial_requests — run first
+│   ├── 002_gyms_and_accounts.sql      # gyms, gym_translations + phase 2-4 scaffolding — run second
+│   └── seed_gyms.sql                  # generated data (27 demo + 7 real gyms) — run third
 ├── scripts/
-│   └── enrich-gyms.js         # One-off script that added district/contact/price fields
+│   ├── enrich-gyms.js         # One-off script that added district/contact/price fields
+│   ├── real-gyms.js           # Verified-facts-only data for real, researched gyms
+│   └── generate-seed-sql.js   # (Re)generates supabase/seed_gyms.sql from the data files
 ├── pages/
 │   ├── _app.tsx
 │   └── index.tsx              # Main page — layout, filtering & state
@@ -171,6 +191,29 @@ Once gyms start claiming real listings with real contact details, build this:
 Until then: submissions are visible only via **Supabase dashboard → Table Editor
 → trial_requests**.
 
+## Real gym data
+
+7 of the listings are **real Budapest karate clubs**, researched from each
+club's own public website (`is_demo = false` in the `gyms` table). Only
+verified facts are included — no invented description, schedule, price, or
+tags, unlike the 27 fictional demo gyms. Until a club claims its listing
+(`claimed = true`), the app shows a small "not yet confirmed by the gym"
+notice on it. Source for each:
+
+- [Budapesti Honvéd SE – Karate](https://honved.hu/karate/)
+- [Rákosmenti Karate SE (RKSE)](https://karateoktatas.eu/)
+- [Gastroyal Karate SE](https://gastroyal.tagdij.com/contactus)
+- [Tűzmadár Sportegyesület](https://www.tuzmadarse.hu/node/1604)
+- [OSU Kyokushin Karate](https://osu.hu/)
+- [Budai XI Karate SE](https://buxikarate.hu/budapest/) (no public email found — the automatic email-claim flow won't work for this one yet)
+- [Seishin Sportegyesület (WKB)](https://www.seishindojo.hu/) (same — no public email found)
+
+To research and add more, extend `scripts/real-gyms.js` with the same
+verified-facts-only fields, then re-run `node scripts/generate-seed-sql.js`
+and paste the new inserts from `supabase/seed_gyms.sql` into the SQL editor
+(the `on conflict do nothing` guard means re-running the whole file is safe
+and won't duplicate or overwrite existing rows).
+
 ## Deploying to Vercel
 
 1. Push the project to a GitHub repository.
@@ -185,7 +228,15 @@ Until then: submissions are visible only via **Supabase dashboard → Table Edit
 
 ## Adding or Editing Gyms
 
-Edit [`data/gyms.json`](data/gyms.json). Each gym entry follows this shape:
+**Live data now lives in Supabase's `gyms` table**, not just the JSON file —
+the quickest way to add or fix one gym is the Supabase dashboard's **Table
+Editor → gyms** (and `gym_translations` for the Hungarian text), directly.
+
+`data/gyms.json` / `data/gyms.hu.json` remain the source of truth for the
+27 fictional demo gyms and for regenerating the seed file (see
+`scripts/generate-seed-sql.js`) — edit them if you want to change a *demo*
+gym, or add a *new* real gym to `scripts/real-gyms.js` instead (see "Real gym
+data" above). Each gym entry follows this shape:
 
 ```json
 {

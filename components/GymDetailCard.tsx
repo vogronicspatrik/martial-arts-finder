@@ -108,8 +108,11 @@ export default function GymDetailCard({
             {gym.priceNote && <span className="text-ink-400"> · {gym.priceNote}</span>}
           </p>
         )}
-        {(gym.priceFrom || gym.phone || gym.facebook || gym.instagram) && (
+        {gym.isDemo && (gym.priceFrom || gym.phone || gym.facebook || gym.instagram) && (
           <p className="text-xs text-ink-600 mb-4">{t.common.demoDataNotice}</p>
+        )}
+        {!gym.isDemo && !gym.claimed && (
+          <p className="text-xs text-ink-600 mb-4">{t.common.unclaimedNotice}</p>
         )}
 
         {/* Description */}
