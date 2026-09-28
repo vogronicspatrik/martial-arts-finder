@@ -46,6 +46,7 @@ interface MapProps {
   ratingsByGym?: Record<string, GymRatingStats>;
   onOpenReviews?: (gym: Gym) => void;
   onRequestTrial?: (gym: Gym) => void;
+  onClaimGym?: (gym: Gym) => void;
 }
 
 function getMarkerIcon(
@@ -95,6 +96,7 @@ export default function Map({
   ratingsByGym,
   onOpenReviews,
   onRequestTrial,
+  onClaimGym,
 }: MapProps) {
   const { t, lang } = useLanguage();
   const today = getTodayName();
@@ -259,7 +261,21 @@ export default function Map({
                 <p className="text-[11px] text-ink-600 mb-2">{t.common.demoDataNotice}</p>
               )}
               {!selectedGym.isDemo && !selectedGym.claimed && (
-                <p className="text-[11px] text-ink-600 mb-2">{t.common.unclaimedNotice}</p>
+                <>
+                  <p className="text-[11px] text-ink-600 mb-2">{t.common.unclaimedNotice}</p>
+                  {onClaimGym && (
+                    <button
+                      onClick={() => onClaimGym(selectedGym)}
+                      className="block w-full text-center text-xs font-display font-semibold py-2 rounded-lg transition-all uppercase tracking-wide mb-2"
+                      style={{ background: '#1E1E1E', border: '1px solid #2A2A2A', color: '#F0EDE8' }}
+                    >
+                      {t.claim.cta}
+                    </button>
+                  )}
+                </>
+              )}
+              {!selectedGym.isDemo && selectedGym.claimed && (
+                <p className="text-[11px] font-semibold mb-2" style={{ color: '#4ADE80' }}>{t.claim.claimedBadge}</p>
               )}
 
               {onRequestTrial && selectedGym.claimed && selectedGym.acceptsTrialRequests && (

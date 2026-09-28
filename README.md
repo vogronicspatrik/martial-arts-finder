@@ -27,7 +27,13 @@ A minimal web application to discover martial arts gyms in Budapest. Browse gyms
 - **"Request a trial class"** — a lightweight lead-capture form (name +
   phone/email + preferred day) that gets stored for the site owner to
   follow up on; this is what you'd hand to a gym as proof the listing
-  drives real interest
+  drives real interest. Only shows once a gym is both claimed and has
+  opted in (see below) — off by default.
+- **"Is this your gym? Claim it"** — a real gym's owner can link their
+  account to their listing themselves: a Supabase Auth magic link goes to
+  the email already on file for that gym (proving they control it), no
+  manual approval needed. A gym with no email on file instead gets a short
+  form that the site owner reviews by hand (`claim_requests` table).
 
 ## Tech Stack
 
@@ -95,6 +101,8 @@ review/request modals just show a "not set up yet" message instead of crashing.
       the 7 real gyms). Not needed for a fresh setup done after this was fixed.
    5. [`supabase/004_gym_trial_toggle.sql`](supabase/004_gym_trial_toggle.sql) —
       adds `accepts_trial_requests` (default `false`) to `gyms`.
+   6. [`supabase/005_claim_flow.sql`](supabase/005_claim_flow.sql) — RLS
+      policies that let a gym owner claim (and later edit) their own listing.
 3. Go to **Project Settings → API**, copy the **Project URL** and the
    **anon public** key, and add them to `.env.local`:
 
@@ -105,6 +113,11 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
 
 4. To view submitted trial-class requests, go to **Table Editor → trial_requests**
    in the Supabase dashboard — that's your lead list.
+5. **For the claim flow (magic-link "is this your gym?") to work**, go to
+   **Authentication → URL Configuration** in the Supabase dashboard and add
+   your site's `/claim` URL to **Redirect URLs** — e.g.
+   `https://your-app.vercel.app/claim` (and `http://localhost:3000/claim` for
+   local testing). Without this, Supabase rejects the magic-link redirect.
 
 > Without step 2, the app still works — it silently falls back to the
 > static `data/gyms.json` (27 demo gyms only, no real ones) so local dev
@@ -137,7 +150,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 │   ├── ReviewStars.tsx        # Star rating, read-only or interactive input
 │   ├── ReviewBadge.tsx        # Compact "★ 4.5 (12)" button that opens the reviews modal
 │   ├── ReviewsModal.tsx       # Review list + write-a-review form (Supabase-backed)
-│   └── TrialRequestModal.tsx  # "Request a trial class" lead-capture form (Supabase-backed)
+│   ├── TrialRequestModal.tsx  # "Request a trial class" lead-capture form (Supabase-backed)
+│   └── ClaimGymModal.tsx      # "Is this your gym?" — magic-link claim, or a
+│                              #   manual-review form when there's no email on file
 ├── data/
 │   ├── gyms.json              # Original static gym dataset (27 demo gyms), English canonical —
 │   │                          #   now used as (a) the source for generating the Supabase seed
@@ -151,22 +166,29 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 │   ├── useUserLocation.ts     # Single geolocation entry point ("near me")
 │   ├── useReviews.ts          # Loads all reviews once, per-gym aggregates, submit
 │   ├── useTrialRequest.ts     # Submits a trial-class request lead
-│   └── useGyms.ts             # Gym data: Supabase when configured, static JSON fallback
+│   ├── useGyms.ts             # Gym data: Supabase when configured, static JSON fallback
+│   ├── useAuth.ts             # Tracks the current Supabase Auth session
+│   ├── useClaimGym.ts         # Sends/confirms the magic-link claim
+│   └── useClaimRequest.ts     # Manual-review fallback when a gym has no email on file
 ├── lib/
-│   ├── utils.ts                # Distance, search-matching, price/district formatting
+│   ├── utils.ts                # Distance, search-matching, price/district formatting, maskEmail
 │   ├── i18n.tsx                # EN/HU dictionary, LanguageProvider/useLanguage context
 │   └── supabase.ts             # Supabase client (null if env vars aren't set)
 ├── supabase/
-│   ├── schema.sql                     # reviews, trial_requests — run first
-│   ├── 002_gyms_and_accounts.sql      # gyms, gym_translations + phase 2-4 scaffolding — run second
-│   └── seed_gyms.sql                  # generated data (27 demo + 7 real gyms) — run third
+│   ├── schema.sql                     # reviews, trial_requests — run 1st
+│   ├── 002_gyms_and_accounts.sql      # gyms, gym_translations + phase 2-4 scaffolding — run 2nd
+│   ├── seed_gyms.sql                  # generated data (27 demo + 7 real gyms) — run 3rd
+│   ├── 003_fix_real_gym_districts.sql # one-off fix — run 4th
+│   ├── 004_gym_trial_toggle.sql       # gyms.accepts_trial_requests — run 5th
+│   └── 005_claim_flow.sql             # claim-flow RLS policies — run 6th
 ├── scripts/
 │   ├── enrich-gyms.js         # One-off script that added district/contact/price fields
 │   ├── real-gyms.js           # Verified-facts-only data for real, researched gyms
 │   └── generate-seed-sql.js   # (Re)generates supabase/seed_gyms.sql from the data files
 ├── pages/
 │   ├── _app.tsx
-│   └── index.tsx              # Main page — layout, filtering & state
+│   ├── index.tsx              # Main page — layout, filtering & state
+│   └── claim.tsx              # Magic-link landing page — completes the claim, then back to "/"
 ├── styles/
 │   └── globals.css
 ├── types/
@@ -182,14 +204,21 @@ below); the 27 fictional showcase gyms with synthetic prices/contact info are
 excluded from the live query and only appear in the local static fallback
 (`data/gyms.json`, used when Supabase isn't configured).
 
-**"Request a trial class" only shows once a gym is both `claimed` (a real
-owner verified control — see the claim flow, phase 2, not built yet) and has
-`accepts_trial_requests = true` (an opt-in the gym flips themselves, from
-their future dashboard — phase 3). Until then, submissions from claimed gyms
-that *have* opted in only land in the `trial_requests` Supabase table — they
-are **not emailed to the gym**, because there's no email-sending step yet.
+**Phase 2 (claim flow) is built**: a real owner can click "Is this your gym?
+Claim it" on their listing and gets a Supabase Auth magic link sent to the
+email already on file — clicking it marks the gym `claimed` and links their
+account via `gym_owners`. A gym with no email on file gets a manual-review
+form instead (`claim_requests`).
 
-Once gyms start claiming real listings, build this:
+**"Request a trial class" only shows once a gym is both `claimed` and has
+`accepts_trial_requests = true`** — an opt-in the gym flips themselves, but
+only once their **dashboard exists (phase 3, not built yet)**; until then the
+only way to flip it is directly in Supabase Table Editor → gyms. Submissions
+from gyms that *have* opted in only land in the `trial_requests` Supabase
+table — they are **not emailed to the gym**, because there's no email-sending
+step yet.
+
+Next up:
 
 1. **Email the gym when a trial request comes in.** Add an email-sending service
    (e.g. [Resend](https://resend.com/) — has a free tier) and call it from

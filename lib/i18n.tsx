@@ -171,6 +171,24 @@ interface Dictionary {
     error: string;
     notConfigured: string;
   };
+  claim: {
+    cta: string;
+    claimedBadge: string;
+    title: string;
+    intro: (maskedEmail: string) => string;
+    noEmailOnFile: string;
+    send: string;
+    sending: string;
+    sent: string;
+    error: string;
+    notConfigured: string;
+    pageVerifying: string;
+    pageSuccess: (gymName: string) => string;
+    pageErrorTitle: string;
+    pageErrorGeneric: string;
+    pageNotSignedIn: string;
+    backHome: string;
+  };
   filters: {
     style: string;
     tags: string;
@@ -289,6 +307,24 @@ const en: Dictionary = {
     success: 'Sent! The gym will reach out to schedule your trial class.',
     error: 'Could not send your request — try again in a moment.',
     notConfigured: 'Trial requests aren\'t set up on this deployment yet.',
+  },
+  claim: {
+    cta: 'Is this your gym? Claim it',
+    claimedBadge: '✓ Claimed by the gym',
+    title: 'Claim this listing',
+    intro: (maskedEmail: string) => `We'll send a confirmation link to ${maskedEmail} — the email already on file for this gym. Click it to prove you run this place.`,
+    noEmailOnFile: 'We don\'t have an email on file for this gym yet, so we can\'t send an automatic confirmation link. Get in touch and we\'ll verify it by hand.',
+    send: 'Send confirmation link',
+    sending: 'Sending…',
+    sent: 'Check your inbox — click the link to confirm it\'s you.',
+    error: 'Could not send the link — try again in a moment.',
+    notConfigured: 'Claiming isn\'t set up on this deployment yet.',
+    pageVerifying: 'Confirming your claim…',
+    pageSuccess: (gymName: string) => `You're all set — ${gymName} is now linked to your account.`,
+    pageErrorTitle: 'Something went wrong',
+    pageErrorGeneric: 'We couldn\'t confirm this claim. The link may have expired, or the signed-in email doesn\'t match this gym\'s.',
+    pageNotSignedIn: 'Open the confirmation link from your email to continue.',
+    backHome: '← Back to the map',
   },
   filters: {
     style: 'Style',
@@ -411,6 +447,24 @@ const hu: Dictionary = {
     success: 'Elküldve! A terem hamarosan felveszi veled a kapcsolatot az időpont egyeztetéséhez.',
     error: 'Nem sikerült elküldeni — próbáld újra kicsit később.',
     notConfigured: 'A próbaedzés-jelentkezés még nincs beállítva ezen a deploy-on.',
+  },
+  claim: {
+    cta: 'Ez a te termed? Vedd át',
+    claimedBadge: '✓ A terem igazolta',
+    title: 'Adatlap átvétele',
+    intro: (maskedEmail: string) => `Küldünk egy megerősítő linket erre a címre: ${maskedEmail} — ez a teremhez már rögzített email cím. Kattints rá, hogy igazold, te üzemelteted a termet.`,
+    noEmailOnFile: 'Nincs email cím rögzítve ehhez a teremhez, így automatikus megerősítő linket nem tudunk küldeni. Vedd fel velünk a kapcsolatot, és kézzel igazoljuk.',
+    send: 'Megerősítő link küldése',
+    sending: 'Küldés…',
+    sent: 'Nézd meg a postaládád — kattints a linkre, hogy igazold, te vagy az.',
+    error: 'Nem sikerült elküldeni — próbáld újra kicsit később.',
+    notConfigured: 'Az átvétel még nincs beállítva ezen a deploy-on.',
+    pageVerifying: 'Átvétel megerősítése…',
+    pageSuccess: (gymName: string) => `Kész — a(z) ${gymName} mostantól a fiókodhoz van kötve.`,
+    pageErrorTitle: 'Valami hiba történt',
+    pageErrorGeneric: 'Nem sikerült megerősíteni az átvételt. Lehet, hogy lejárt a link, vagy a bejelentkezett email nem egyezik a teremével.',
+    pageNotSignedIn: 'Nyisd meg a megerősítő linket az emailedből a folytatáshoz.',
+    backHome: '← Vissza a térképhez',
   },
   filters: {
     style: 'Stílus',

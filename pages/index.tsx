@@ -11,6 +11,7 @@ import GymDetailCard from '../components/GymDetailCard';
 import SearchBar from '../components/SearchBar';
 import ReviewsModal from '../components/ReviewsModal';
 import TrialRequestModal from '../components/TrialRequestModal';
+import ClaimGymModal from '../components/ClaimGymModal';
 import { useBookmarks } from '../hooks/useBookmarks';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { useUserLocation } from '../hooks/useUserLocation';
@@ -43,6 +44,7 @@ export default function Home() {
   const reviewsData = useReviews();
   const [reviewsModalGym, setReviewsModalGym] = useState<Gym | null>(null);
   const [trialModalGym, setTrialModalGym] = useState<Gym | null>(null);
+  const [claimModalGym, setClaimModalGym] = useState<Gym | null>(null);
   const { gyms } = useGyms(lang);
   const today = getTodayName();
   const todayLabel = DAY_LABEL[lang][today];
@@ -130,6 +132,7 @@ export default function Home() {
               ratingsByGym={reviewsData.byGym}
               onOpenReviews={setReviewsModalGym}
               onRequestTrial={setTrialModalGym}
+              onClaimGym={setClaimModalGym}
             />
           </div>
 
@@ -224,6 +227,7 @@ export default function Home() {
               stats={reviewsData.byGym[selectedGym.id]}
               onOpenReviews={() => setReviewsModalGym(selectedGym)}
               onRequestTrial={() => setTrialModalGym(selectedGym)}
+              onClaimGym={() => setClaimModalGym(selectedGym)}
             />
           ) : (
             <BottomSheet gymCount={filteredGyms.length} totalCount={gyms.length}>
@@ -378,6 +382,7 @@ export default function Home() {
                 ratingsByGym={reviewsData.byGym}
                 onOpenReviews={setReviewsModalGym}
                 onRequestTrial={setTrialModalGym}
+                onClaimGym={setClaimModalGym}
               />
             </main>
           </div>
@@ -401,6 +406,10 @@ export default function Home() {
 
       {trialModalGym && (
         <TrialRequestModal gym={trialModalGym} onClose={() => setTrialModalGym(null)} />
+      )}
+
+      {claimModalGym && (
+        <ClaimGymModal gym={claimModalGym} onClose={() => setClaimModalGym(null)} />
       )}
     </>
   );

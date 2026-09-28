@@ -14,6 +14,7 @@ interface GymDetailCardProps {
   stats?: GymRatingStats;
   onOpenReviews?: () => void;
   onRequestTrial?: () => void;
+  onClaimGym?: () => void;
 }
 
 export default function GymDetailCard({
@@ -25,6 +26,7 @@ export default function GymDetailCard({
   stats,
   onOpenReviews,
   onRequestTrial,
+  onClaimGym,
 }: GymDetailCardProps) {
   const { t, lang } = useLanguage();
   const distance = userLocation ? distanceKm(userLocation, { lat: gym.lat, lng: gym.lng }) : null;
@@ -112,7 +114,21 @@ export default function GymDetailCard({
           <p className="text-xs text-ink-600 mb-4">{t.common.demoDataNotice}</p>
         )}
         {!gym.isDemo && !gym.claimed && (
-          <p className="text-xs text-ink-600 mb-4">{t.common.unclaimedNotice}</p>
+          <>
+            <p className="text-xs text-ink-600 mb-2">{t.common.unclaimedNotice}</p>
+            {onClaimGym && (
+              <button
+                onClick={onClaimGym}
+                className="text-xs font-semibold px-3 py-2 rounded-lg mb-4 transition-colors"
+                style={{ background: '#1E1E1E', border: '1px solid #2A2A2A', color: '#F0EDE8' }}
+              >
+                {t.claim.cta}
+              </button>
+            )}
+          </>
+        )}
+        {!gym.isDemo && gym.claimed && (
+          <p className="text-xs font-semibold mb-4" style={{ color: '#4ADE80' }}>{t.claim.claimedBadge}</p>
         )}
 
         {/* Description */}

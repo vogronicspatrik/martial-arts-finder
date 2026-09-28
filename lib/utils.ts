@@ -53,3 +53,11 @@ export function formatPrice(huf: number): string {
 export function hourOf(time: string): number {
   return parseInt(time.split(':')[0], 10);
 }
+
+/** "karate@honved.hu" -> "k***e@honved.hu" — enough to recognize, not enough to read off. */
+export function maskEmail(email: string): string {
+  const [local, domain] = email.split('@');
+  if (!domain) return email;
+  if (local.length <= 2) return `${local[0] ?? ''}***@${domain}`;
+  return `${local[0]}***${local[local.length - 1]}@${domain}`;
+}
