@@ -527,7 +527,7 @@ insert into gyms (
   'r1', 'Budapesti Honvéd Sportegyesület – Karate szakosztály', '{"Karate"}', '1134 Budapest, Dózsa György út 53.',
   47.5227184, 19.0709076, '', 'https://honved.hu/karate/',
   null, null, null,
-  null, null, null,
+  null, null, 13,
   '+36 20 399 6572', 'karate@honved.hu', null, null,
   null, null, false, false,
   'https://honved.hu/karate/'
@@ -543,7 +543,7 @@ insert into gyms (
   'r2', 'Rákosmenti Karate Sportegyesület (RKSE)', '{"Karate"}', '1173 Budapest, Pesti út 195.',
   47.4781881, 19.2606367, '', 'https://karateoktatas.eu/',
   null, null, null,
-  null, null, null,
+  null, null, 17,
   '+36 30 646 8678', 'info@karate-do.hu', null, null,
   null, null, false, false,
   'https://karateoktatas.eu/'
@@ -559,7 +559,7 @@ insert into gyms (
   'r3', 'Gastroyal Karate Sportegyesület', '{"Karate"}', '1149 Budapest, Fráter György u. 31. II/7.',
   47.510616, 19.1190242, '', 'https://gastroyal.tagdij.com/',
   null, null, null,
-  null, null, null,
+  null, null, 14,
   '+36 30 203 4008', 'gastroyal@karatezuglo.hu', null, null,
   null, null, false, false,
   'https://gastroyal.tagdij.com/contactus'
@@ -575,7 +575,7 @@ insert into gyms (
   'r4', 'Tűzmadár Sportegyesület', '{"Karate"}', '1182 Budapest, Hargita tér 14.',
   47.429943, 19.2065984, '', 'https://www.tuzmadarse.hu/',
   null, null, null,
-  null, null, null,
+  null, null, 18,
   '+36 70 596 3367', 'info@tuzmadarse.hu', null, null,
   null, null, false, false,
   'https://www.tuzmadarse.hu/node/1604'
@@ -591,7 +591,7 @@ insert into gyms (
   'r5', 'OSU Kyokushin Karate', '{"Karate"}', '1132 Budapest, Victor Hugo utca 6.',
   47.5174265, 19.0586518, '', 'https://osu.hu/',
   null, null, null,
-  null, null, null,
+  null, null, 13,
   null, 'honkyokushin@yahoo.com', null, null,
   null, null, false, false,
   'https://osu.hu/'
@@ -607,7 +607,7 @@ insert into gyms (
   'r6', 'Budai XI Karate Sportegyesület', '{"Karate"}', '1119 Budapest, Hadak útja 6.',
   47.4617938, 19.027878, '', 'https://buxikarate.hu/',
   null, null, null,
-  null, null, null,
+  null, null, 11,
   null, null, null, null,
   null, null, false, false,
   'https://buxikarate.hu/budapest/'
@@ -623,7 +623,7 @@ insert into gyms (
   'r7', 'Seishin Sportegyesület (WKB)', '{"Karate"}', '1203 Budapest, Lajtha László u. 2.',
   47.4431842, 19.0963193, '', 'https://www.seishindojo.hu/',
   null, null, null,
-  null, null, null,
+  null, null, 20,
   null, null, null, null,
   null, null, false, false,
   'https://www.seishindojo.hu/'

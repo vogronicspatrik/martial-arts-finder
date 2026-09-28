@@ -90,6 +90,9 @@ review/request modals just show a "not set up yet" message instead of crashing.
       gyms plus 7 real, researched Budapest karate clubs (see the README
       "Real gym data" section below). Regenerate this file with
       `node scripts/generate-seed-sql.js` if `data/gyms.json` changes.
+   4. [`supabase/003_fix_real_gym_districts.sql`](supabase/003_fix_real_gym_districts.sql) —
+      one-off fix for a bug in the first seed run (district was left null on
+      the 7 real gyms). Not needed for a fresh setup done after this was fixed.
 3. Go to **Project Settings → API**, copy the **Project URL** and the
    **anon public** key, and add them to `.env.local`:
 
