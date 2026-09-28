@@ -12,7 +12,7 @@ interface ClaimGymModalProps {
 
 export default function ClaimGymModal({ gym, onClose }: ClaimGymModalProps) {
   const { t } = useLanguage();
-  const claimGym = useClaimGym();
+  const claimGym = useClaimGym(gym.id);
   const claimRequest = useClaimRequest();
 
   const [name, setName] = useState('');
@@ -25,7 +25,7 @@ export default function ClaimGymModal({ gym, onClose }: ClaimGymModalProps) {
 
   const handleSendLink = () => {
     if (!gym.email) return;
-    claimGym.requestClaimLink(gym.id, gym.email);
+    claimGym.requestClaimLink(gym.email);
   };
 
   const handleFallbackSubmit = (e: React.FormEvent) => {
@@ -67,11 +67,14 @@ export default function ClaimGymModal({ gym, onClose }: ClaimGymModalProps) {
             ) : claimGym.sent ? (
               <div className="text-center py-6">
                 <div className="text-4xl mb-3">📬</div>
-                <p className="text-sm text-ink-200">{t.claim.sent}</p>
+                <p className="text-sm text-ink-200">
+                  {claimGym.onCooldown ? t.claim.alreadySent(claimGym.cooldownHoursLeft) : t.claim.sent}
+                </p>
               </div>
             ) : (
               <div>
-                <p className="text-sm text-ink-400 mb-5">{t.claim.intro(maskEmail(gym.email!))}</p>
+                <p className="text-sm text-ink-400 mb-3">{t.claim.intro(maskEmail(gym.email!))}</p>
+                <p className="text-xs mb-5" style={{ color: '#F2B632' }}>⚠️ {t.claim.sendWarning}</p>
                 {claimGym.error && <p className="text-xs mb-3" style={{ color: '#F87171' }}>{t.claim.error}</p>}
                 <button
                   onClick={handleSendLink}

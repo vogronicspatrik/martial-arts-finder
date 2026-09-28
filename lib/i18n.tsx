@@ -178,8 +178,10 @@ interface Dictionary {
     intro: (maskedEmail: string) => string;
     noEmailOnFile: string;
     send: string;
+    sendWarning: string;
     sending: string;
     sent: string;
+    alreadySent: (hours: number) => string;
     error: string;
     notConfigured: string;
     pageVerifying: string;
@@ -315,8 +317,10 @@ const en: Dictionary = {
     intro: (maskedEmail: string) => `We'll send a confirmation link to ${maskedEmail} — the email already on file for this gym. Click it to prove you run this place.`,
     noEmailOnFile: 'We don\'t have an email on file for this gym yet, so we can\'t send an automatic confirmation link. Get in touch and we\'ll verify it by hand.',
     send: 'Send confirmation link',
+    sendWarning: 'This sends a real email to the gym — only continue if you actually run this place.',
     sending: 'Sending…',
     sent: 'Check your inbox — click the link to confirm it\'s you.',
+    alreadySent: (hours: number) => `A confirmation link was already sent recently. If it hasn't arrived, you can request another in about ${hours}h.`,
     error: 'Could not send the link — try again in a moment.',
     notConfigured: 'Claiming isn\'t set up on this deployment yet.',
     pageVerifying: 'Confirming your claim…',
@@ -455,8 +459,10 @@ const hu: Dictionary = {
     intro: (maskedEmail: string) => `Küldünk egy megerősítő linket erre a címre: ${maskedEmail} — ez a teremhez már rögzített email cím. Kattints rá, hogy igazold, te üzemelteted a termet.`,
     noEmailOnFile: 'Nincs email cím rögzítve ehhez a teremhez, így automatikus megerősítő linket nem tudunk küldeni. Vedd fel velünk a kapcsolatot, és kézzel igazoljuk.',
     send: 'Megerősítő link küldése',
+    sendWarning: 'Ez egy valódi emailt küld a teremnek — csak akkor folytasd, ha valóban te üzemelteted ezt a helyet.',
     sending: 'Küldés…',
     sent: 'Nézd meg a postaládád — kattints a linkre, hogy igazold, te vagy az.',
+    alreadySent: (hours: number) => `Nemrég már küldtünk egy megerősítő linket. Ha nem érkezett meg, kb. ${hours} óra múlva kérhetsz újat.`,
     error: 'Nem sikerült elküldeni — próbáld újra kicsit később.',
     notConfigured: 'Az átvétel még nincs beállítva ezen a deploy-on.',
     pageVerifying: 'Átvétel megerősítése…',
