@@ -63,7 +63,11 @@ export function useGyms(lang: Lang) {
     (async () => {
       setLoading(true);
       const [gymsRes, trRes] = await Promise.all([
-        supabase.from('gyms').select('*'),
+        // is_demo=false: the fictional showcase gyms don't belong on the live
+        // site anymore — only real, researched/claimed listings show here.
+        // (The static fallback below still includes them, for local dev
+        // without Supabase configured.)
+        supabase.from('gyms').select('*').eq('is_demo', false),
         supabase.from('gym_translations').select('*').eq('lang', 'hu'),
       ]);
       if (cancelled) return;
