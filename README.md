@@ -29,11 +29,14 @@ A minimal web application to discover martial arts gyms in Budapest. Browse gyms
   follow up on; this is what you'd hand to a gym as proof the listing
   drives real interest. Only shows once a gym is both claimed and has
   opted in (see below) — off by default.
-- **"Is this your gym? Claim it"** — a real gym's owner can link their
-  account to their listing themselves: a Supabase Auth magic link goes to
-  the email already on file for that gym (proving they control it), no
-  manual approval needed. A gym with no email on file instead gets a short
-  form that the site owner reviews by hand (`claim_requests` table).
+- **"Is this your gym? Claim it"** — a visitor can flag that they run a
+  listing. This never emails the gym directly — it only records the request
+  (`claim_requests` table) for the site owner to review. The actual
+  verification email (a Supabase Auth magic link to the email on file, which
+  the owner clicks to prove control and link their account) only goes out
+  when the site owner deliberately runs `node scripts/invite-gym.js <gymId>`
+  for that specific listing — no visitor click can trigger it, which is what
+  keeps this safe once there are dozens of unclaimed real gyms.
 
 ## Tech Stack
 
@@ -112,10 +115,11 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
 ```
 
 4. To view submitted trial-class requests, go to **Table Editor → trial_requests**
-   in the Supabase dashboard — that's your lead list.
-5. **For the claim flow (magic-link "is this your gym?") to work**, go to
-   **Authentication → URL Configuration** in the Supabase dashboard and add
-   your site's `/claim` URL to **Redirect URLs** — e.g.
+   in the Supabase dashboard — that's your lead list. Same for `claim_requests` —
+   that's where "Is this your gym?" submissions land.
+5. **For `node scripts/invite-gym.js` (the actual claim-invite email) to work**,
+   go to **Authentication → URL Configuration** in the Supabase dashboard and
+   add your site's `/claim` URL to **Redirect URLs** — e.g.
    `https://your-app.vercel.app/claim` (and `http://localhost:3000/claim` for
    local testing). Without this, Supabase rejects the magic-link redirect.
 
@@ -151,8 +155,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 │   ├── ReviewBadge.tsx        # Compact "★ 4.5 (12)" button that opens the reviews modal
 │   ├── ReviewsModal.tsx       # Review list + write-a-review form (Supabase-backed)
 │   ├── TrialRequestModal.tsx  # "Request a trial class" lead-capture form (Supabase-backed)
-│   └── ClaimGymModal.tsx      # "Is this your gym?" — magic-link claim, or a
-│                              #   manual-review form when there's no email on file
+│   └── ClaimGymModal.tsx      # "Is this your gym?" — records interest in
+│                              #   claim_requests; never emails the gym itself
 ├── data/
 │   ├── gyms.json              # Original static gym dataset (27 demo gyms), English canonical —
 │   │                          #   now used as (a) the source for generating the Supabase seed
@@ -168,8 +172,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 │   ├── useTrialRequest.ts     # Submits a trial-class request lead
 │   ├── useGyms.ts             # Gym data: Supabase when configured, static JSON fallback
 │   ├── useAuth.ts             # Tracks the current Supabase Auth session
-│   ├── useClaimGym.ts         # Sends/confirms the magic-link claim
-│   └── useClaimRequest.ts     # Manual-review fallback when a gym has no email on file
+│   ├── useClaimGym.ts         # completeClaim() — used by pages/claim.tsx only;
+│   │                          #   the actual invite send lives in scripts/invite-gym.js
+│   └── useClaimRequest.ts     # Public "Is this your gym?" — records interest only
 ├── lib/
 │   ├── utils.ts                # Distance, search-matching, price/district formatting, maskEmail
 │   ├── i18n.tsx                # EN/HU dictionary, LanguageProvider/useLanguage context
@@ -184,7 +189,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ├── scripts/
 │   ├── enrich-gyms.js         # One-off script that added district/contact/price fields
 │   ├── real-gyms.js           # Verified-facts-only data for real, researched gyms
-│   └── generate-seed-sql.js   # (Re)generates supabase/seed_gyms.sql from the data files
+│   ├── generate-seed-sql.js   # (Re)generates supabase/seed_gyms.sql from the data files
+│   └── invite-gym.js          # Admin-only: node scripts/invite-gym.js <gymId>
+│                              #   sends the real claim-verification email — nothing else does
 ├── pages/
 │   ├── _app.tsx
 │   ├── index.tsx              # Main page — layout, filtering & state
@@ -204,11 +211,24 @@ below); the 27 fictional showcase gyms with synthetic prices/contact info are
 excluded from the live query and only appear in the local static fallback
 (`data/gyms.json`, used when Supabase isn't configured).
 
-**Phase 2 (claim flow) is built**: a real owner can click "Is this your gym?
-Claim it" on their listing and gets a Supabase Auth magic link sent to the
-email already on file — clicking it marks the gym `claimed` and links their
-account via `gym_owners`. A gym with no email on file gets a manual-review
-form instead (`claim_requests`).
+**Phase 2 (claim flow) is built, deliberately split in two:**
+
+1. **Public side — safe at any scale.** "Is this your gym? Claim it" only
+   ever writes a row to `claim_requests`. It never emails anyone. This is
+   what makes it fine to have dozens/hundreds of unclaimed real gyms live —
+   no visitor click can ever cause an email to go out to a real business
+   that has no idea this site exists.
+2. **Owner-triggered invite — only the site owner can fire this.** Once
+   you've decided a specific gym is ready (after outreach, or after
+   reviewing a `claim_requests` row you trust), run
+   `node scripts/invite-gym.js <gymId>`. *That's* what sends the actual
+   Supabase Auth magic link to the email on file. The owner clicking it
+   lands on `/claim`, which marks the gym `claimed` and links their account
+   via `gym_owners`.
+
+(An earlier version of this let any visitor trigger the magic-link email
+directly — that doesn't scale safely once there are many unclaimed listings,
+so it was split like this instead.)
 
 **"Request a trial class" only shows once a gym is both `claimed` and has
 `accepts_trial_requests = true`** — an opt-in the gym flips themselves, but
@@ -248,7 +268,7 @@ notice on it. Source for each:
 - [Gastroyal Karate SE](https://gastroyal.tagdij.com/contactus)
 - [Tűzmadár Sportegyesület](https://www.tuzmadarse.hu/node/1604)
 - [OSU Kyokushin Karate](https://osu.hu/)
-- [Budai XI Karate SE](https://buxikarate.hu/budapest/) (no public email found — the automatic email-claim flow won't work for this one yet)
+- [Budai XI Karate SE](https://buxikarate.hu/budapest/) (no public email found — `scripts/invite-gym.js` can't send them an invite until an email is added to their row)
 - [Seishin Sportegyesület (WKB)](https://www.seishindojo.hu/) (same — no public email found)
 
 To research and add more, extend `scripts/real-gyms.js` with the same

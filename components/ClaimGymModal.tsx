@@ -1,18 +1,22 @@
 import { useState } from 'react';
 import { Gym } from '../types/gym';
 import { useLanguage } from '../lib/i18n';
-import { useClaimGym } from '../hooks/useClaimGym';
 import { useClaimRequest } from '../hooks/useClaimRequest';
-import { maskEmail } from '../lib/utils';
 
 interface ClaimGymModalProps {
   gym: Gym;
   onClose: () => void;
 }
 
+/**
+ * Public-facing claim entry point. This deliberately NEVER emails the gym
+ * directly — it only records interest in claim_requests, for the site owner
+ * to review and act on manually (see scripts/invite-gym.js). The actual
+ * verification email only goes out once the owner runs that script for a
+ * specific gym; no visitor click can trigger it. See README → Roadmap.
+ */
 export default function ClaimGymModal({ gym, onClose }: ClaimGymModalProps) {
   const { t } = useLanguage();
-  const claimGym = useClaimGym(gym.id);
   const claimRequest = useClaimRequest();
 
   const [name, setName] = useState('');
@@ -21,14 +25,7 @@ export default function ClaimGymModal({ gym, onClose }: ClaimGymModalProps) {
   const [message, setMessage] = useState('');
   const [website, setWebsite] = useState(''); // honeypot
 
-  const hasEmailOnFile = !!gym.email;
-
-  const handleSendLink = () => {
-    if (!gym.email) return;
-    claimGym.requestClaimLink(gym.email);
-  };
-
-  const handleFallbackSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim()) return;
     claimRequest.submit({ gymId: gym.id, gymName: gym.name, name, email, phone, message, website });
@@ -61,32 +58,7 @@ export default function ClaimGymModal({ gym, onClose }: ClaimGymModalProps) {
         </div>
 
         <div className="overflow-y-auto flex-1 px-6 py-5">
-          {hasEmailOnFile ? (
-            !claimGym.configured ? (
-              <p className="text-sm text-ink-600">{t.claim.notConfigured}</p>
-            ) : claimGym.sent ? (
-              <div className="text-center py-6">
-                <div className="text-4xl mb-3">📬</div>
-                <p className="text-sm text-ink-200">
-                  {claimGym.onCooldown ? t.claim.alreadySent(claimGym.cooldownHoursLeft) : t.claim.sent}
-                </p>
-              </div>
-            ) : (
-              <div>
-                <p className="text-sm text-ink-400 mb-3">{t.claim.intro(maskEmail(gym.email!))}</p>
-                <p className="text-xs mb-5" style={{ color: '#F2B632' }}>⚠️ {t.claim.sendWarning}</p>
-                {claimGym.error && <p className="text-xs mb-3" style={{ color: '#F87171' }}>{t.claim.error}</p>}
-                <button
-                  onClick={handleSendLink}
-                  disabled={claimGym.sending}
-                  className="w-full font-display font-semibold text-sm py-3.5 rounded-xl transition-all uppercase tracking-widest disabled:opacity-50"
-                  style={{ background: '#C96A3D', color: '#0B0B0B' }}
-                >
-                  {claimGym.sending ? t.claim.sending : t.claim.send}
-                </button>
-              </div>
-            )
-          ) : !claimRequest.configured ? (
+          {!claimRequest.configured ? (
             <p className="text-sm text-ink-600">{t.claim.notConfigured}</p>
           ) : claimRequest.success ? (
             <div className="text-center py-6">
@@ -94,8 +66,8 @@ export default function ClaimGymModal({ gym, onClose }: ClaimGymModalProps) {
               <p className="text-sm text-ink-200">{t.trial.success}</p>
             </div>
           ) : (
-            <form onSubmit={handleFallbackSubmit} className="space-y-3.5">
-              <p className="text-sm text-ink-400 mb-1">{t.claim.noEmailOnFile}</p>
+            <form onSubmit={handleSubmit} className="space-y-3.5">
+              <p className="text-sm text-ink-400 mb-1">{t.claim.intro}</p>
 
               <div>
                 <label className="block text-xs text-ink-400 mb-1.5">{t.trial.name}</label>
@@ -148,6 +120,7 @@ export default function ClaimGymModal({ gym, onClose }: ClaimGymModalProps) {
                 />
               </div>
 
+              {/* Honeypot */}
               <input
                 type="text"
                 value={website}

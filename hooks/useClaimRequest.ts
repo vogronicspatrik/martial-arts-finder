@@ -2,10 +2,12 @@ import { useCallback, useState } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 /**
- * The manual fallback: for a gym with no email on file, the magic-link claim
- * (hooks/useClaimGym.ts) can't work. This just records a request for the
- * site owner to verify by hand — same insert-only pattern as trial_requests,
- * no anon select policy, so only the owner (Supabase dashboard) sees these.
+ * The public "Is this your gym?" entry point (ClaimGymModal). This never
+ * emails the gym itself — it only records the request for the site owner to
+ * review, same insert-only pattern as trial_requests (no anon select
+ * policy, so only the owner sees these via the Supabase dashboard). The
+ * actual verification email only goes out when the owner decides to run
+ * `node scripts/invite-gym.js <gymId>` for a specific listing.
  */
 export interface ClaimRequestInput {
   gymId: string;

@@ -175,8 +175,7 @@ interface Dictionary {
     cta: string;
     claimedBadge: string;
     title: string;
-    intro: (maskedEmail: string) => string;
-    noEmailOnFile: string;
+    intro: string;
     send: string;
     sendWarning: string;
     sending: string;
@@ -314,8 +313,7 @@ const en: Dictionary = {
     cta: 'Is this your gym? Claim it',
     claimedBadge: '✓ Claimed by the gym',
     title: 'Claim this listing',
-    intro: (maskedEmail: string) => `We'll send a confirmation link to ${maskedEmail} — the email already on file for this gym. Click it to prove you run this place.`,
-    noEmailOnFile: 'We don\'t have an email on file for this gym yet, so we can\'t send an automatic confirmation link. Get in touch and we\'ll verify it by hand.',
+    intro: 'If this is your gym, let us know below. We\'ll verify it\'s really you and reach out to help you take over the listing — this form doesn\'t notify the gym or anyone else automatically.',
     send: 'Send confirmation link',
     sendWarning: 'This sends a real email to the gym — only continue if you actually run this place.',
     sending: 'Sending…',
@@ -456,8 +454,7 @@ const hu: Dictionary = {
     cta: 'Ez a te termed? Vedd át',
     claimedBadge: '✓ A terem igazolta',
     title: 'Adatlap átvétele',
-    intro: (maskedEmail: string) => `Küldünk egy megerősítő linket erre a címre: ${maskedEmail} — ez a teremhez már rögzített email cím. Kattints rá, hogy igazold, te üzemelteted a termet.`,
-    noEmailOnFile: 'Nincs email cím rögzítve ehhez a teremhez, így automatikus megerősítő linket nem tudunk küldeni. Vedd fel velünk a kapcsolatot, és kézzel igazoljuk.',
+    intro: 'Ha ez a te termed, jelezd lent. Ellenőrizzük, hogy tényleg te vagy, és felvesszük veled a kapcsolatot az adatlap átvételéhez — ez a form nem küld automatikusan semmilyen üzenetet a teremnek vagy bárki másnak.',
     send: 'Megerősítő link küldése',
     sendWarning: 'Ez egy valódi emailt küld a teremnek — csak akkor folytasd, ha valóban te üzemelteted ezt a helyet.',
     sending: 'Küldés…',
