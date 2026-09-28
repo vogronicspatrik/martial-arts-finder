@@ -525,7 +525,7 @@ insert into gyms (
   is_demo, claimed, source_url
 ) values (
   'r1', 'Budapesti Honvéd Sportegyesület – Karate szakosztály', '{"Karate"}', '1134 Budapest, Dózsa György út 53.',
-  47.5227184, 19.0709076, null, 'https://honved.hu/karate/',
+  47.5227184, 19.0709076, '', 'https://honved.hu/karate/',
   null, null, null,
   null, null, null,
   '+36 20 399 6572', 'karate@honved.hu', null, null,
@@ -541,7 +541,7 @@ insert into gyms (
   is_demo, claimed, source_url
 ) values (
   'r2', 'Rákosmenti Karate Sportegyesület (RKSE)', '{"Karate"}', '1173 Budapest, Pesti út 195.',
-  47.4781881, 19.2606367, null, 'https://karateoktatas.eu/',
+  47.4781881, 19.2606367, '', 'https://karateoktatas.eu/',
   null, null, null,
   null, null, null,
   '+36 30 646 8678', 'info@karate-do.hu', null, null,
@@ -557,7 +557,7 @@ insert into gyms (
   is_demo, claimed, source_url
 ) values (
   'r3', 'Gastroyal Karate Sportegyesület', '{"Karate"}', '1149 Budapest, Fráter György u. 31. II/7.',
-  47.510616, 19.1190242, null, 'https://gastroyal.tagdij.com/',
+  47.510616, 19.1190242, '', 'https://gastroyal.tagdij.com/',
   null, null, null,
   null, null, null,
   '+36 30 203 4008', 'gastroyal@karatezuglo.hu', null, null,
@@ -573,7 +573,7 @@ insert into gyms (
   is_demo, claimed, source_url
 ) values (
   'r4', 'Tűzmadár Sportegyesület', '{"Karate"}', '1182 Budapest, Hargita tér 14.',
-  47.429943, 19.2065984, null, 'https://www.tuzmadarse.hu/',
+  47.429943, 19.2065984, '', 'https://www.tuzmadarse.hu/',
   null, null, null,
   null, null, null,
   '+36 70 596 3367', 'info@tuzmadarse.hu', null, null,
@@ -589,7 +589,7 @@ insert into gyms (
   is_demo, claimed, source_url
 ) values (
   'r5', 'OSU Kyokushin Karate', '{"Karate"}', '1132 Budapest, Victor Hugo utca 6.',
-  47.5174265, 19.0586518, null, 'https://osu.hu/',
+  47.5174265, 19.0586518, '', 'https://osu.hu/',
   null, null, null,
   null, null, null,
   null, 'honkyokushin@yahoo.com', null, null,
@@ -605,7 +605,7 @@ insert into gyms (
   is_demo, claimed, source_url
 ) values (
   'r6', 'Budai XI Karate Sportegyesület', '{"Karate"}', '1119 Budapest, Hadak útja 6.',
-  47.4617938, 19.027878, null, 'https://buxikarate.hu/',
+  47.4617938, 19.027878, '', 'https://buxikarate.hu/',
   null, null, null,
   null, null, null,
   null, null, null, null,
@@ -621,7 +621,7 @@ insert into gyms (
   is_demo, claimed, source_url
 ) values (
   'r7', 'Seishin Sportegyesület (WKB)', '{"Karate"}', '1203 Budapest, Lajtha László u. 2.',
-  47.4431842, 19.0963193, null, 'https://www.seishindojo.hu/',
+  47.4431842, 19.0963193, '', 'https://www.seishindojo.hu/',
   null, null, null,
   null, null, null,
   null, null, null, null,

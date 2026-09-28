@@ -14,6 +14,12 @@ function sqlString(value) {
   return `'${String(value).replace(/'/g, "''")}'`;
 }
 
+// For NOT NULL columns with a '' default (description, website): an empty
+// value must stay '' in SQL, not become null, or the not-null constraint fails.
+function sqlRequiredString(value) {
+  return `'${String(value ?? '').replace(/'/g, "''")}'`;
+}
+
 function sqlNumber(value) {
   return value === null || value === undefined ? 'null' : String(value);
 }
@@ -41,7 +47,7 @@ function gymInsert(g) {
   is_demo, claimed, source_url
 ) values (
   ${sqlString(g.id)}, ${sqlString(g.name)}, ${sqlTextArray(g.sport)}, ${sqlString(g.address)},
-  ${sqlNumber(g.lat)}, ${sqlNumber(g.lng)}, ${sqlString(g.description ?? '')}, ${sqlString(g.website ?? '')},
+  ${sqlNumber(g.lat)}, ${sqlNumber(g.lng)}, ${sqlRequiredString(g.description)}, ${sqlRequiredString(g.website)},
   ${sqlTextArray(g.tags)}, ${sqlString(g.firstTrainingInfo)}, ${sqlString(g.equipmentNeeded)},
   ${sqlString(g.intensityLevel)}, ${sqlJsonb(g.schedule)}, ${sqlNumber(g.district)},
   ${sqlString(g.phone)}, ${sqlString(g.email)}, ${sqlString(g.facebook)}, ${sqlString(g.instagram)},
