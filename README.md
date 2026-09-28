@@ -93,6 +93,8 @@ review/request modals just show a "not set up yet" message instead of crashing.
    4. [`supabase/003_fix_real_gym_districts.sql`](supabase/003_fix_real_gym_districts.sql) —
       one-off fix for a bug in the first seed run (district was left null on
       the 7 real gyms). Not needed for a fresh setup done after this was fixed.
+   5. [`supabase/004_gym_trial_toggle.sql`](supabase/004_gym_trial_toggle.sql) —
+      adds `accepts_trial_requests` (default `false`) to `gyms`.
 3. Go to **Project Settings → API**, copy the **Project URL** and the
    **anon public** key, and add them to `.env.local`:
 
@@ -175,12 +177,19 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Roadmap — once real gyms are onboarded
 
-Right now every gym's `email`/`phone`/`facebook`/`instagram` is **synthetic placeholder
-data** (see the demo-data notice in the app itself), and a "Request a trial class"
-submission only lands in the `trial_requests` Supabase table — it is **not emailed
-to anyone**, because there is no real gym inbox to send it to yet.
+The live site now shows only real gyms (`is_demo = false` — see "Real gym data"
+below); the 27 fictional showcase gyms with synthetic prices/contact info are
+excluded from the live query and only appear in the local static fallback
+(`data/gyms.json`, used when Supabase isn't configured).
 
-Once gyms start claiming real listings with real contact details, build this:
+**"Request a trial class" only shows once a gym is both `claimed` (a real
+owner verified control — see the claim flow, phase 2, not built yet) and has
+`accepts_trial_requests = true` (an opt-in the gym flips themselves, from
+their future dashboard — phase 3). Until then, submissions from claimed gyms
+that *have* opted in only land in the `trial_requests` Supabase table — they
+are **not emailed to the gym**, because there's no email-sending step yet.
+
+Once gyms start claiming real listings, build this:
 
 1. **Email the gym when a trial request comes in.** Add an email-sending service
    (e.g. [Resend](https://resend.com/) — has a free tier) and call it from
@@ -190,6 +199,8 @@ Once gyms start claiming real listings with real contact details, build this:
    trigger + webhook (or the same Resend call) that pings you the moment someone
    submits a request, so you don't have to keep checking the Supabase Table
    Editor by hand.
+3. **A dashboard toggle for `accepts_trial_requests`** (phase 3) — right now the
+   only way to flip it is directly in Supabase Table Editor → gyms.
 
 Until then: submissions are visible only via **Supabase dashboard → Table Editor
 → trial_requests**.

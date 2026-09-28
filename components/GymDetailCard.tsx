@@ -225,8 +225,8 @@ export default function GymDetailCard({
           </div>
         )}
 
-        {/* CTA */}
-        {onRequestTrial && (
+        {/* CTA — only once a real owner has claimed the listing and opted in */}
+        {onRequestTrial && gym.claimed && gym.acceptsTrialRequests && (
           <button
             onClick={onRequestTrial}
             className="block w-full text-center font-display font-semibold text-sm py-4 rounded-xl transition-all uppercase tracking-widest mb-2"

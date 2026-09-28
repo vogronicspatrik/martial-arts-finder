@@ -262,7 +262,7 @@ export default function Map({
                 <p className="text-[11px] text-ink-600 mb-2">{t.common.unclaimedNotice}</p>
               )}
 
-              {onRequestTrial && (
+              {onRequestTrial && selectedGym.claimed && selectedGym.acceptsTrialRequests && (
                 <button
                   onClick={() => onRequestTrial(selectedGym)}
                   className="block w-full text-center text-xs font-display font-semibold py-2.5 rounded-lg transition-all uppercase tracking-wide mb-2"

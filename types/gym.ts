@@ -28,6 +28,8 @@ export interface Gym {
   isDemo?: boolean;
   /** True once a real owner has verified control of this listing (see the claim flow in the README roadmap). */
   claimed?: boolean;
+  /** Owner opt-in (from their future dashboard), off by default. The "Request a trial class" CTA only shows when this AND claimed are both true. */
+  acceptsTrialRequests?: boolean;
 }
 
 export const ALL_SPORTS = ['Karate', 'BJJ', 'Boxing', 'Muay Thai', 'MMA'] as const;

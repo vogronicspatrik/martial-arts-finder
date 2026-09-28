@@ -7,7 +7,15 @@ import gymsHuData from '../data/gyms.hu.json';
 
 type GymHuOverlay = Partial<Pick<Gym, 'description' | 'firstTrainingInfo' | 'equipmentNeeded' | 'priceNote'>>;
 const staticGymsHu = gymsHuData as Record<string, GymHuOverlay>;
-const staticGyms = (gymsData as Gym[]).map((g) => ({ ...g, isDemo: true }));
+// Demo gyms are dev-only (never shown on the live site — see the is_demo
+// filter below), so it's safe/useful to mark them claimed + opted in, to
+// keep the "Request a trial class" CTA testable locally without Supabase.
+const staticGyms = (gymsData as Gym[]).map((g) => ({
+  ...g,
+  isDemo: true,
+  claimed: true,
+  acceptsTrialRequests: true,
+}));
 
 function withHu(gyms: Gym[], huByGymId: Record<string, GymHuOverlay>, lang: Lang): Gym[] {
   if (lang !== 'hu') return gyms;
@@ -40,6 +48,7 @@ function rowToGym(row: Record<string, unknown>): Gym {
     priceNote: (row.price_note as string) ?? undefined,
     isDemo: (row.is_demo as boolean) ?? false,
     claimed: (row.claimed as boolean) ?? false,
+    acceptsTrialRequests: (row.accepts_trial_requests as boolean) ?? false,
   };
 }
 
