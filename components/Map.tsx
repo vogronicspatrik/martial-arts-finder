@@ -54,13 +54,13 @@ function getMarkerIcon(
   isSelected: boolean,
   isHovered: boolean
 ): google.maps.Symbol {
-  const baseColor = gym.sport[0] ? (SPORT_MARKER_COLOR[gym.sport[0]] ?? '#C96A3D') : '#C96A3D';
+  const baseColor = gym.sport[0] ? (SPORT_MARKER_COLOR[gym.sport[0]] ?? '#B8463A') : '#B8463A';
 
   if (isSelected) {
     return {
       path: google.maps.SymbolPath.CIRCLE,
       scale: 14,
-      fillColor: '#F2B632',
+      fillColor: '#D4A24A',
       fillOpacity: 1,
       strokeColor: '#ffffff',
       strokeWeight: 2.5,
@@ -70,9 +70,9 @@ function getMarkerIcon(
     return {
       path: google.maps.SymbolPath.CIRCLE,
       scale: 11,
-      fillColor: '#C96A3D',
+      fillColor: '#B8463A',
       fillOpacity: 1,
-      strokeColor: '#F2B632',
+      strokeColor: '#D4A24A',
       strokeWeight: 2,
     };
   }
@@ -208,7 +208,7 @@ export default function Map({
               <p className="text-xs text-ink-400 mb-2">{selectedGym.address}</p>
 
               {todaysSchedule(selectedGym, today).length > 0 && (
-                <p className="text-xs font-semibold mb-2" style={{ color: '#27AE60' }}>
+                <p className="text-xs font-semibold mb-2" style={{ color: '#3D6B4A' }}>
                   📅 {t.common.todayAt(todaysSchedule(selectedGym, today).map((s) => s.time).join(', '))}
                 </p>
               )}
@@ -216,7 +216,7 @@ export default function Map({
               <p className="text-xs text-ink-200 mb-3 leading-relaxed">{selectedGym.description}</p>
 
               {selectedGym.firstTrainingInfo && (
-                <div className="rounded-lg px-3 py-2 mb-3" style={{ background: 'rgba(201,106,61,0.12)', border: '1px solid rgba(201,106,61,0.25)' }}>
+                <div className="rounded-lg px-3 py-2 mb-3" style={{ background: 'rgba(184,70,58,0.12)', border: '1px solid rgba(184,70,58,0.25)' }}>
                   <p className="text-xs font-semibold text-accent mb-0.5">{t.common.firstTraining}</p>
                   <p className="text-xs text-ink-200">{selectedGym.firstTrainingInfo}</p>
                 </div>
@@ -235,7 +235,7 @@ export default function Map({
               {selectedGym.priceFrom && (
                 <p className="text-xs text-ink-200 mb-2">
                   <span className="text-ink-400">{t.common.from}</span>{' '}
-                  <span className="font-semibold" style={{ color: '#F2B632' }}>{formatPrice(selectedGym.priceFrom)}{t.common.perMonth}</span>
+                  <span className="font-semibold" style={{ color: '#D4A24A' }}>{formatPrice(selectedGym.priceFrom)}{t.common.perMonth}</span>
                 </p>
               )}
 
@@ -275,14 +275,14 @@ export default function Map({
                 </>
               )}
               {!selectedGym.isDemo && selectedGym.claimed && (
-                <p className="text-[11px] font-semibold mb-2" style={{ color: '#4ADE80' }}>{t.claim.claimedBadge}</p>
+                <p className="text-[11px] font-semibold mb-2" style={{ color: '#6FC08A' }}>{t.claim.claimedBadge}</p>
               )}
 
               {onRequestTrial && selectedGym.claimed && selectedGym.acceptsTrialRequests && (
                 <button
                   onClick={() => onRequestTrial(selectedGym)}
                   className="block w-full text-center text-xs font-display font-semibold py-2.5 rounded-lg transition-all uppercase tracking-wide mb-2"
-                  style={{ background: '#C96A3D', color: '#0B0B0B' }}
+                  style={{ background: '#B8463A', color: '#0B0B0B' }}
                 >
                   {t.trial.cta}
                 </button>

@@ -140,7 +140,7 @@ export default function ClaimGymModal({ gym, onClose }: ClaimGymModalProps) {
                 type="submit"
                 disabled={claimRequest.submitting}
                 className="w-full font-display font-semibold text-sm py-3.5 rounded-xl transition-all uppercase tracking-widest disabled:opacity-50"
-                style={{ background: '#C96A3D', color: '#0B0B0B' }}
+                style={{ background: '#B8463A', color: '#0B0B0B' }}
               >
                 {claimRequest.submitting ? t.trial.submitting : t.trial.submit}
               </button>

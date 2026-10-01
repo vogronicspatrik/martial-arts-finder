@@ -57,9 +57,9 @@ export default function GymList({
             onMouseLeave={() => onGymHover(null)}
             className="rounded-xl overflow-hidden cursor-pointer transition-all"
             style={{
-              background: isSelected ? 'rgba(201,106,61,0.12)' : '#141414',
-              border: isSelected ? '1px solid rgba(201,106,61,0.4)' : '1px solid #2A2A2A',
-              boxShadow: isSelected ? '0 0 16px rgba(201,106,61,0.15)' : 'none',
+              background: isSelected ? 'rgba(184,70,58,0.12)' : '#141414',
+              border: isSelected ? '1px solid rgba(184,70,58,0.4)' : '1px solid #2A2A2A',
+              boxShadow: isSelected ? '0 0 16px rgba(184,70,58,0.15)' : 'none',
             }}
           >
             {/* Main content */}
@@ -78,7 +78,7 @@ export default function GymList({
                   <button
                     onClick={(e) => { e.stopPropagation(); onBookmarkToggle(gym.id); }}
                     className="min-w-[28px] min-h-[28px] flex items-center justify-center text-lg transition-colors"
-                    style={{ color: isBookmarked ? '#F2B632' : '#4A4744' }}
+                    style={{ color: isBookmarked ? '#D4A24A' : '#4A4744' }}
                     title={isBookmarked ? t.common.remove : t.common.save}
                   >
                     ★
@@ -105,12 +105,12 @@ export default function GymList({
               {(gym.priceFrom || userLocation || onOpenReviews) && (
                 <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                   {gym.priceFrom && (
-                    <span className="text-xs font-semibold" style={{ color: '#F2B632' }}>
+                    <span className="text-xs font-semibold" style={{ color: '#D4A24A' }}>
                       {formatPrice(gym.priceFrom)}{t.common.perMonth}
                     </span>
                   )}
                   {userLocation && (
-                    <span className="text-xs" style={{ color: '#C96A3D' }}>
+                    <span className="text-xs" style={{ color: '#B8463A' }}>
                       📍 {formatDistance(distanceKm(userLocation, { lat: gym.lat, lng: gym.lng }))}
                     </span>
                   )}
@@ -122,7 +122,7 @@ export default function GymList({
 
               {/* Today's session time */}
               {todaySessions.length > 0 && (
-                <p className="text-xs font-semibold mb-1.5" style={{ color: '#27AE60' }}>
+                <p className="text-xs font-semibold mb-1.5" style={{ color: '#3D6B4A' }}>
                   📅 {t.common.todayAt(todaySessions.map((s) => s.time).join(', '))}
                 </p>
               )}
@@ -146,7 +146,7 @@ export default function GymList({
                 className="w-full px-3 py-2 text-xs font-medium text-left transition-colors flex items-center gap-1.5"
                 style={{
                   borderTop: '1px solid #2A2A2A',
-                  color: isExpanded ? '#C96A3D' : '#4A4744',
+                  color: isExpanded ? '#B8463A' : '#4A4744',
                 }}
               >
                 <span>{isExpanded ? '▲' : '▼'}</span>
@@ -180,9 +180,9 @@ export default function GymList({
                               key={i}
                               className="text-xs px-2 py-1 rounded font-medium"
                               style={{
-                                background: isToday ? 'rgba(39,174,96,0.12)' : '#1E1E1E',
-                                border: isToday ? '1px solid rgba(39,174,96,0.5)' : '1px solid #2A2A2A',
-                                color: isToday ? '#4ADE80' : '#C8C4BE',
+                                background: isToday ? 'rgba(61,107,74,0.12)' : '#1E1E1E',
+                                border: isToday ? '1px solid rgba(61,107,74,0.5)' : '1px solid #2A2A2A',
+                                color: isToday ? '#6FC08A' : '#C8C4BE',
                               }}
                             >
                               {DAY_SHORT[lang][s.day]} {s.time}

@@ -192,7 +192,7 @@ export default function Quiz({ onComplete, onClose }: QuizProps) {
           <div className="w-full rounded-full h-1" style={{ background: '#1E1E1E' }}>
             <div
               className="h-1 rounded-full transition-all duration-500"
-              style={{ width: `${progress}%`, background: '#C96A3D' }}
+              style={{ width: `${progress}%`, background: '#B8463A' }}
             />
           </div>
           {!result && (
@@ -220,7 +220,7 @@ export default function Quiz({ onComplete, onClose }: QuizProps) {
                       border: '1px solid #2A2A2A',
                     }}
                     onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,106,61,0.5)';
+                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(184,70,58,0.5)';
                       (e.currentTarget as HTMLElement).style.color = '#F0EDE8';
                     }}
                     onMouseLeave={(e) => {
@@ -243,7 +243,7 @@ export default function Quiz({ onComplete, onClose }: QuizProps) {
               <div className="text-center mb-6">
                 <div className="text-4xl mb-3">🥋</div>
                 <p className="text-xs text-ink-600 uppercase tracking-widest mb-2">{t.quiz.recommendedForYou}</p>
-                <p className="font-display font-bold text-2xl uppercase tracking-wide" style={{ color: '#C96A3D' }}>
+                <p className="font-display font-bold text-2xl uppercase tracking-wide" style={{ color: '#B8463A' }}>
                   {result.join(' + ')}
                 </p>
               </div>
@@ -253,7 +253,7 @@ export default function Quiz({ onComplete, onClose }: QuizProps) {
                   <div
                     key={sport}
                     className="rounded-xl px-4 py-3"
-                    style={{ background: '#1E1E1E', border: '1px solid rgba(201,106,61,0.2)' }}
+                    style={{ background: '#1E1E1E', border: '1px solid rgba(184,70,58,0.2)' }}
                   >
                     <p className="font-display font-semibold text-sm text-ink-100 uppercase tracking-wide mb-0.5">
                       {sport}
@@ -266,7 +266,7 @@ export default function Quiz({ onComplete, onClose }: QuizProps) {
               <button
                 onClick={() => onComplete(result)}
                 className="w-full font-display font-semibold text-sm py-4 rounded-xl transition-all uppercase tracking-widest mb-2"
-                style={{ background: '#C96A3D', color: '#0B0B0B' }}
+                style={{ background: '#B8463A', color: '#0B0B0B' }}
               >
                 {t.quiz.showMatchingGyms}
               </button>

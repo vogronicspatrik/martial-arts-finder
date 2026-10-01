@@ -17,7 +17,7 @@ export default function ReviewBadge({ stats, onClick, className }: ReviewBadgePr
         onClick();
       }}
       className={`text-xs font-medium transition-colors ${className ?? ''}`}
-      style={{ color: stats ? '#F2B632' : '#8A8480' }}
+      style={{ color: stats ? '#D4A24A' : '#8A8480' }}
     >
       {stats ? `★ ${t.reviews.ratingSummary(stats.average, stats.count)}` : t.reviews.seeReviews(0)}
     </button>

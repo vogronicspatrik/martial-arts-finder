@@ -1,7 +1,7 @@
 import { useLanguage, INTENSITY_SHORT } from '../lib/i18n';
 
 const DOT_COLOR: Record<'low' | 'medium' | 'high', string> = {
-  low: '#4ADE80',
+  low: '#6FC08A',
   medium: '#FACC15',
   high: '#F87171',
 };

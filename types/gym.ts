@@ -56,11 +56,11 @@ export const SPORT_BADGE: Record<string, string> = {
 };
 
 export const SPORT_MARKER_COLOR: Record<string, string> = {
-  Karate:      '#C96A3D',
+  Karate:      '#B8463A',
   BJJ:         '#3D7EC9',
-  Boxing:      '#C96A3D',
+  Boxing:      '#B8463A',
   'Muay Thai': '#9B59B6',
-  MMA:         '#27AE60',
+  MMA:         '#3D6B4A',
 };
 
 // Colors only — labels are language-dependent, see lib/i18n.tsx (INTENSITY_LABEL).

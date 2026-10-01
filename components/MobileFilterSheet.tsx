@@ -149,16 +149,16 @@ export default function MobileFilterSheet({
                 onClick={() => setToday((v) => !v)}
                 className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl transition-all min-h-[48px]"
                 style={{
-                  background: today ? 'rgba(39,174,96,0.12)' : '#1E1E1E',
-                  border: today ? '1px solid rgba(39,174,96,0.4)' : '1px solid #2A2A2A',
+                  background: today ? 'rgba(61,107,74,0.12)' : '#1E1E1E',
+                  border: today ? '1px solid rgba(61,107,74,0.4)' : '1px solid #2A2A2A',
                 }}
               >
                 <span className="text-sm font-medium text-ink-100">📅 {t.mobileSheet.trainingToday}</span>
                 <div
                   className="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all"
                   style={{
-                    borderColor: today ? '#27AE60' : '#2A2A2A',
-                    background: today ? '#27AE60' : 'transparent',
+                    borderColor: today ? '#3D6B4A' : '#2A2A2A',
+                    background: today ? '#3D6B4A' : 'transparent',
                   }}
                 >
                   {today && <span className="text-white text-xs">✓</span>}
@@ -169,8 +169,8 @@ export default function MobileFilterSheet({
                 onClick={() => setSaved((v) => !v)}
                 className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl transition-all min-h-[48px]"
                 style={{
-                  background: saved ? 'rgba(242,182,50,0.1)' : '#1E1E1E',
-                  border: saved ? '1px solid rgba(242,182,50,0.4)' : '1px solid #2A2A2A',
+                  background: saved ? 'rgba(212,162,74,0.1)' : '#1E1E1E',
+                  border: saved ? '1px solid rgba(212,162,74,0.4)' : '1px solid #2A2A2A',
                 }}
               >
                 <span className="text-sm font-medium text-ink-100">
@@ -179,8 +179,8 @@ export default function MobileFilterSheet({
                 <div
                   className="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all"
                   style={{
-                    borderColor: saved ? '#F2B632' : '#2A2A2A',
-                    background: saved ? '#F2B632' : 'transparent',
+                    borderColor: saved ? '#D4A24A' : '#2A2A2A',
+                    background: saved ? '#D4A24A' : 'transparent',
                   }}
                 >
                   {saved && <span className="text-surface text-xs">✓</span>}
@@ -211,8 +211,8 @@ export default function MobileFilterSheet({
                     onClick={() => toggleDistrict(d)}
                     className="py-2.5 rounded-lg text-sm font-semibold transition-all"
                     style={{
-                      background: active ? '#C96A3D' : '#1E1E1E',
-                      border: active ? '1px solid #C96A3D' : '1px solid #2A2A2A',
+                      background: active ? '#B8463A' : '#1E1E1E',
+                      border: active ? '1px solid #B8463A' : '1px solid #2A2A2A',
                       color: active ? '#0B0B0B' : '#8A8480',
                     }}
                   >
@@ -238,8 +238,8 @@ export default function MobileFilterSheet({
                     onClick={() => toggleSport(sport)}
                     className={`py-3.5 px-4 rounded-xl text-sm font-semibold text-left transition-all min-h-[48px] font-display uppercase tracking-wide ${active ? SPORT_ACTIVE[sport] : 'text-ink-400'}`}
                     style={{
-                      background: active ? 'rgba(201,106,61,0.1)' : '#1E1E1E',
-                      border: active ? '1px solid rgba(201,106,61,0.35)' : '1px solid #2A2A2A',
+                      background: active ? 'rgba(184,70,58,0.1)' : '#1E1E1E',
+                      border: active ? '1px solid rgba(184,70,58,0.35)' : '1px solid #2A2A2A',
                     }}
                   >
                     {sport}
@@ -263,8 +263,8 @@ export default function MobileFilterSheet({
                     onClick={() => toggleTag(tag)}
                     className="py-2 px-4 rounded-full text-sm font-medium transition-all min-h-[40px]"
                     style={{
-                      background: active ? '#C96A3D' : '#1E1E1E',
-                      border: active ? '1px solid #C96A3D' : '1px solid #2A2A2A',
+                      background: active ? '#B8463A' : '#1E1E1E',
+                      border: active ? '1px solid #B8463A' : '1px solid #2A2A2A',
                       color: active ? '#0B0B0B' : '#8A8480',
                     }}
                   >
@@ -282,7 +282,7 @@ export default function MobileFilterSheet({
           <button
             onClick={handleApply}
             className="w-full font-display font-semibold text-sm py-4 rounded-xl transition-all uppercase tracking-widest"
-            style={{ background: '#C96A3D', color: '#0B0B0B' }}
+            style={{ background: '#B8463A', color: '#0B0B0B' }}
           >
             {t.mobileSheet.showGyms(activeCount)}
           </button>

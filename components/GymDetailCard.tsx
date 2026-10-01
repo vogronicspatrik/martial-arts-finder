@@ -54,7 +54,7 @@ export default function GymDetailCard({
         <button
           onClick={() => onBookmarkToggle(gym.id)}
           className="min-h-[44px] min-w-[44px] flex items-center justify-center text-2xl transition-colors"
-          style={{ color: isBookmarked ? '#F2B632' : '#2A2A2A' }}
+          style={{ color: isBookmarked ? '#D4A24A' : '#2A2A2A' }}
         >
           ★
         </button>
@@ -93,11 +93,11 @@ export default function GymDetailCard({
           )}
         </p>
         {distance !== null && (
-          <p className="text-sm mb-1" style={{ color: '#C96A3D' }}>📍 {formatDistance(distance)} {t.common.fromYou}</p>
+          <p className="text-sm mb-1" style={{ color: '#B8463A' }}>📍 {formatDistance(distance)} {t.common.fromYou}</p>
         )}
 
         {todaySessions.length > 0 && (
-          <p className="text-sm font-semibold mb-3" style={{ color: '#27AE60' }}>
+          <p className="text-sm font-semibold mb-3" style={{ color: '#3D6B4A' }}>
             📅 {t.common.todayAt(todaySessions.map((s) => s.time).join(', '))}
           </p>
         )}
@@ -106,7 +106,7 @@ export default function GymDetailCard({
         {gym.priceFrom && (
           <p className="text-sm text-ink-200 mb-1">
             <span className="text-ink-400">{t.common.from}</span>{' '}
-            <span className="font-display font-semibold" style={{ color: '#F2B632' }}>{formatPrice(gym.priceFrom)}{t.common.perMonthFull}</span>
+            <span className="font-display font-semibold" style={{ color: '#D4A24A' }}>{formatPrice(gym.priceFrom)}{t.common.perMonthFull}</span>
             {gym.priceNote && <span className="text-ink-400"> · {gym.priceNote}</span>}
           </p>
         )}
@@ -128,7 +128,7 @@ export default function GymDetailCard({
           </>
         )}
         {!gym.isDemo && gym.claimed && (
-          <p className="text-xs font-semibold mb-4" style={{ color: '#4ADE80' }}>{t.claim.claimedBadge}</p>
+          <p className="text-xs font-semibold mb-4" style={{ color: '#6FC08A' }}>{t.claim.claimedBadge}</p>
         )}
 
         {/* Description */}
@@ -149,9 +149,9 @@ export default function GymDetailCard({
         {gym.firstTrainingInfo && (
           <div
             className="rounded-xl px-4 py-3 mb-4"
-            style={{ background: 'rgba(201,106,61,0.1)', border: '1px solid rgba(201,106,61,0.25)' }}
+            style={{ background: 'rgba(184,70,58,0.1)', border: '1px solid rgba(184,70,58,0.25)' }}
           >
-            <p className="font-display text-xs font-semibold uppercase tracking-widest mb-1.5" style={{ color: '#C96A3D' }}>
+            <p className="font-display text-xs font-semibold uppercase tracking-widest mb-1.5" style={{ color: '#B8463A' }}>
               {t.common.firstTraining}
             </p>
             <p className="text-sm text-ink-200">{gym.firstTrainingInfo}</p>
@@ -179,12 +179,12 @@ export default function GymDetailCard({
                       key={i}
                       className="text-sm px-3 py-1.5 rounded-lg"
                       style={{
-                        background: isToday ? 'rgba(39,174,96,0.12)' : '#1E1E1E',
-                        border: isToday ? '1px solid rgba(39,174,96,0.5)' : '1px solid #2A2A2A',
-                        color: isToday ? '#4ADE80' : '#8A8480',
+                        background: isToday ? 'rgba(61,107,74,0.12)' : '#1E1E1E',
+                        border: isToday ? '1px solid rgba(61,107,74,0.5)' : '1px solid #2A2A2A',
+                        color: isToday ? '#6FC08A' : '#8A8480',
                       }}
                     >
-                      <span className="font-semibold" style={{ color: isToday ? '#4ADE80' : '#F0EDE8' }}>
+                      <span className="font-semibold" style={{ color: isToday ? '#6FC08A' : '#F0EDE8' }}>
                         {DAY_SHORT[lang][s.day]}
                       </span>{' '}
                       <span>{s.time}</span>
@@ -246,7 +246,7 @@ export default function GymDetailCard({
           <button
             onClick={onRequestTrial}
             className="block w-full text-center font-display font-semibold text-sm py-4 rounded-xl transition-all uppercase tracking-widest mb-2"
-            style={{ background: '#C96A3D', color: '#0B0B0B' }}
+            style={{ background: '#B8463A', color: '#0B0B0B' }}
           >
             {t.trial.cta}
           </button>

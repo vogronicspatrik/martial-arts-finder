@@ -58,7 +58,7 @@ export default function DistrictFilter({ districts, selected, onChange }: Distri
                 className={`text-xs px-2 py-1.5 rounded font-medium transition-all ${
                   active ? 'bg-accent text-surface' : 'text-ink-400 hover:text-ink-100'
                 }`}
-                style={{ border: active ? '1px solid #C96A3D' : '1px solid transparent' }}
+                style={{ border: active ? '1px solid #B8463A' : '1px solid transparent' }}
               >
                 {DISTRICT_ROMAN[d]}
               </button>

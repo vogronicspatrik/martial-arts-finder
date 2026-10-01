@@ -93,7 +93,7 @@ export default function ReviewsModal({ gym, reviews, stats, configured, onSubmit
               </div>
 
               {/* Write review CTA / form */}
-              {success && <p className="text-sm mb-4" style={{ color: '#4ADE80' }}>{t.reviews.success}</p>}
+              {success && <p className="text-sm mb-4" style={{ color: '#6FC08A' }}>{t.reviews.success}</p>}
 
               {!showForm ? (
                 <button
@@ -150,7 +150,7 @@ export default function ReviewsModal({ gym, reviews, stats, configured, onSubmit
                     type="submit"
                     disabled={submitting}
                     className="w-full font-display font-semibold text-sm py-3 rounded-xl transition-all uppercase tracking-widest disabled:opacity-60"
-                    style={{ background: '#C96A3D', color: '#0B0B0B' }}
+                    style={{ background: '#B8463A', color: '#0B0B0B' }}
                   >
                     {submitting ? t.reviews.submitting : t.reviews.submit}
                   </button>

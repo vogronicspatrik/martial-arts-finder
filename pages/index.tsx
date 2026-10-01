@@ -154,7 +154,7 @@ export default function Home() {
               {quizRecommendation && (
                 <span
                   className="text-xs px-2 py-0.5 rounded-full truncate font-medium"
-                  style={{ background: 'rgba(201,106,61,0.2)', color: '#C96A3D', border: '1px solid rgba(201,106,61,0.3)' }}
+                  style={{ background: 'rgba(184,70,58,0.2)', color: '#B8463A', border: '1px solid rgba(184,70,58,0.3)' }}
                 >
                   {quizRecommendation}
                 </span>
@@ -167,8 +167,8 @@ export default function Home() {
               title={userLocation ? t.common.sortedByDistance : t.common.sortByDistanceFromMe}
               className="h-11 w-11 flex items-center justify-center rounded-full text-lg"
               style={{
-                background: userLocation ? '#C96A3D' : 'rgba(20,20,20,0.92)',
-                border: userLocation ? '1px solid #C96A3D' : '1px solid #2A2A2A',
+                background: userLocation ? '#B8463A' : 'rgba(20,20,20,0.92)',
+                border: userLocation ? '1px solid #B8463A' : '1px solid #2A2A2A',
                 backdropFilter: 'blur(8px)',
               }}
             >
@@ -180,8 +180,8 @@ export default function Home() {
               onClick={() => setShowMobileFilters(true)}
               className="h-11 px-4 flex items-center gap-1.5 rounded-full font-display font-semibold text-sm uppercase tracking-wide"
               style={{
-                background: activeFilterCount > 0 ? '#C96A3D' : 'rgba(20,20,20,0.92)',
-                border: activeFilterCount > 0 ? '1px solid #C96A3D' : '1px solid #2A2A2A',
+                background: activeFilterCount > 0 ? '#B8463A' : 'rgba(20,20,20,0.92)',
+                border: activeFilterCount > 0 ? '1px solid #B8463A' : '1px solid #2A2A2A',
                 color: activeFilterCount > 0 ? '#0B0B0B' : '#F0EDE8',
                 backdropFilter: 'blur(8px)',
               }}
@@ -196,7 +196,7 @@ export default function Home() {
               <button
                 onClick={() => setShowQuiz(true)}
                 className="h-10 px-4 rounded-full font-display font-semibold text-xs uppercase tracking-widest"
-                style={{ background: '#C96A3D', color: '#0B0B0B', boxShadow: '0 4px 16px rgba(201,106,61,0.4)' }}
+                style={{ background: '#B8463A', color: '#0B0B0B', boxShadow: '0 4px 16px rgba(184,70,58,0.4)' }}
               >
                 {t.filters.findMyStyle}
               </button>
@@ -289,10 +289,10 @@ export default function Home() {
             {quizRecommendation && (
               <div
                 className="flex items-center gap-2 ml-4 px-3 py-1.5 rounded-full"
-                style={{ background: 'rgba(201,106,61,0.15)', border: '1px solid rgba(201,106,61,0.3)' }}
+                style={{ background: 'rgba(184,70,58,0.15)', border: '1px solid rgba(184,70,58,0.3)' }}
               >
                 <span className="text-xs text-ink-400">{t.header.recommended}</span>
-                <span className="text-xs font-semibold" style={{ color: '#C96A3D' }}>{quizRecommendation}</span>
+                <span className="text-xs font-semibold" style={{ color: '#B8463A' }}>{quizRecommendation}</span>
                 <button
                   onClick={() => { setQuizRecommendation(null); setSelectedSports([]); }}
                   className="text-xs text-ink-600 hover:text-ink-400"

@@ -53,7 +53,7 @@ export default function BottomSheet({ gymCount, totalCount, children }: BottomSh
           <p className="font-display text-xs font-semibold uppercase tracking-widest text-ink-400">
             {gymCount === totalCount ? t.common.gymsCount(totalCount) : t.common.gymsCountOf(gymCount, totalCount)}
           </p>
-          <span className="text-xs" style={{ color: '#C96A3D' }}>
+          <span className="text-xs" style={{ color: '#B8463A' }}>
             {expanded ? '▼' : '▲'}
           </span>
         </div>

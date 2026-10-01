@@ -17,7 +17,7 @@ export default function ReviewStars({ value, size = 'md', interactive = false, o
         const star = (
           <span
             key={n}
-            style={{ color: filled ? '#F2B632' : '#3A3733' }}
+            style={{ color: filled ? '#D4A24A' : '#3A3733' }}
             className={interactive ? 'cursor-pointer transition-transform hover:scale-110' : undefined}
           >
             {filled ? '★' : '☆'}

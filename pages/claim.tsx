@@ -88,7 +88,7 @@ export default function ClaimPage() {
           <a
             href="/"
             className="inline-block mt-6 text-sm font-semibold"
-            style={{ color: '#C96A3D' }}
+            style={{ color: '#B8463A' }}
           >
             {t.claim.backHome}
           </a>

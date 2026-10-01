@@ -30,9 +30,9 @@ export default function TimeOfDayFilter({ value, onChange, variant = 'compact' }
               onClick={() => onChange(opt)}
               className="py-3.5 px-4 rounded-xl text-sm font-semibold text-left transition-all min-h-[48px]"
               style={{
-                background: active ? 'rgba(201,106,61,0.1)' : '#1E1E1E',
-                border: active ? '1px solid rgba(201,106,61,0.35)' : '1px solid #2A2A2A',
-                color: active ? '#C96A3D' : '#8A8480',
+                background: active ? 'rgba(184,70,58,0.1)' : '#1E1E1E',
+                border: active ? '1px solid rgba(184,70,58,0.35)' : '1px solid #2A2A2A',
+                color: active ? '#B8463A' : '#8A8480',
               }}
             >
               {ICONS[opt]} {timeOfDayShort(lang, opt)}

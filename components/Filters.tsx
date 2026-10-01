@@ -171,7 +171,7 @@ export default function Filters({
           <button
             onClick={onOpenQuiz}
             className="text-xs font-semibold px-3 py-1.5 rounded transition-all"
-            style={{ background: '#C96A3D', color: '#0B0B0B' }}
+            style={{ background: '#B8463A', color: '#0B0B0B' }}
           >
             🥋 {t.filters.findMyStyle}
           </button>
