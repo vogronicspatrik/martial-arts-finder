@@ -230,6 +230,19 @@ excluded from the live query and only appear in the local static fallback
 directly — that doesn't scale safely once there are many unclaimed listings,
 so it was split like this instead.)
 
+**Why a fake `claim_requests` row can't cause a false claim.** The row itself
+isn't the trust boundary — don't bother trying to verify the *requester* is
+real before running `invite-gym.js`. The actual security check happens later:
+the invite email goes to the gym's own email (the one you sourced from their
+website, not anything the requester typed in), and only someone who can
+actually read that inbox can finish `/claim` — enforced server-side by RLS
+(`auth.jwt() email == gyms.email`, see `supabase/005_claim_flow.sql`), not by
+anything client-side. A bogus request, at worst, makes you invite a gym
+slightly earlier than you otherwise would have — never a false claim. A
+24h per-browser cooldown (`hooks/useClaimRequest.ts`) just keeps the
+`claim_requests` queue from filling up with repeat noise; it's a courtesy to
+you, not a security measure.
+
 **"Request a trial class" only shows once a gym is both `claimed` and has
 `accepts_trial_requests = true`** — an opt-in the gym flips themselves, but
 only once their **dashboard exists (phase 3, not built yet)**; until then the

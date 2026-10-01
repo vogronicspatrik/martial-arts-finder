@@ -176,12 +176,7 @@ interface Dictionary {
     claimedBadge: string;
     title: string;
     intro: string;
-    send: string;
-    sendWarning: string;
-    sending: string;
-    sent: string;
-    alreadySent: (hours: number) => string;
-    error: string;
+    alreadySubmitted: (hours: number) => string;
     notConfigured: string;
     pageVerifying: string;
     pageSuccess: (gymName: string) => string;
@@ -314,12 +309,7 @@ const en: Dictionary = {
     claimedBadge: '✓ Claimed by the gym',
     title: 'Claim this listing',
     intro: 'If this is your gym, let us know below. We\'ll verify it\'s really you and reach out to help you take over the listing — this form doesn\'t notify the gym or anyone else automatically.',
-    send: 'Send confirmation link',
-    sendWarning: 'This sends a real email to the gym — only continue if you actually run this place.',
-    sending: 'Sending…',
-    sent: 'Check your inbox — click the link to confirm it\'s you.',
-    alreadySent: (hours: number) => `A confirmation link was already sent recently. If it hasn't arrived, you can request another in about ${hours}h.`,
-    error: 'Could not send the link — try again in a moment.',
+    alreadySubmitted: (hours: number) => `You already sent a request for this gym recently. If you need to reach us again, try in about ${hours}h, or just wait to hear back.`,
     notConfigured: 'Claiming isn\'t set up on this deployment yet.',
     pageVerifying: 'Confirming your claim…',
     pageSuccess: (gymName: string) => `You're all set — ${gymName} is now linked to your account.`,
@@ -455,12 +445,7 @@ const hu: Dictionary = {
     claimedBadge: '✓ A terem igazolta',
     title: 'Adatlap átvétele',
     intro: 'Ha ez a te termed, jelezd lent. Ellenőrizzük, hogy tényleg te vagy, és felvesszük veled a kapcsolatot az adatlap átvételéhez — ez a form nem küld automatikusan semmilyen üzenetet a teremnek vagy bárki másnak.',
-    send: 'Megerősítő link küldése',
-    sendWarning: 'Ez egy valódi emailt küld a teremnek — csak akkor folytasd, ha valóban te üzemelteted ezt a helyet.',
-    sending: 'Küldés…',
-    sent: 'Nézd meg a postaládád — kattints a linkre, hogy igazold, te vagy az.',
-    alreadySent: (hours: number) => `Nemrég már küldtünk egy megerősítő linket. Ha nem érkezett meg, kb. ${hours} óra múlva kérhetsz újat.`,
-    error: 'Nem sikerült elküldeni — próbáld újra kicsit később.',
+    alreadySubmitted: (hours: number) => `Nemrég már küldtél kérést ehhez a teremhez. Ha újra szeretnél jelentkezni, próbáld kb. ${hours} óra múlva, vagy várd meg, hogy jelentkezzünk.`,
     notConfigured: 'Az átvétel még nincs beállítva ezen a deploy-on.',
     pageVerifying: 'Átvétel megerősítése…',
     pageSuccess: (gymName: string) => `Kész — a(z) ${gymName} mostantól a fiókodhoz van kötve.`,

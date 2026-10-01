@@ -17,7 +17,7 @@ interface ClaimGymModalProps {
  */
 export default function ClaimGymModal({ gym, onClose }: ClaimGymModalProps) {
   const { t } = useLanguage();
-  const claimRequest = useClaimRequest();
+  const claimRequest = useClaimRequest(gym.id);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -63,7 +63,9 @@ export default function ClaimGymModal({ gym, onClose }: ClaimGymModalProps) {
           ) : claimRequest.success ? (
             <div className="text-center py-6">
               <div className="text-4xl mb-3">✅</div>
-              <p className="text-sm text-ink-200">{t.trial.success}</p>
+              <p className="text-sm text-ink-200">
+                {claimRequest.onCooldown ? t.claim.alreadySubmitted(claimRequest.cooldownHoursLeft) : t.trial.success}
+              </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3.5">
