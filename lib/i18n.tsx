@@ -223,11 +223,11 @@ interface Dictionary {
 
 const en: Dictionary = {
   meta: {
-    title: 'Martial Arts Finder Budapest',
+    title: 'HUN wannaBunyó — Martial Arts Finder Budapest',
     description: 'Find martial arts gyms in Budapest — Karate, BJJ, Boxing, Muay Thai, MMA',
   },
   header: {
-    title: 'Martial Arts Finder',
+    title: 'HUN wannaBunyó',
     tagline: (count: number) => `Budapest · ${count} gyms`,
     recommended: 'Recommended:',
   },
@@ -359,11 +359,11 @@ const en: Dictionary = {
 
 const hu: Dictionary = {
   meta: {
-    title: 'Harcművészeti Klubkereső Budapest',
+    title: 'HUN wannaBunyó — Harcművészeti Klubkereső Budapest',
     description: 'Harcművészeti termek Budapesten — Karate, BJJ, Boksz, Thai boksz, MMA',
   },
   header: {
-    title: 'Harcművészeti Klubkereső',
+    title: 'HUN wannaBunyó',
     tagline: (count: number) => `Budapest · ${count} terem`,
     recommended: 'Ajánlott:',
   },

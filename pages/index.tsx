@@ -12,6 +12,7 @@ import SearchBar from '../components/SearchBar';
 import ReviewsModal from '../components/ReviewsModal';
 import TrialRequestModal from '../components/TrialRequestModal';
 import ClaimGymModal from '../components/ClaimGymModal';
+import Logo from '../components/Logo';
 import { useBookmarks } from '../hooks/useBookmarks';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { useUserLocation } from '../hooks/useUserLocation';
@@ -276,7 +277,7 @@ export default function Home() {
             style={{ background: '#0B0B0B', borderBottom: '1px solid #1E1E1E' }}
           >
             <div className="flex items-center gap-3">
-              <span className="text-2xl">🥋</span>
+              <Logo className="text-2xl" />
               <div>
                 <h1 className="font-display font-bold text-lg text-ink-100 uppercase tracking-widest leading-tight">
                   {t.header.title}
