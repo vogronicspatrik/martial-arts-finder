@@ -34,7 +34,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        display: ['Oswald', 'sans-serif'],
+        display: ['Fredoka', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
       },
       boxShadow: {
